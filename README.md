@@ -1,2 +1,2 @@
 # dibiye
-A plattform to empowered orientation and education in cameroon
+A plattform to empower orientation and education in cameroon
