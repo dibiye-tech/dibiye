@@ -1,0 +1,2530 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2024-08-22T11:33:35.053Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "Francky",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2024-08-22T13:48:40.764Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "Francky",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Photo\", \"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2024-08-26T08:02:36.959Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "enseignements",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2024-08-26T08:05:30.222Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Loisirs",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2024-08-26T08:51:35.514Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "enseignements",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Lien\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2024-08-26T08:51:49.295Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Loisirs",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Lien\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2024-08-26T09:56:52.468Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Primaire",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2024-08-26T09:57:03.979Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Secondaire",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2024-08-26T09:57:16.706Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "SupÚrieure",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2024-08-26T12:31:38.370Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "Excellence en mathÚmatiques",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2024-08-26T14:57:17.736Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "Excellence en mathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2024-08-26T14:58:46.631Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "2",
+    "object_repr": "Excellence en Physiques",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2024-08-28T09:06:53.161Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "Francky",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2024-08-28T09:07:11.413Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "Francky",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2024-09-02T10:29:33.236Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "3",
+    "object_repr": "IGL",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2024-09-02T10:30:07.005Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "3",
+    "object_repr": "IGL",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2024-09-02T10:30:07.010Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "2",
+    "object_repr": "Excellence en Physiques",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2024-09-02T10:30:07.014Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "Excellence en mathÚmatiques",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2024-09-02T10:32:19.014Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2024-09-02T10:32:42.076Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Contenu\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2024-09-02T10:32:55.489Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Auteur\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2024-09-04T08:43:30.552Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "5",
+    "object_repr": "Excellence en Physique",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2024-09-04T08:44:47.142Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "5",
+    "object_repr": "Excellence en Physique",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2024-09-04T09:03:20.406Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Contenu\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2024-09-04T10:45:04.912Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Contenu\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2024-09-04T10:45:33.397Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Contenu\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2024-09-04T10:46:10.634Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Contenu\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2024-09-04T13:47:18.531Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Comment by Francky on Excellence en MathÚmatiques",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2024-09-04T14:18:54.047Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Comment by Francky on Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2024-09-04T14:38:24.260Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Comment by Francky on Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2024-09-04T14:39:22.446Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Comment by Kamdem on Excellence en Physique",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2024-09-05T14:14:22.112Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "Comment by Francky on Excellence en MathÚmatiques",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2024-09-11T08:22:38.613Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "Comment by Francky on Excellence en MathÚmatiques",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2024-09-11T08:22:38.622Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Comment by Kamdem on Excellence en Physique",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2024-09-11T08:22:38.627Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Comment by Francky on Excellence en MathÚmatiques",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2024-09-11T12:55:16.505Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "SantÚ",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2024-09-11T13:02:02.747Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "6",
+    "object_repr": "Manuel d'initiation",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2024-09-23T12:34:08.865Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "Kamdem",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2024-09-23T13:15:15.234Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "Kamdem",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2024-09-23T13:15:22.076Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "3",
+    "object_repr": "Kamdem",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2024-09-23T13:18:34.899Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "4",
+    "object_repr": "Kamdem",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2024-09-23T13:41:34.571Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "5",
+    "object_repr": "Kamdem",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2024-09-25T08:35:12.108Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "The best",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2024-09-25T08:35:34.811Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "The best",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Documents\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2024-09-25T09:03:28.731Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "2",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2024-09-25T09:03:28.741Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "The best",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2024-09-25T13:01:16.620Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "2",
+    "object_repr": "Francky - Manuel d'initiation",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2024-09-25T13:01:16.626Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": "The best - Manuel d'initiation",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2024-09-25T13:09:00.336Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "3",
+    "object_repr": "Francky - Manuel d'initiation",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2024-09-25T13:44:57.815Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "5",
+    "object_repr": "The best - Manuel d'initiation",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2024-09-25T13:45:08.822Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "6",
+    "object_repr": "The best - Excellence en Physique",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2024-09-26T08:36:51.979Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "8",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2024-09-26T08:36:51.987Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "7",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2024-09-26T08:40:39.698Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "9",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2024-09-26T12:02:57.860Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "11",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2024-09-26T12:02:57.867Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "10",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2024-09-26T12:27:53.943Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "14",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2024-09-26T12:27:53.950Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "13",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2024-09-26T12:27:53.956Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "12",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2024-09-26T13:15:09.033Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "17",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2024-09-26T13:18:11.746Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "20",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2024-09-26T13:21:30.142Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "21",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2024-09-26T13:28:26.015Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "22",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2024-09-26T13:39:32.190Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "23",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2024-09-26T13:41:40.925Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "24",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2024-09-26T13:44:39.540Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "25",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2024-09-26T13:45:27.320Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "26",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2024-09-26T13:47:21.871Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "27",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 69,
+  "fields": {
+    "action_time": "2024-09-26T14:10:11.883Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "28",
+    "object_repr": "Francky",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 70,
+  "fields": {
+    "action_time": "2024-10-02T13:37:18.908Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "SupÚrieur",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 71,
+  "fields": {
+    "action_time": "2024-10-02T13:37:18.916Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "Secondaire",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 72,
+  "fields": {
+    "action_time": "2024-10-02T13:37:18.920Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "Primaire",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2024-10-02T13:40:59.206Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "8",
+    "object_repr": "SupÚrieur",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 74,
+  "fields": {
+    "action_time": "2024-10-02T13:40:59.212Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Secondaire",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 75,
+  "fields": {
+    "action_time": "2024-10-02T13:40:59.220Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "6",
+    "object_repr": "Primaire",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 76,
+  "fields": {
+    "action_time": "2024-10-02T13:48:35.690Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "15",
+    "object_repr": "Biologie 101",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 77,
+  "fields": {
+    "action_time": "2024-10-02T13:50:10.040Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "14",
+    "object_repr": "Histoire de la France",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 78,
+  "fields": {
+    "action_time": "2024-10-02T13:51:31.751Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "13",
+    "object_repr": "Introduction Ó la MathÚmatique",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 79,
+  "fields": {
+    "action_time": "2024-10-09T09:47:44.981Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "22",
+    "object_repr": "Francky - Excellence en MathÚmatiques",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 80,
+  "fields": {
+    "action_time": "2024-10-09T13:11:21.684Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "1",
+    "object_repr": "Histoire",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 81,
+  "fields": {
+    "action_time": "2024-10-09T13:11:36.454Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "14",
+    "object_repr": "Histoire de la France",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Branche\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 82,
+  "fields": {
+    "action_time": "2024-10-09T14:03:27.160Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "14",
+    "object_repr": "Histoire de la France",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 83,
+  "fields": {
+    "action_time": "2024-10-09T14:07:33.287Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "14",
+    "object_repr": "Histoire de la France",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 84,
+  "fields": {
+    "action_time": "2024-10-09T14:08:31.369Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "16",
+    "object_repr": "Histoire",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 85,
+  "fields": {
+    "action_time": "2024-10-09T14:14:07.026Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "5",
+    "object_repr": "Excellence en Physique",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Branche\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 86,
+  "fields": {
+    "action_time": "2024-10-09T14:14:16.539Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Excellence en MathÚmatiques",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Branche\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 87,
+  "fields": {
+    "action_time": "2024-10-09T14:19:44.576Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "2",
+    "object_repr": "Maths",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 88,
+  "fields": {
+    "action_time": "2024-10-09T14:19:56.983Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "17",
+    "object_repr": "Maths",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 89,
+  "fields": {
+    "action_time": "2024-11-07T11:40:32.201Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "3",
+    "object_repr": "franck",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 90,
+  "fields": {
+    "action_time": "2024-11-07T11:45:36.733Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "46",
+    "object_repr": "Kamdem",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Document\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 91,
+  "fields": {
+    "action_time": "2024-11-07T12:00:40.057Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "17",
+    "object_repr": "Maths",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 92,
+  "fields": {
+    "action_time": "2024-11-07T12:01:26.097Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "16",
+    "object_repr": "Histoire",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 93,
+  "fields": {
+    "action_time": "2024-11-07T12:01:53.243Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "14",
+    "object_repr": "Histoire de la France",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 94,
+  "fields": {
+    "action_time": "2024-11-07T12:16:43.089Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "15",
+    "object_repr": "Biologie 101",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Document type\", \"File\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 95,
+  "fields": {
+    "action_time": "2024-11-07T12:21:09.460Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "15",
+    "object_repr": "Biologie 101",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 96,
+  "fields": {
+    "action_time": "2024-11-07T13:54:54.718Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "3",
+    "object_repr": "franck",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 97,
+  "fields": {
+    "action_time": "2024-11-07T13:55:45.045Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "3",
+    "object_repr": "franck",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 98,
+  "fields": {
+    "action_time": "2024-11-07T13:55:45.052Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "2",
+    "object_repr": "Kamdem",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 99,
+  "fields": {
+    "action_time": "2024-11-11T09:08:45.386Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "Comment by Francky on Excellence en MathÚmatiques",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 100,
+  "fields": {
+    "action_time": "2024-11-11T12:06:06.557Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "15",
+    "object_repr": "Biologie 101",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 101,
+  "fields": {
+    "action_time": "2024-11-11T12:10:30.948Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "17",
+    "object_repr": "Maths",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Document type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 102,
+  "fields": {
+    "action_time": "2024-11-11T12:10:42.037Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "16",
+    "object_repr": "Histoire",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Document type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 103,
+  "fields": {
+    "action_time": "2024-11-11T12:11:02.418Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "13",
+    "object_repr": "Introduction Ó la MathÚmatique",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Document type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 104,
+  "fields": {
+    "action_time": "2024-11-11T12:12:49.488Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "13",
+    "object_repr": "Introduction Ó la MathÚmatique",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 105,
+  "fields": {
+    "action_time": "2024-11-13T07:01:51.033Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "16",
+    "object_repr": "Histoire",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 106,
+  "fields": {
+    "action_time": "2024-11-13T07:01:51.042Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "14",
+    "object_repr": "Histoire de la France",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 107,
+  "fields": {
+    "action_time": "2024-11-20T14:13:09.297Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "5",
+    "object_repr": "Comment by Francky on Excellence en Physique",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 108,
+  "fields": {
+    "action_time": "2024-11-28T09:02:12.216Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "9",
+    "object_repr": "Comment by Kamdem on Excellence en Physique",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 109,
+  "fields": {
+    "action_time": "2024-12-02T09:27:56.002Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "18",
+    "object_repr": "modelisation uml",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 110,
+  "fields": {
+    "action_time": "2024-12-02T12:26:51.782Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "18",
+    "object_repr": "modelisation uml",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File\"]}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 6,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 6,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 6,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 6,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add category",
+    "content_type": 7,
+    "codename": "add_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change category",
+    "content_type": 7,
+    "codename": "change_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete category",
+    "content_type": 7,
+    "codename": "delete_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view category",
+    "content_type": 7,
+    "codename": "view_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add sous category",
+    "content_type": 8,
+    "codename": "add_souscategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change sous category",
+    "content_type": 8,
+    "codename": "change_souscategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete sous category",
+    "content_type": 8,
+    "codename": "delete_souscategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view sous category",
+    "content_type": 8,
+    "codename": "view_souscategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add book",
+    "content_type": 9,
+    "codename": "add_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change book",
+    "content_type": 9,
+    "codename": "change_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete book",
+    "content_type": 9,
+    "codename": "delete_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view book",
+    "content_type": 9,
+    "codename": "view_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add comment",
+    "content_type": 10,
+    "codename": "add_comment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change comment",
+    "content_type": 10,
+    "codename": "change_comment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete comment",
+    "content_type": 10,
+    "codename": "delete_comment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view comment",
+    "content_type": 10,
+    "codename": "view_comment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add history",
+    "content_type": 11,
+    "codename": "add_history"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change history",
+    "content_type": 11,
+    "codename": "change_history"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete history",
+    "content_type": 11,
+    "codename": "delete_history"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view history",
+    "content_type": 11,
+    "codename": "view_history"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add favorite",
+    "content_type": 12,
+    "codename": "add_favorite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change favorite",
+    "content_type": 12,
+    "codename": "change_favorite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete favorite",
+    "content_type": 12,
+    "codename": "delete_favorite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view favorite",
+    "content_type": 12,
+    "codename": "view_favorite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add classeur",
+    "content_type": 13,
+    "codename": "add_classeur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change classeur",
+    "content_type": 13,
+    "codename": "change_classeur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete classeur",
+    "content_type": 13,
+    "codename": "delete_classeur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view classeur",
+    "content_type": 13,
+    "codename": "view_classeur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add classeur book",
+    "content_type": 14,
+    "codename": "add_classeurbook"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change classeur book",
+    "content_type": 14,
+    "codename": "change_classeurbook"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete classeur book",
+    "content_type": 14,
+    "codename": "delete_classeurbook"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view classeur book",
+    "content_type": 14,
+    "codename": "view_classeurbook"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 57,
+  "fields": {
+    "name": "Can add branche",
+    "content_type": 15,
+    "codename": "add_branche"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 58,
+  "fields": {
+    "name": "Can change branche",
+    "content_type": 15,
+    "codename": "change_branche"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 59,
+  "fields": {
+    "name": "Can delete branche",
+    "content_type": 15,
+    "codename": "delete_branche"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 60,
+  "fields": {
+    "name": "Can view branche",
+    "content_type": 15,
+    "codename": "view_branche"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+      "username": "example_user",
+      "email": "example@example.com",
+      "is_active": true
+  }
+},
+
+{
+  "model": "sessions.session",
+  "pk": "1milmsxw4o1cyrlgw8d67p2qwybdpv67",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1tGCJQ:WszsSG7lzlxPXbKeJWqRNvZiUgmISdtWi6oIkqGWDU0",
+    "expire_date": "2024-12-11T07:18:12.264Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4grn94bzvbje5n6gx0dq4kn576spsytj",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1sh5hU:9Tf9D3iZ_XjlDo2rN1oDeiUIIsQavMfwcsrGs3PX33o",
+    "expire_date": "2024-09-05T11:09:56.563Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4lsvg6im8itvb9xz188pxklhgt56iauv",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1sojVe:0Z8bZR2wgxzt6u4kur2gIJe33LWfm9heApNyatTSET0",
+    "expire_date": "2024-09-26T13:05:18.189Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4yi720lvrxh0kx62vb8gz7m3gtt0ych0",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1t5OHS:GppO3311kIxkkHoDHgrXMbI-5-gHqbK5hwMlmMJNleA",
+    "expire_date": "2024-11-11T11:51:30.583Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "f2mv5ecacaoyrbnsd059x0v4ylbzjk5p",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1stoKk:YZS84D8odZsev71JS0RxTAoiBN0518PbrF6HsNDlU_M",
+    "expire_date": "2024-10-10T13:15:02.857Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "hgzi17tvi4v3tmotow61a8j5wfstw9gj",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1t0FKb:lFMCY0CWAYr4TyiD8KWuHJCXfCrWTLdWcl1Ve_g95zo",
+    "expire_date": "2024-10-28T07:17:29.406Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kiax7ktneymy74zh1w0cm5b4lqiqiebo",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1sjc38:9XgXuUcEopZoUQaLc_gGblPnUBpsey32ryBi_8shX14",
+    "expire_date": "2024-09-12T10:06:42.571Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "yfk9d7sa8s613i4wyn2vtw460esbpk1t",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEz4AB16d5vaBgeUjWQlHZl_HdD0oVu7znnvsXs963Me0_rvERxEShOvxv78Ex1gPjw9d5kaHVbF5ZDkQft8tZiel0P9--g-F5GzRk4AWZjdUQ7MVHOE0KicDbIyWZFjoPSCI4JtXNI2lMmsGCUc-LzBebSNxA:1tAT1f:SQqQLnzW6X9jDz1OoaJSo3hb4Ix3Ki57XaJ6PBzzVBc",
+    "expire_date": "2024-11-25T11:56:11.431Z"
+  }
+},
+{
+  "model": "app.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$E957w4aj4zQfnq1yL36Yka$13uTon21K47T/khbrDHtRfs6+CwtYZqwiAQbK+O1l+Y=",
+    "last_login": "2024-11-27T07:18:12.257Z",
+    "is_superuser": true,
+    "username": "Francky",
+    "first_name": "Kamdem",
+    "last_name": "Franck",
+    "is_staff": true,
+    "date_joined": "2024-08-22T11:09:35Z",
+    "email": "franckkamdem260104@gmail.com",
+    "is_active": true,
+    "is_deactivated": false,
+    "photo": "profile_pics/user1_gqO9nIa.png",
+    "description": "Developpeur web",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "app.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$itlEmTuL3MAEZLx9m9evtU$PQj8FAsOasrqdx15bkFSTIRgY3kRZyflAWoZUudd2K4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Kamdem",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "date_joined": "2024-11-07T13:56:20.096Z",
+    "email": "kamdem.dibiye@gmail.com",
+    "is_active": true,
+    "is_deactivated": false,
+    "photo": "",
+    "description": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "app.category",
+  "pk": 1,
+  "fields": {
+    "name": "enseignements",
+    "image": "description/cat1.png",
+    "description": "Retrouver tous les documents nÚcessaires Ó votre apprentissage et votre rÚussite Ó vos examens",
+    "lien": "http://localhost:5173/bibliotheque/enseignements"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 2,
+  "fields": {
+    "name": "Loisirs",
+    "image": "description/cat2.png",
+    "description": "Votre espace dÚtente pour parler des sujets relaxants afin de mieux gÚrer son apprentissage",
+    "lien": "http://localhost:5173/bibliotheque/loisirs"
+  }
+},
+{
+  "model": "app.souscategory",
+  "pk": 1,
+  "fields": {
+    "name": "Primaire",
+    "category": 1
+  }
+},
+{
+  "model": "app.souscategory",
+  "pk": 2,
+  "fields": {
+    "name": "Secondaire",
+    "category": 1
+  }
+},
+{
+  "model": "app.souscategory",
+  "pk": 3,
+  "fields": {
+    "name": "SupÚrieure",
+    "category": 1
+  }
+},
+{
+  "model": "app.souscategory",
+  "pk": 4,
+  "fields": {
+    "name": "SantÚ",
+    "category": 2
+  }
+},
+{
+  "model": "app.branche",
+  "pk": 1,
+  "fields": {
+    "name": "Histoire",
+    "sous_category": 1
+  }
+},
+{
+  "model": "app.branche",
+  "pk": 2,
+  "fields": {
+    "name": "Maths",
+    "sous_category": 2
+  }
+},
+{
+  "model": "app.book",
+  "pk": 4,
+  "fields": {
+    "title": "Excellence en MathÚmatiques",
+    "image": "books/livre1_7BFfP5u.png",
+    "description": "Ce manuel est conþu pour accompagner les ÚlÞves de Seconde en classes C et E dans leur apprentissage des mathÚmatiques. \"Excellence en MathÚmatiques\" couvre l'intÚgralitÚ du programme de seconde avec une approche rigoureuse et pÚdagogique.",
+    "auteur": "TEGNINKO Valentin",
+    "contenu": "1. AlgÞbre et Fonctions : Introduction aux Úquations, inÚgalitÚs, fonctions linÚaires et quadratiques.\r\nGÚomÚtrie : ╔tude des figures gÚomÚtriques, thÚorÞmes de base, et problÞmes de gÚomÚtrie dans l'espace.\r\nStatistiques et ProbabilitÚs : Techniques de collecte et d'analyse de donnÚes, introduction aux probabilitÚs.\r\n\r\n2.Analyse : Concepts fondamentaux de limites et continuitÚ, introduction aux dÚrivÚes.\r\nChaque chapitre est structurÚ avec des explications claires, des exemples pratiques et des exercices variÚs pour renforcer les compÚtences acquises. Les solutions dÚtaillÚes et les rÚvisions sont Úgalement incluses pour prÚparer les ÚlÞves aux Úvaluations et aux examens.",
+    "document_type": "text",
+    "file": "documents/PRESENTATION_FRANCK_KAMDEM.pptx",
+    "category": 1,
+    "sous_category": 2,
+    "branche": 1
+  }
+},
+{
+  "model": "app.book",
+  "pk": 5,
+  "fields": {
+    "title": "Excellence en Physique",
+    "image": "books/livre2_JFo61Jq.png",
+    "description": "Ce manuel complet de physique pour la terminale offre une approche claire et mÚthodique des concepts clÚs du programme. Conþu pour prÚparer les ÚlÞves aux examens, il couvre les principaux domaines tels que la mÚcanique, l'ÚlectromagnÚtisme, l'optique et la thermodynamique. Chaque chapitre est accompagnÚ de nombreux exemples, exercices pratiques et problÞmes corrigÚs pour renforcer la comprÚhension et la ma¯trise des notions. IllustrÚ de graphiques et de schÚmas explicatifs, ce livre est un outil indispensable pour rÚussir en physique et exceller dans les Úvaluations.",
+    "auteur": "TAGNI JÚrÚmie",
+    "contenu": "Ce manuel complet de physique pour la terminale offre une approche claire et mÚthodique des concepts clÚs du programme. Conþu pour prÚparer les ÚlÞves aux examens, il couvre les principaux domaines tels que la mÚcanique, l'ÚlectromagnÚtisme, l'optique et la thermodynamique. Chaque chapitre est accompagnÚ de nombreux exemples, exercices pratiques et problÞmes corrigÚs pour renforcer la comprÚhension et la ma¯trise des notions. IllustrÚ de graphiques et de schÚmas explicatifs, ce livre est un outil indispensable pour rÚussir en physique et exceller dans les Úvaluations.",
+    "document_type": "text",
+    "file": "documents/PRESENTATION_FRANCK_KAMDEM_JrwvgrT.pptx",
+    "category": 1,
+    "sous_category": 2,
+    "branche": 1
+  }
+},
+{
+  "model": "app.book",
+  "pk": 6,
+  "fields": {
+    "title": "Manuel d'initiation",
+    "image": "books/sante.png",
+    "description": "DÚcouvrez Le Guide Complet de la SantÚ Holistique, une £uvre essentielle pour toute personne cherchant Ó amÚliorer sa qualitÚ de vie et Ó atteindre un Úquilibre durable entre le corps, lÆesprit et lÆÔme. ╔crit par le cÚlÞbre expert en mÚdecine intÚgrative, Dr. Sophie Dubois, ce livre vous offre une approche complÞte et accessible de la santÚ et du bien-Ûtre.",
+    "auteur": "Dr. Sophie Dubois",
+    "contenu": "DÚcouvrez Le Guide Complet de la SantÚ Holistique, une £uvre essentielle pour toute personne cherchant Ó amÚliorer sa qualitÚ de vie et Ó atteindre un Úquilibre durable entre le corps, lÆesprit et lÆÔme. ╔crit par le cÚlÞbre expert en mÚdecine intÚgrative, Dr. Sophie Dubois, ce livre vous offre une approche complÞte et accessible de la santÚ et du bien-Ûtre.",
+    "document_type": "text",
+    "file": "documents/PRESENTATION_FRANCK_KAMDEM_01CtS9I.pptx",
+    "category": 2,
+    "sous_category": 4,
+    "branche": null
+  }
+},
+{
+  "model": "app.book",
+  "pk": 13,
+  "fields": {
+    "title": "Introduction Ó la MathÚmatique",
+    "image": "books/images_pVVvfu8.jfif",
+    "description": "Une introduction aux concepts de base de la mathÚmatique.",
+    "auteur": "Jean Dupont",
+    "contenu": "Contenu dÚtaillÚ sur les mathÚmatiques.",
+    "document_type": "pdf",
+    "file": "documents/test_Lyg12PT.pdf",
+    "category": 1,
+    "sous_category": 1,
+    "branche": null
+  }
+},
+{
+  "model": "app.book",
+  "pk": 15,
+  "fields": {
+    "title": "Biologie 101",
+    "image": "books/biologie_moleculaire_xwDSj4E.jpg",
+    "description": "Les fondements de la biologie moderne.",
+    "auteur": "Louis Pasteur",
+    "contenu": "Contenu dÚtaillÚ sur la biologie.",
+    "document_type": "video",
+    "file": "documents/Projet_Ngouateu_IVuCAmm.mp4",
+    "category": 1,
+    "sous_category": 3,
+    "branche": null
+  }
+},
+{
+  "model": "app.book",
+  "pk": 17,
+  "fields": {
+    "title": "Maths",
+    "image": "books/livre1_7BFfP5u_zuHbP56.png",
+    "description": "maths 2nde c",
+    "auteur": "TEGNINKO Valentin",
+    "contenu": "maths 2nde c",
+    "document_type": "pdf",
+    "file": "documents/test_FsfX54L.pdf",
+    "category": 1,
+    "sous_category": 2,
+    "branche": 2
+  }
+},
+{
+  "model": "app.book",
+  "pk": 18,
+  "fields": {
+    "title": "modelisation uml",
+    "image": "books/enam_paB5UuR.png",
+    "description": "the unified modeling language (uml) is a general-purpose visual modeling language that is intended to provide a standard way to visualize the design of a system.",
+    "auteur": "ing serge doumi",
+    "contenu": "The unified modeling language (UML) is a general-purpose visual modeling language that is intended to provide a standard way to visualize the design of a system.",
+    "document_type": "pdf",
+    "file": "documents/test_mC4DeC6.pdf",
+    "category": 1,
+    "sous_category": 3,
+    "branche": null
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 4,
+  "fields": {
+    "user": 1,
+    "book": 4,
+    "content": "Best seller",
+    "created_at": "2024-11-11T09:08:45.380Z",
+    "updated_at": "2024-11-11T09:08:45.380Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 5,
+  "fields": {
+    "user": 1,
+    "book": 5,
+    "content": "Superbe",
+    "created_at": "2024-11-20T14:13:09.294Z",
+    "updated_at": "2024-11-20T14:13:09.294Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 6,
+  "fields": {
+    "user": 4,
+    "book": 5,
+    "content": "le top du top",
+    "created_at": "2024-11-21T09:08:16.721Z",
+    "updated_at": "2024-11-21T09:08:16.721Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 7,
+  "fields": {
+    "user": 4,
+    "book": 5,
+    "content": "best seller",
+    "created_at": "2024-11-21T12:36:57.928Z",
+    "updated_at": "2024-11-21T12:36:57.928Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 8,
+  "fields": {
+    "user": 4,
+    "book": 5,
+    "content": "Best seller",
+    "created_at": "2024-11-25T16:11:27.924Z",
+    "updated_at": "2024-11-25T16:11:27.924Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 10,
+  "fields": {
+    "user": 4,
+    "book": 5,
+    "content": "Good job",
+    "created_at": "2024-12-02T09:15:41.339Z",
+    "updated_at": "2024-12-02T09:15:41.339Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 11,
+  "fields": {
+    "user": 4,
+    "book": 18,
+    "content": "Bon livre.",
+    "created_at": "2024-12-02T12:10:35.421Z",
+    "updated_at": "2024-12-02T12:10:35.421Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 12,
+  "fields": {
+    "user": 4,
+    "book": 18,
+    "content": "Je n'avais pas encore eu de document d'UML aussi riche j'en remercie grandement l'auteur. C'est une mine d'or.",
+    "created_at": "2024-12-02T12:18:58.415Z",
+    "updated_at": "2024-12-02T12:18:58.415Z"
+  }
+},
+{
+  "model": "app.comment",
+  "pk": 13,
+  "fields": {
+    "user": 4,
+    "book": 18,
+    "content": "Best seller",
+    "created_at": "2024-12-02T15:47:30.221Z",
+    "updated_at": "2024-12-02T15:47:30.221Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 44,
+  "fields": {
+    "user": 1,
+    "document": 13,
+    "timestamp": "2024-11-06T13:37:09.587Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 45,
+  "fields": {
+    "user": 1,
+    "document": 4,
+    "timestamp": "2024-11-06T13:45:42.581Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 47,
+  "fields": {
+    "user": 1,
+    "document": 15,
+    "timestamp": "2024-11-06T14:57:24.362Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 48,
+  "fields": {
+    "user": 1,
+    "document": 5,
+    "timestamp": "2024-11-06T14:59:07.463Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 51,
+  "fields": {
+    "user": 4,
+    "document": 4,
+    "timestamp": "2024-11-07T14:15:36.664Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 52,
+  "fields": {
+    "user": 4,
+    "document": 13,
+    "timestamp": "2024-11-11T09:00:11.303Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 54,
+  "fields": {
+    "user": 1,
+    "document": 17,
+    "timestamp": "2024-11-11T11:50:04.578Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 55,
+  "fields": {
+    "user": 1,
+    "document": 6,
+    "timestamp": "2024-11-13T09:08:06.116Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 56,
+  "fields": {
+    "user": 4,
+    "document": 17,
+    "timestamp": "2024-11-20T09:19:24.049Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 57,
+  "fields": {
+    "user": 4,
+    "document": 5,
+    "timestamp": "2024-11-20T14:12:38.946Z"
+  }
+},
+{
+  "model": "app.history",
+  "pk": 58,
+  "fields": {
+    "user": 4,
+    "document": 18,
+    "timestamp": "2024-12-02T09:28:16.566Z"
+  }
+},
+{
+  "model": "app.favorite",
+  "pk": 45,
+  "fields": {
+    "user": 1,
+    "document": 6
+  }
+},
+{
+  "model": "app.favorite",
+  "pk": 48,
+  "fields": {
+    "user": 4,
+    "document": 4
+  }
+},
+{
+  "model": "app.favorite",
+  "pk": 50,
+  "fields": {
+    "user": 4,
+    "document": 5
+  }
+},
+{
+  "model": "app.classeur",
+  "pk": 10,
+  "fields": {
+    "name": "The best",
+    "user": 1
+  }
+},
+{
+  "model": "app.classeur",
+  "pk": 11,
+  "fields": {
+    "name": "Francky",
+    "user": 1
+  }
+},
+{
+  "model": "app.classeur",
+  "pk": 15,
+  "fields": {
+    "name": "The best",
+    "user": 4
+  }
+},
+{
+  "model": "app.classeur",
+  "pk": 16,
+  "fields": {
+    "name": "Francky",
+    "user": 4
+  }
+},
+{
+  "model": "app.classeurbook",
+  "pk": 25,
+  "fields": {
+    "classeur": 11,
+    "book": 15
+  }
+}
+]
