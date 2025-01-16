@@ -36,14 +36,9 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
     
         const handleLogout = () => {
             logout();
-            localStorage.removeItem("user");
-            const savedUser = JSON.parse(localStorage.getItem("user"));
-            if (savedUser && savedUser.id) {
-              localStorage.removeItem(`favorites_user_${savedUser.id}`);
-            }
-            setUser(null); // Réinitialise l'utilisateur
+            localStorage.removeItem('favorites');
           };
-          
+    
     
         const handleClick = () => {
             if (!nav) return;

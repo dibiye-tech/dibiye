@@ -88,11 +88,11 @@ const Fonctionpub = forwardRef(
     const updateHistory = (concours) => {
       const exists = history.some((item) => item.id === concours.id);
       if (!exists) {
-        const updatedHistory = [...history, concours];
-        setHistory(updatedHistory);
-        localStorage.setItem("history", JSON.stringify(updatedHistory));
+         const updatedHistory = [...history, concours].slice(-10);
+         setHistory(updatedHistory);
+         localStorage.setItem("history", JSON.stringify(updatedHistory));
       }
-    };
+   };
 
     // Fonction pour gérer les favoris
     const toggleFavorite = (concours) => {

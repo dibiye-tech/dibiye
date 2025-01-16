@@ -30,6 +30,7 @@ import Branchespage from './pages/Branchespage';
 import Presentationpage from './pages/Presentationpage';
 import Ingenierie from './pages/Ingenierie';
 import Universitiespage from './pages/Universitiespage';
+import { Helmet } from 'react-helmet';
 
 function App() {
   const [orderPopup, setOrderPopup] = useState(false);

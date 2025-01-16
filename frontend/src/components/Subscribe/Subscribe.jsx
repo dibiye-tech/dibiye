@@ -21,8 +21,11 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
   const fetchHistory = () => {
     const storedHistory = localStorage.getItem("history");
     if (storedHistory) {
-      setHistory(JSON.parse(storedHistory));
+      const parsedHistory = JSON.parse(storedHistory);
+      console.log("Historique récupéré :", parsedHistory);
+      setHistory(parsedHistory);
     } else {
+      console.log("Aucun historique trouvé");
       setHistory([]);
     }
   };
@@ -44,30 +47,32 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
     className: "center",
     autoplay: false,
     responsive: [
-        {
-            breakpoint: 1250,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                infinite: false,
-                arrows: true,
-            }
+      {
+        breakpoint: 1250,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: false,
+          arrows: true,
         },
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                infinite: false,
-                arrows: true,
-            }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: false,
+          arrows: true,
         },
-    ]
-};
+      },
+    ],
+  };
 
   return (
     <div ref={ref} className="container mx-auto px-10 md:px-5 py-10">
-      <h1 className="font-bold text-md md:text-lg lg:text-xl text-center mb-8">Mon Historique</h1>
+      <h1 className="font-bold text-md md:text-lg lg:text-xl text-center mb-8">
+        Mon Historique
+      </h1>
       {history.length > 0 ? (
         <Slider {...settings}>
           {history.map((item) => (
@@ -80,7 +85,9 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
                 />
                 <div className="text-center">
                   <h2 className="text-lg font-bold text-gray-800 mb-2">
-                    {item.name.length > 25 ? `${item.name.substring(0, 25)}...` : item.name}
+                    {item.name.length > 25
+                      ? `${item.name.substring(0, 25)}...`
+                      : item.name}
                   </h2>
                 </div>
               </div>
@@ -88,7 +95,9 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
           ))}
         </Slider>
       ) : (
-        <p className="text-center text-gray-500">Aucun concours enregistré dans l'historique.</p>
+        <p className="text-center text-gray-500">
+          Aucun concours enregistré dans l'historique.
+        </p>
       )}
     </div>
   );
