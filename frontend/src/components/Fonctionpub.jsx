@@ -1,3 +1,4 @@
+// Fonctionpub.js
 import React, { useEffect, useState, forwardRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
@@ -17,7 +18,6 @@ const Fonctionpub = forwardRef(
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
     const navigate = useNavigate();
 
-    // Fonction pour gérer la récupération de l'utilisateur
     const loadUserFromLocalStorage = () => {
       try {
         const savedUser = localStorage.getItem("user");
@@ -27,7 +27,6 @@ const Fonctionpub = forwardRef(
             setUser(parsedUser);
             setIsUserAuthenticated(true);
 
-            // Charger les favoris spécifiques à cet utilisateur
             const userFavorites = localStorage.getItem(
               `favorites_user_${parsedUser.id}`
             );
@@ -43,9 +42,9 @@ const Fonctionpub = forwardRef(
       }
     };
 
-    // Fonction pour gérer la déconnexion
     const handleLogout = () => {
       localStorage.removeItem("user");
+      localStorage.removeItem("favorites");
       setUser(null);
       setFavorites([]);
       setIsUserAuthenticated(false);
@@ -55,7 +54,6 @@ const Fonctionpub = forwardRef(
       loadUserFromLocalStorage();
     }, []);
 
-    // Vérification de l'authentification via une API
     useEffect(() => {
       const verifyAuthentication = async () => {
         try {
@@ -84,26 +82,20 @@ const Fonctionpub = forwardRef(
       }
     }, [user]);
 
-    // Fonction pour mettre à jour l'historique
     const updateHistory = (concours) => {
       const exists = history.some((item) => item.id === concours.id);
       if (!exists) {
-         const updatedHistory = [...history, concours].slice(-10);
-         setHistory(updatedHistory);
-         localStorage.setItem("history", JSON.stringify(updatedHistory));
+        const updatedHistory = [...history, concours].slice(-10);
+        setHistory(updatedHistory);
+        localStorage.setItem("history", JSON.stringify(updatedHistory));
       }
-   };
+    };
 
-    // Fonction pour gérer les favoris
     const toggleFavorite = (concours) => {
       if (!isUserAuthenticated) {
         toast.error("Connectez-vous pour ajouter en favoris !", {
           position: "top-right",
           autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
         });
         return;
       }
@@ -115,7 +107,6 @@ const Fonctionpub = forwardRef(
 
       setFavorites(updatedFavorites);
 
-      // Sauvegarder les favoris
       localStorage.setItem(
         `favorites_user_${user.id}`,
         JSON.stringify(updatedFavorites)
@@ -128,12 +119,10 @@ const Fonctionpub = forwardRef(
         {
           position: "top-right",
           autoClose: 3000,
-          hideProgressBar: true,
         }
       );
     };
 
-    // Récupérer les sous-catégories
     const fetchSubcategories = async () => {
       try {
         const response = await axios.get(

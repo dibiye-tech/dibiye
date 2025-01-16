@@ -35,10 +35,30 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
         const isLoggedIn = !!user; // Vérifie si l'utilisateur est connecté
     
         const handleLogout = () => {
+            // Appeler la fonction de déconnexion (si nécessaire pour une API ou une gestion côté serveur)
             logout();
-            localStorage.removeItem('favorites');
+          
+            // Supprimer les données utilisateur du localStorage
+            localStorage.removeItem('user'); // Supprime les informations utilisateur
+            localStorage.removeItem('favorites'); // Supprime les favoris liés à l'utilisateur
+            localStorage.removeItem('history'); // Supprime l'historique de navigation (si pertinent)
+          
+            // Réinitialiser l'état local de l'application
+            setUser(null); // Réinitialise l'utilisateur dans l'état local
+            setFavorites([]); // Réinitialise les favoris
+            setIsUserAuthenticated(false); // Met l'authentification de l'utilisateur à 'false'
+          
+            // Optionnel : Afficher un message de confirmation
+            toast.success('Vous avez été déconnecté avec succès.', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
           };
-    
+          
     
         const handleClick = () => {
             if (!nav) return;
