@@ -13,7 +13,7 @@ const Universities = ({ universityId }) => {
     const fetchConcours = async () => {
       if (!universityId) {
         console.error("Aucun ID d'université valide spécifié.");
-        setError("Aucun ID d'université spécifié.");
+        setError("Aucun ID d'université a été spécifié.");
         setLoading(false);
         return;
       }

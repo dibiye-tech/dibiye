@@ -49,7 +49,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
             setIsUserAuthenticated(false); // Met l'authentification de l'utilisateur à 'false'
           
             // Optionnel : Afficher un message de confirmation
-            toast.success('Vous avez été déconnecté avec succès.', {
+            toast.success('Vous avez été déconnecté avec succès', {
               position: 'top-right',
               autoClose: 3000,
               hideProgressBar: true,

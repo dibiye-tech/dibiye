@@ -8,48 +8,76 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Fonctionpub = forwardRef(
-  ({ categoryId, categoryDetails, scrollToSubcategoryId }, ref) => {
-    const [subcategories, setSubcategories] = useState([]);
-    const [error, setError] = useState(null);
-    const [favorites, setFavorites] = useState([]);
-    const [history, setHistory] = useState([]);
-    const [user, setUser] = useState(null);
-    const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
-    const navigate = useNavigate();
+const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
+  const [subcategories, setSubcategories] = useState([]);
+  const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
-    const loadUserFromLocalStorage = () => {
-      try {
-        const savedUser = localStorage.getItem("user");
-        if (savedUser) {
-          const parsedUser = JSON.parse(savedUser);
-          if (parsedUser && parsedUser.id) {
-            setUser(parsedUser);
-            setIsUserAuthenticated(true);
-
-            const userFavorites = localStorage.getItem(
-              `favorites_user_${parsedUser.id}`
-            );
-            setFavorites(userFavorites ? JSON.parse(userFavorites) : []);
+  // Fonction définie ici avant son utilisation
+  const loadUserFromLocalStorage = () => {
+    try {
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) {
+        const parsedUser = JSON.parse(savedUser);
+        console.log("Utilisateur récupéré depuis localStorage :", parsedUser);
+  
+        if (parsedUser && parsedUser.id) {
+          setUser(parsedUser);
+          setIsUserAuthenticated(true);
+  
+          // Charger l'historique de l'utilisateur
+          const userHistoryKey = `history_user_${parsedUser.id}`;
+          const userHistory = localStorage.getItem(userHistoryKey);
+  
+          if (userHistory) {
+            console.log("Historique utilisateur récupéré :", JSON.parse(userHistory));
+            setHistory(JSON.parse(userHistory));
           } else {
-            handleLogout();
+            console.log("Aucun historique trouvé pour l'utilisateur connecté. Initialisation.");
+            localStorage.setItem(userHistoryKey, JSON.stringify([])); // Initialisez un historique vide
+            setHistory([]);
           }
+  
+          // Charger les favoris de l'utilisateur
+          const userFavorites = localStorage.getItem(`favorites_user_${parsedUser.id}`);
+          setFavorites(userFavorites ? JSON.parse(userFavorites) : []);
         } else {
+          console.warn("Utilisateur invalide trouvé dans localStorage :", parsedUser);
           handleLogout();
         }
-      } catch (error) {
+      } else {
+        console.warn("Aucun utilisateur trouvé dans localStorage");
         handleLogout();
       }
-    };
+    } catch (error) {
+      console.error("Erreur lors du chargement de l'utilisateur :", error);
+      handleLogout();
+    }
+  };
+  
 
-    const handleLogout = () => {
-      localStorage.removeItem("user");
-      localStorage.removeItem("favorites");
-      setUser(null);
-      setFavorites([]);
-      setIsUserAuthenticated(false);
-    };
+  useEffect(() => {
+    if (isUserAuthenticated) {
+      loadHistoryFromLocalStorage();
+    } else {
+      loadHistoryFromSessionStorage();
+    }
+  }, [isUserAuthenticated]);
+  
+    
+  
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("favorites");
+    setUser(null);
+    setFavorites([]);
+    setIsUserAuthenticated(false);
+  };
     useEffect(() => {
       loadUserFromLocalStorage();
     }, []);
@@ -83,13 +111,80 @@ const Fonctionpub = forwardRef(
     }, [user]);
 
     const updateHistory = (concours) => {
-      const exists = history.some((item) => item.id === concours.id);
+      const historyKey = isUserAuthenticated
+        ? `history_user_${user.id}`
+        : "history_temp";
+    
+      // Charger l'historique existant
+      const storedHistory = localStorage.getItem(historyKey);
+      let existingHistory = [];
+      
+      if (storedHistory) {
+        try {
+          existingHistory = JSON.parse(storedHistory);
+        } catch (error) {
+          console.error("Erreur lors du parsing de l'historique :", error);
+        }
+      }
+    
+      // Vérifiez si le concours est déjà dans l'historique
+      const exists = existingHistory.some((item) => item.id === concours.id);
+    
       if (!exists) {
-        const updatedHistory = [...history, concours].slice(-10);
+        // Ajouter le nouveau concours à l'historique
+        const updatedHistory = [...existingHistory, concours];
         setHistory(updatedHistory);
-        localStorage.setItem("history", JSON.stringify(updatedHistory));
+    
+        // Sauvegarder l'historique mis à jour
+        localStorage.setItem(historyKey, JSON.stringify(updatedHistory));
+        console.log(`Historique mis à jour pour la clé ${historyKey}:`, updatedHistory);
+      } else {
+        console.log("Le concours est déjà présent dans l'historique :", concours);
       }
     };
+    
+
+    
+    // Fonction pour charger l'historique persistant depuis le localStorage
+    const loadHistoryFromLocalStorage = () => {
+      try {
+        if (isUserAuthenticated) {
+          const userHistoryKey = `history_user_${user.id}`;
+          const savedHistory = localStorage.getItem(userHistoryKey);
+          if (savedHistory) {
+            setHistory(JSON.parse(savedHistory)); // Charge l'historique s'il est disponible
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement de l'historique persistant :", error);
+      }
+    };
+    
+    // Fonction pour charger l'historique temporaire depuis le sessionStorage
+    const loadHistoryFromSessionStorage = () => {
+      try {
+        if (!isUserAuthenticated) {
+          const sessionHistory = sessionStorage.getItem("history_temp");
+          if (sessionHistory) {
+            setHistory(JSON.parse(sessionHistory)); // Charge l'historique temporaire s'il est disponible
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement de l'historique temporaire :", error);
+      }
+    };
+    
+    // Charger l'historique lors du montage du composant
+    useEffect(() => {
+      if (isUserAuthenticated) {
+        loadHistoryFromLocalStorage();
+      } else {
+        loadHistoryFromSessionStorage();
+      }
+    }, [isUserAuthenticated]);
+    
+
+
 
     const toggleFavorite = (concours) => {
       if (!isUserAuthenticated) {
