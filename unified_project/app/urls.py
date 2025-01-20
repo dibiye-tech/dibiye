@@ -5,7 +5,7 @@ from .views import CategoryListCreateView, BookListCreateView, BookDetailView, C
 
 
 urlpatterns = [
-    path('exists', views.check_username_exists, name='exists'),
+    path('exists/', views.check_username_exists, name='exists'),
     path('categories/', CategoryListCreateView.as_view(), name='category-list-create'),
     path('categories/<int:pk>/', CategoryRetrieveUpdateDestroyView.as_view(), name='category-detail'),
     path('souscategories/', SousCategoryListCreateView.as_view(), name='souscategory-list-create'),

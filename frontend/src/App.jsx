@@ -31,6 +31,7 @@ import Presentationpage from './pages/Presentationpage';
 import Ingenierie from './pages/Ingenierie';
 import Universitiespage from './pages/Universitiespage';
 import { Helmet } from 'react-helmet';
+import About from './pages/About';
 
 function App() {
   const [orderPopup, setOrderPopup] = useState(false);
@@ -65,6 +66,7 @@ function App() {
               <Routes>
                
                 <Route path='/' element={<Accueil />} />
+                <Route path='/about' element={<About />} />
                 <Route path='/bibliotheque' element={<Bib />} />
                 <Route path='auth/activate/:uid/:token' element={<ActivateEmail />} />
                 <Route path='/bibliotheque/enseignements' element={<Learn />} />
