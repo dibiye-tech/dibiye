@@ -20,7 +20,7 @@ const Historique = ({onSearch}) => {
     };
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden py-20">
      <div className="bg-[#63ADDA] py-20 md:py-16 px-auto mb-10 flex flex-col gap-5 items-center justify-center">
         <div>
             <p className="text-white text-[18px] md:text-[20px] lg:text-[24px]">Rejoignez-nous</p>
