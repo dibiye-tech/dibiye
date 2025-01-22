@@ -3,7 +3,7 @@ import React from 'react';
 const MissionSection = () => {
   return (
 
-    <div className="flex flex-col md:flex-row items-center gap-8 py-20 px-6">
+    <div className="container mx-auto px-10 md:px-5 py-20 flex flex-col md:flex-row justify-center items-center md:items-start">
       {/* Partie gauche avec l'image et la citation */}
       <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
         <div className="relative bg-black text-white rounded-lg shadow-lg overflow-hidden w-11/12 md:w-10/12">

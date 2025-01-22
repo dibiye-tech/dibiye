@@ -9,7 +9,14 @@ const About = () => {
   return (
     <div>
         <div>
-            <img src={home} alt="" className='w-full h-auto lg:h-[90vh]'/>
+            <img src={home} alt="" className=''
+                style={{
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    height: '90vh',
+                    width: '100%',
+                  }}
+            />
         </div>
         <div className='container mx-auto px-10 md:px-5 overflow-hidden py-20'>
             <Fonction />

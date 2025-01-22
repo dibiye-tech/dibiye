@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'; // Import du composant Link
 const AcceuilsPage = () => {
   return (
     <div
-      className="relative w-full h-[60vh] sm:h-[70vh] md:h-screen bg-cover bg-center"
+      className="relative w-full h-[90vh] bg-cover bg-center z-0"
       style={{
         backgroundImage: "url('../../images/young-student.jpg')", 
       }}
@@ -13,9 +13,9 @@ const AcceuilsPage = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-blue-900 bg-opacity-50"></div>
 
       {/* Contenu principal */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-white">
+      <div className="relative z-10 flex flex-col gap-5 md:gap-10 items-center justify-center h-full text-white container mx-auto px-10 md:px-5">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Bienvenue chez Dibiyè
+          Bienvenue chez Dibiye
         </h1>
         <p className="text-lg md:text-2xl text-center max-w-3xl mb-8">
           Plongez dans notre univers numérique où chaque page raconte notre
@@ -27,7 +27,7 @@ const AcceuilsPage = () => {
           {/* Carte 1 */}
           <Link
             to="/bibliotheque" // Lien vers la page de la bibliothèque
-            className="flex items-center rounded-lg shadow-lg p-6 hover:shadow-xl transition"
+            className="flex items-center rounded-lg shadow-lg p-4 md:p-6 hover:shadow-xl transition"
             style={{
               backgroundColor: "rgba(34, 120, 172, 0.8)", // Fond avec opacité
             }}
@@ -39,7 +39,7 @@ const AcceuilsPage = () => {
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-white">
+              <h3 className="text-lg lg:text-xl font-bold text-white">
                 Bibliothèque Innovante
               </h3>
               <p className="text-gray-200">
@@ -51,7 +51,7 @@ const AcceuilsPage = () => {
           {/* Carte 2 */}
           <Link
             to="/Homeconcours" // Lien vers la page des concours
-            className="flex items-center rounded-lg shadow-lg p-6 hover:shadow-xl transition"
+            className="flex items-center rounded-lg shadow-lg p-4 md:p-6 hover:shadow-xl transition"
             style={{
               backgroundColor: "rgba(34, 120, 172, 0.8)", // Fond avec opacité
             }}
@@ -63,7 +63,7 @@ const AcceuilsPage = () => {
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-white">
+              <h3 className="text-lg lg:text-xl font-bold text-white">
                 Concours Passionnants
               </h3>
               <p className="text-gray-200">

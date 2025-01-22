@@ -44,21 +44,21 @@ const SliderHome = () => {
     <div className='relative'>
       <Slider {...settings}>
         {Data.map((slide, index) => (
-          <div key={index} className='w-full h-[60vh] md:h-[80vh] relative'>
+          <div key={index} className='w-full h-[90vh] mt-5 relative'>
             <div
               className='text-white mx-auto absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center px-4 sm:px-8 bg-primary filter'
               style={{
                 backgroundImage: `url(${slide.Image})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
-                height: '80vh',
+                height: '90vh',
                 width: '100%',
               }}
             >
               <h1 className='text-xl md:text-3xl text-center font-extrabold leading-8 tracking-wide capitalize text-white italic pt-3 max-w-3xl'>
                 {slide.title}
               </h1>
-              <p className='text-xl md:text-3xl text-center font-extrabold leading-8 tracking-wide capitalize text-white italic pb-72 md:pb-20 pt-3 max-w-3xl'>
+              <p className='text-xl md:text-3xl text-center font-extrabold leading-8 tracking-wide capitalize text-white italic pb-10 md:pb-20 pt-3 max-w-3xl'>
                 {slide.description}
               </p>
             </div>

@@ -45,7 +45,7 @@ const Cards = () => {
               state={{ categoryId: item.id }}
               id={`category-${item.id}`}
               key={item.id}
-              className='bg-white drop-shadow-[12px_10px_10px_rgba(0,0,0,0.5)] rounded-3xl hover:scale-105 transition ease-in-out duration-300 w-[335px] sm:w-[375px] h-[576px]'
+              className='bg-white drop-shadow-[12px_10px_10px_rgba(0,0,0,0.5)] rounded-3xl hover:scale-105 transition ease-in-out duration-300 w-auto sm:w-[375px] h-[576px]'
             >
               <div className='flex flex-col'>
                 <div className='overflow-hidden'>

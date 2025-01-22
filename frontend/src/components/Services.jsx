@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const ServicesPage = () => {
   return (
-    <div className="py-10 text-center">
+    <div className="container mx-auto px-10 md:px-5 py-10 text-center">
       {/* Titre principal */}
       <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
         Explorez les concours, Bibliothèque, les universités et bien plus encore.
@@ -14,8 +14,8 @@ const ServicesPage = () => {
         {/* Carte 1 */}
         <Link
           to="/concours"
-          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex items-center shadow-lg hover:bg-[#096197] transition"
-          style={{ height: '150px' }}
+          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
+          style={{ height: '120px' }}
         >
           <img
             src="../../images/homework.png" // Remplacez avec votre fichier d'icône
@@ -25,15 +25,15 @@ const ServicesPage = () => {
           <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
           <div>
             <h3 className="text-lg font-bold">Concours Nationaux</h3>
-            <p className="text-2xl font-bold mt-2">110</p>
+            <p className="text-2xl font-bold mt-2">110+</p>
           </div>
         </Link>
 
         {/* Carte 2 */}
         <Link
           to="/universites"
-          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex items-center shadow-lg hover:bg-[#096197] transition"
-          style={{ height: '150px' }}
+          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
+          style={{ height: '120px' }}
         >
           <img
             src="../../images/graduation.png" // Remplacez avec votre fichier d'icône
@@ -43,15 +43,15 @@ const ServicesPage = () => {
           <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
           <div>
             <h3 className="text-lg font-bold">Universités</h3>
-            <p className="text-2xl font-bold mt-2">150</p>
+            <p className="text-2xl font-bold mt-2">150+</p>
           </div>
         </Link>
 
         {/* Carte 3 */}
         <Link
           to="/bibliotheque"
-          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex items-center shadow-lg hover:bg-[#096197] transition"
-          style={{ height: '150px' }}
+          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
+          style={{ height: '120px' }}
         >
           <img
             src="../../images/books.png" // Remplacez avec votre fichier d'icône
@@ -60,8 +60,8 @@ const ServicesPage = () => {
           />
           <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
           <div>
-            <h3 className="text-lg font-bold">Bibliothèque Numérique</h3>
-            <p className="text-2xl font-bold mt-2">120</p>
+            <h3 className="text-lg font-bold">Bibliothèque</h3>
+            <p className="text-2xl font-bold mt-2">120+</p>
           </div>
         </Link>
       </div>

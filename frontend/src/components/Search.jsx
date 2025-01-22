@@ -111,18 +111,18 @@ const Search = () => {
     <div className='relative pt-5 z-5'>
       <Slider {...settings}>
         {Data.map((slide, index) => (
-          <div key={index} className="w-full h-[60vh] md:h-[80vh] relative">
+          <div key={index} className="w-full h-[90vh] relative">
             <div
               className="text-white mx-auto absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center px-3 sm:px-10 bg-primary filter"
               style={{
                 backgroundImage: `url(${slide.Image})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
-                height: '80vh',
+                height: '90vh',
                 width: '100%',
               }}
             >
-              <p className='text-xl md:text-3xl text-center font-extrabold leading-8 tracking-wide capitalize text-white italic pb-72 md:pb-20 pt-3 max-w-3xl'>{slide.description}</p>
+              <p className='text-xl md:text-3xl text-center font-extrabold leading-8 tracking-wide capitalize text-white italic md:pb-20 pt-3 max-w-3xl'>{slide.description}</p>
             </div>
           </div>
         ))}
