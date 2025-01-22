@@ -110,6 +110,20 @@ const Subscribe = forwardRef(({ categoryId, categoryDetails }, ref) => {
     fetchHistory();
   }, [user]);
 
+  // Supprimer l'historique local au moment de quitter ou rafraîchir la page
+  useEffect(() => {
+    const handleUnload = () => {
+      const historyKey = user ? `history_user_${user.id}` : "history_temp";
+      localStorage.removeItem(historyKey);
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, [user]);
+
   const settings = {
     dots: false,
     arrows: true,
