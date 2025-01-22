@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'; // Import du composant Link
 const AcceuilsPage = () => {
   return (
     <div
-      className="relative w-full h-screen bg-cover bg-center"
+      className="relative w-full h-[60vh] sm:h-[70vh] md:h-screen bg-cover bg-center"
       style={{
         backgroundImage: "url('../../images/young-student.jpg')", 
       }}
