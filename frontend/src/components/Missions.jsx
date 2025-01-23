@@ -25,7 +25,7 @@ const MissionSection = () => {
       {/* Partie droite avec le texte */}
       <div className="w-full md:w-1/2 text-center md:text-left">
         <h2 className="text-[#2278AC] text-xl md:text-2xl font-semibold mb-4">
-          Valoriser la Connaissance Digitale
+          présentation de concours
         </h2>
         <h3 className="text-gray-800 text-lg md:text-xl font-bold mb-4">Notre Mission</h3>
         <p className="text-gray-700 text-sm md:text-base mb-4">

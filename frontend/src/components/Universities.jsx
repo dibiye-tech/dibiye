@@ -3,14 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Universities = ({ universityId }) => {
-  const [concours, setConcours] = useState([]);
+  const [schools, setSchools] = useState([]);
   const [universityName, setUniversityName] = useState(""); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchConcours = async () => {
+    const fetchData = async () => {
       if (!universityId) {
         console.error("Aucun ID d'université valide spécifié.");
         setError("Aucun ID d'université a été spécifié.");
@@ -19,16 +19,16 @@ const Universities = ({ universityId }) => {
       }
 
       try {
-        const concoursResponse = await axios.get(`http://127.0.0.1:8000/concours/universities/${universityId}/grandesecoles/`);
-        console.log("Concours data received:", concoursResponse.data);
+        // Fetch school data
+        const schoolsResponse = await axios.get(`http://127.0.0.1:8000/concours/universities/${universityId}/grandesecoles/`);
+        console.log("Schools data received:", schoolsResponse.data);
+        setSchools(schoolsResponse.data);
 
-        // Filtrer pour conserver uniquement les écoles qui ont au moins un concours
-        const filteredConcours = concoursResponse.data.filter((school) => school.concours && school.concours.length > 0);
-        setConcours(filteredConcours);
-
+        // Fetch university name
         const universityResponse = await axios.get(`http://127.0.0.1:8000/concours/universities/${universityId}`);
         console.log("University data received:", universityResponse.data);
         setUniversityName(universityResponse.data.name);
+
         setLoading(false);
       } catch (error) {
         console.error("Erreur de récupération :", error.message);
@@ -37,11 +37,11 @@ const Universities = ({ universityId }) => {
       }
     };
 
-    fetchConcours();
+    fetchData();
   }, [universityId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
 
   const truncateDescription = (description) => {
     const words = description.split(' ');
@@ -50,13 +50,6 @@ const Universities = ({ universityId }) => {
 
   const handleClick = async (schoolId) => {
     try {
-      console.log("School ID selected:", schoolId);
-
-      const response = await axios.get(`http://127.0.0.1:8000/concours/universities/${universityId}/grandesecoles/`);
-      console.log("Schools data received:", response.data);
-
-      const schools = response.data;
-
       const selectedSchool = schools.find((school) => school.ecole_id === schoolId);
       console.log("Selected school:", selectedSchool);
 
@@ -75,24 +68,24 @@ const Universities = ({ universityId }) => {
   };
 
   return (
-    <div className="flex items-center justify-center my-10 mx-auto container">
+    <div className="my-10 mx-auto container px-5 md:px-10">
       <div>
         <h1 className="text-center font-bold text-[#DE290C] text-shadow-sm text-2xl py-2 mt-8">
           Bienvenue dans les grandes écoles de {universityName || "l'Université"}
         </h1>
-        <hr className='bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10'/>
-        <p className="text-sm md:text-md lg:text-lg xl:text-xl text-center pb-20">
+        <hr className="bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10" />
+        <p className="text-sm md:text-md lg:text-lg xl:text-xl text-center pb-10">
           Les écoles sous tutelle des universités publiques camerounaises jouent un rôle essentiel dans la formation des étudiants dans divers domaines académiques et professionnels.
         </p>
-        <div className="flex flex-col md:flex-row gap-10 flex-wrap justify-center items-center">
-          {concours.map((item) => (
+        <div className="flex flex-wrap justify-center gap-10">
+          {schools.map((item) => (
             <div
               key={item.ecole_id}
-              className="bg-white drop-shadow-[12px_10px_10px_rgba(0,0,0,0.5)] rounded-3xl hover:scale-105 transition ease-in-out duration-300 w-[335px] sm:w-[375px] h-[576px] cursor-pointer"
+              className="bg-white drop-shadow-md rounded-3xl hover:scale-105 transition-transform duration-300 w-[305px] sm:w-[375px] h-[576px] cursor-pointer"
               onClick={() => handleClick(item.ecole_id)}
             >
               <div className="flex flex-col">
-                <div className="overflow-hidden">
+                <div className="overflow-hidden rounded-t-3xl">
                   <img
                     src={`http://127.0.0.1:8000${item.ecole_image}`}
                     alt={item.ecole_name}
@@ -101,10 +94,16 @@ const Universities = ({ universityId }) => {
                 </div>
                 <div className="p-6">
                   <h1 className="text-xl text-primary py-2 font-bold">{item.ecole_name}</h1>
-                  <p className="text-sm md:text-md lg:text-lg xl:text-xl">{truncateDescription(item.ecole_description)}</p>
-                  <span>
-                    <button className="text-md xl:text-xl text-[#DE290C] px-1 py-5">Cliquez ici</button>
-                  </span>
+                  <p className="text-sm md:text-md lg:text-lg xl:text-xl">
+                    {truncateDescription(item.ecole_description)}
+                  </p>
+                  {item.concours && item.concours.length > 0 ? (
+                    <button className="text-md xl:text-xl text-[#DE290C] px-1 py-5">
+                      Cliquez ici pour voir les concours
+                    </button>
+                  ) : (
+                    <p className="text-md text-gray-500">Aucun concours disponible</p>
+                  )}
                 </div>
               </div>
             </div>

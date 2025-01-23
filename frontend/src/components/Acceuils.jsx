@@ -40,7 +40,7 @@ const AcceuilsPage = () => {
             </div>
             <div>
               <h3 className="text-lg lg:text-xl font-bold text-white">
-                Bibliothèque Innovante
+                Bibliothèque 
               </h3>
               <p className="text-gray-200">
                 Explorez une collection numérique riche et diversifiée.

@@ -4,6 +4,7 @@ import Fonction from '../components/Fonction'
 import Footer from '../components/Footer'
 import Comment from '../components/Comment'
 import Banner from '../components/Banner2'
+import Question from '../components/Question';
 
 const About = () => {
   return (
@@ -34,6 +35,7 @@ const About = () => {
             </div>
         </div>
         <Banner />
+        <Question/>
         <Comment />
         <Footer />
     </div>

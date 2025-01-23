@@ -27,7 +27,7 @@ const ecole = ({ universityId }) => { // Recevoir universityId en tant que prop
   }
 
   return (
-    <div className='flex justify-center items-center my-4 md:my-8 lg:my-12 px-4 sm:px-6 md:px-8'>
+    <div className=' my-10 mx-auto container px-10 md:px-5'>
       <div className='w-full max-w-[90rem] mx-auto p-4 sm:p-6 md:p-8 bg-white rounded-3xl shadow-lg'>
         <div className='flex flex-col lg:flex-row gap-4 md:gap-6'>
           <div className='w-full lg:w-1/2 flex-shrink-0'>

@@ -37,8 +37,8 @@ class ConcoursPagination(LimitOffsetPagination):
     permission_classes = [AllowAny]
 
 class UniversityPagination(LimitOffsetPagination):
-    default_limit = 8
-    max_limit = 8
+    default_limit = 20
+    max_limit = 20
     permission_classes = [AllowAny]
 
 class SmallResultsSetPagination(PageNumberPagination):
