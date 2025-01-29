@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'; // Import du composant Link
 const AcceuilsPage = () => {
   return (
     <div
-      className="relative w-full h-[90vh] bg-cover bg-center z-0"
+      className="relative w-full h-[92vh] bg-cover bg-center z-0"
       style={{
         backgroundImage: "url('../../images/young-student.jpg')", 
       }}
     >
       {/* Overlay pour l'effet d'opacité */}
-      <div className="absolute top-0 left-0 w-full h-full bg-blue-900 bg-opacity-50"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-blue-900 bg-opacity-60"></div>
 
       {/* Contenu principal */}
       <div className="relative z-10 flex flex-col gap-5 md:gap-10 items-center justify-center h-full text-white container mx-auto px-10 md:px-5">

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import CountUp from 'react-countup';
+import ScrollTrigger from 'react-scroll-trigger';
 
 const ServicesPage = () => {
+  const [counterState, setCounterState] = useState(false);
+
   return (
     <div className="container mx-auto px-10 md:px-5 py-10 text-center">
       {/* Titre principal */}
@@ -10,61 +14,69 @@ const ServicesPage = () => {
       </h2>
 
       {/* Section des cartes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto py-10">
-        {/* Carte 1 */}
-        <Link
-          to="/homeconcours"
-          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
-          style={{ height: '120px' }}
-        >
-          <img
-            src="../../images/homework.png" // Remplacez avec votre fichier d'icône
-            alt="Concours"
-            className="w-16 h-16"
-          />
-          <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
-          <div>
-            <h3 className="text-lg font-bold">Concours Nationaux</h3>
-            <p className="text-2xl font-bold mt-2">110+</p>
-          </div>
-        </Link>
+      <ScrollTrigger onEnter={() => setCounterState(true)} onExit={() => setCounterState(false)}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto py-10">
+          {/* Carte 1 */}
+          <Link
+            to="/homeconcours"
+            className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
+            style={{ height: '120px' }}
+          >
+            <img
+              src="/images/homework.png" // Utilisation de l'image avec un chemin absolu
+              alt="Concours"
+              className="w-16 h-16"
+            />
+            <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
+            <div>
+              <h3 className="text-lg font-bold">Concours Nationaux</h3>
+              <p className="text-2xl font-bold mt-2">
+                {counterState && <CountUp start={0} end={110} duration={2.75} />}
+              </p>
+            </div>
+          </Link>
 
-        {/* Carte 2 */}
-        <Link
-          to="/universites"
-          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
-          style={{ height: '120px' }}
-        >
-          <img
-            src="../../images/graduation.png" // Remplacez avec votre fichier d'icône
-            alt="Universités"
-            className="w-16 h-16"
-          />
-          <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
-          <div>
-            <h3 className="text-lg font-bold">Universités</h3>
-            <p className="text-2xl font-bold mt-2">150+</p>
-          </div>
-        </Link>
+          {/* Carte 2 */}
+          <Link
+            to="/universites"
+            className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
+            style={{ height: '120px' }}
+          >
+            <img
+              src="/images/graduation.png"
+              alt="Universités"
+              className="w-16 h-16"
+            />
+            <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
+            <div>
+              <h3 className="text-lg font-bold">Universités</h3>
+              <p className="text-2xl font-bold mt-2">
+                {counterState && <CountUp start={0} end={150} duration={2.75} />}
+              </p>
+            </div>
+          </Link>
 
-        {/* Carte 3 */}
-        <Link
-          to="/bibliotheque"
-          className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
-          style={{ height: '120px' }}
-        >
-          <img
-            src="../../images/books.png" // Remplacez avec votre fichier d'icône
-            alt="Bibliothèque"
-            className="w-16 h-16"
-          />
-          <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
-          <div>
-            <h3 className="text-lg font-bold">Bibliothèque</h3>
-            <p className="text-2xl font-bold mt-2">120+</p>
-          </div>
-        </Link>
-      </div>
+          {/* Carte 3 */}
+          <Link
+            to="/bibliotheque"
+            className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
+            style={{ height: '120px' }}
+          >
+            <img
+              src="/images/books.png"
+              alt="Bibliothèque"
+              className="w-16 h-16"
+            />
+            <div className="w-[1px] h-16 bg-white mx-4"></div> {/* Barre verticale */}
+            <div>
+              <h3 className="text-lg font-bold">Bibliothèque</h3>
+              <p className="text-2xl font-bold mt-2">
+                {counterState && <CountUp start={0} end={120} duration={2.75} />}
+              </p>
+            </div>
+          </Link>
+        </div>
+      </ScrollTrigger>
 
       {/* Bouton */}
       <div className="mt-8">

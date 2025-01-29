@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Boule from '../components/Boule';
 const Missions1 = () => {
   return (
     <div>
-        <div className="container mx-auto px-10 md:px-5 py-20 flex flex-col-reverse md:flex-row-reverse justify-center md:justify-between items-center md:items-start">
+        <div className="container mx-auto px-10 md:px-5 py-15 flex flex-col-reverse md:flex-row-reverse justify-center md:justify-between items-center md:items-start relative overflow-visible">
         {/* Partie gauche avec l'image et la citation */}
             <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
                 <div className="relative bg-black text-white rounded-lg shadow-lg overflow-hidden w-11/12 md:w-10/12">
@@ -39,6 +39,12 @@ const Missions1 = () => {
                 </p>
             </div>
         </div>
+        <div className="absolute top-[950px]  left-[-80px]">
+        <Boule />
+      </div>
+      <div className="absolute top-[1800px]  left-[-80px]">
+        <Boule />
+      </div>
     </div>
   )
 }
