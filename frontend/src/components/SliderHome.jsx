@@ -4,7 +4,7 @@ import Search from './Search/Search';
 import Searchbar from './Searchbar';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import back from '../../images/back.png';
+import back from '../../images/back1.png';
 import image6 from '../../images/image6.png';
 
 const SliderHome = () => {

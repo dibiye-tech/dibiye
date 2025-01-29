@@ -10,7 +10,7 @@ const Nav = ({ showNavigation }) => {
   };
 
   return (
-    <div className="w-full max-w-[90rem] flex flex-col md:flex-row justify-start items-center my-4 md:my-6 lg:my-8 container mx-auto px-10 md:px-5">
+    <div className="py-5 w-full max-w-[90rem] flex flex-col md:flex-row justify-start items-center my-4 md:my-6 lg:my-8 container mx-auto px-10 md:px-5">
       {/* Section pour aligner le bouton Retour */}
       <div className="flex justify-start items-center w-full">
         {showNavigation && (

@@ -10,10 +10,10 @@ const ServicesPage = () => {
       </h2>
 
       {/* Section des cartes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto py-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto py-10">
         {/* Carte 1 */}
         <Link
-          to="/concours"
+          to="/homeconcours"
           className="w-full max-w-[350px] mx-auto bg-[#2278AC] text-white rounded-xl p-6 flex justify-center gap-2 items-center shadow-lg hover:bg-[#096197] transition"
           style={{ height: '120px' }}
         >

@@ -3,7 +3,7 @@ import React from 'react';
 const MissionSection = () => {
   return (
 
-    <div className="container mx-auto px-10 md:px-5 py-20 flex flex-col md:flex-row justify-center items-center md:items-start">
+    <div className="container mx-auto px-10 md:px-5 py-20 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start">
       {/* Partie gauche avec l'image et la citation */}
       <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
         <div className="relative bg-black text-white rounded-lg shadow-lg overflow-hidden w-11/12 md:w-10/12">
@@ -25,7 +25,7 @@ const MissionSection = () => {
       {/* Partie droite avec le texte */}
       <div className="w-full md:w-1/2 text-center md:text-left">
         <h2 className="text-[#2278AC] text-xl md:text-2xl font-semibold mb-4">
-          Valoriser la Connaissance Digitale
+          présentation de concours
         </h2>
         <h3 className="text-gray-800 text-lg md:text-xl font-bold mb-4">Notre Mission</h3>
         <p className="text-gray-700 text-sm md:text-base mb-4">
