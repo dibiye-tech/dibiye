@@ -18,16 +18,20 @@ function Main() {
   }, [location]);
   
   return (
-    <div className='container mx-auto px-5 py-10'>
+    <div className='container mx-auto px-10 md:px-5 py-10'>
         <div>
             <div className=''>
                 <h2 className='text-md md:text-lg lg:text-xl xl:text-2xl text-center text-[#DE290C] font-bold'>Bienvenue dans votre Bibliothèque</h2>
                 <hr className='bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10'/>
-                <p className='text-sm lg:text-lg xl:text-xl pt-16 pb-10'>
-                  <img src={quotes} alt="" />
-                    <span className='pl-12 text-sm md:text-md lg:text-lg xl:text-xl'>Imaginez un univers infini de savoirs, où chaque page vous ouvre les portes d'un nouveau monde. C'est ce que vous promet notre bibliothèque en ligne, un havre de lecture où l'information et l'imagination se rencontrent. Notre bibliothèque en ligne n'est pas seulement un lieu de lecture, mais aussi un espace d'apprentissage et de découverte pour tous. Accédez à des ressources pédagogiques de qualité.</span>
-                    <p className='font-bold pt-3 text-sm md:text-md lg:text-lg xl:text-xl'>Inscrivez-vous gratuitement dès aujourd'hui et commencez à explorer !</p>
-                  <img src={quotes} alt="" className='ml-[75%] lg:ml-[42%]'/>
+                <p className="text-sm lg:text-lg xl:text-xl pt-16 pb-10">
+                  <img src={quotes} alt="quotes" className="inline-block" />
+                  <span className="pl-12 text-sm md:text-md lg:text-lg xl:text-xl">
+                    Imaginez un univers infini de savoirs, où chaque page vous ouvre les portes d'un nouveau monde. C'est ce que vous promet notre bibliothèque en ligne, un havre de lecture où l'information et l'imagination se rencontrent. Notre bibliothèque en ligne n'est pas seulement un lieu de lecture, mais aussi un espace d'apprentissage et de découverte pour tous. Accédez à des ressources pédagogiques de qualité.
+                  </span>
+                  <p className="font-bold pt-3 text-sm md:text-md lg:text-lg xl:text-xl">
+                    Inscrivez-vous gratuitement dès aujourd'hui et commencez à explorer !
+                  </p>
+                  <img src={quotes} alt="quotes" className="ml-[75%] lg:ml-[45%] inline-block" />
                 </p>
             </div>
             <div className='pt-20' id='categorie'>

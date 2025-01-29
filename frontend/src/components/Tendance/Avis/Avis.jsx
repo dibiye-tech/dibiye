@@ -35,7 +35,7 @@ const Avis = () => {
     >
       {/* Titre */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-white">Témoignage</h1>
+        <h1 className="text-4xl font-bold text-white">Témoignages</h1>
         <div className="mt-4">
           <hr className="border-t-2 border-white w-24 mx-auto" />
         </div>
@@ -49,7 +49,7 @@ const Avis = () => {
             className="bg-white shadow-lg rounded-xl overflow-hidden relative pt-16 pb-8 text-center"
           >
             {/* Avatar au-dessus de la carte */}
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20">
               <img
                 src={testimonial.image}
                 alt="Avatar"
@@ -59,7 +59,7 @@ const Avis = () => {
 
             {/* Citation */}
             <div className="px-6 mt-6">
-              <p className="text-orange-500 text-4xl font-serif mb-4">“</p>
+              <p className="text-orange-500 text-4xl font-serif mb-4 pt-5">“</p>
               <p className="text-gray-600 text-sm leading-relaxed">
                 {testimonial.content}
               </p>
