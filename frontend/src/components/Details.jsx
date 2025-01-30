@@ -106,41 +106,40 @@ const Details = () => {
                     <img 
                         src={image || '/path/to/default/image.jpg'}
                         alt={title || 'Book cover'}
-                        className='rounded-t-[20px] lg:rounded-l-[20px] lg:rounded-tr-[0px] h-[300px] lg:h-[79.5vh] w-[600px] md:w-[1200px]' 
+                        className='rounded-t-[20px] lg:rounded-l-[20px] lg:rounded-tr-[0px] h-[300px] lg:h-[79.6vh] w-[600px] md:w-[1200px]' 
                     />
                 </div>
                 <div className='flex flex-col gap-2 px-5 lg:px-2 lg:w-[2000px]'>
-                    <div className='text-[#DE290C] pt-2 lg:pt-5'>
-                        <h3 className='font-bold text-md md:text-lg lg:text-xl'>{title || 'Titre du livre'}</h3>
+                    <div className='text-[#DE290C] pt-2 lg:pt-5 text-lg md:text-xl lg:text-2xl'>
+                        <h3 className='font-bold'>{title || 'Titre du livre'}</h3>
                     </div>
                     <div>
-                        <p className='text-md md:text-lg lg:text-xl py-3 lg:py-10 leading-10 line-clamp-3 md:line-clamp-6 lg:line-clamp-none hover:overflow-y-scroll lg:hover:overflow-hidden'>
+                        <p className='text-md md:text-lg lg:text-xl pb-[50%] md:pb-[15%] lg:pb-[30%] pt-3 lg:pt-10 leading-10 line-clamp-3 md:line-clamp-6 lg:line-clamp-none hover:overflow-y-scroll lg:hover:overflow-hidden'>
                             {description || 'Description non disponible.'}
                         </p>
                     </div>
-                    <div className='flex justify-start md:justify-end items-center gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl pr-10'>
-                        <MdOutlineStar />
-                        <MdOutlineStar />
-                        <MdOutlineStar />
-                        <MdOutlineStarBorder />
-                        <MdOutlineStarBorder />
+                    <div className='flex flex-col-reverse md:flex-row justify-center md:justify-between items-center md:items-start bottom-0'>
+                        <button
+                            onClick={async () => {
+                                handleDocumentClick(id);
+                            }}
+                            className='text-[#DE290C] mr-0 md:mr-10 text-md md:text-lg lg:text-xl pt-10 md:pt-0'
+                        >
+                            Continuez...
+                        </button>
+                        <div className='flex flex-col justify-center items-center'>
+                            <div className='flex  gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl'>
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
+                            </div>
+                            <div className='text-[#DE290C] pt-5 lg:pt-10 pb-2 lg:pb-5 font-semibold uppercase text-md md:text-lg lg:text-xl'>
+                                <p className=''>{auteur || 'Auteur inconnu'}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className='text-[#DE290C] pt-5 lg:pt-10 pb-2 lg:pb-5 font-semibold uppercase text-md md:text-lg lg:text-xl'>
-                        <p className='float-end pr-10'>{auteur || 'Auteur inconnu'}</p>
-                    </div>
-                    <span>
-                        <p className='flex items-cente justify-between text-sm md:text-md lg:text-lg xl:text-xl py-2 lg:py-36'>
-                            Tout voir.. 
-                            <button
-                                onClick={async () => {
-                                        handleDocumentClick(id);
-                                }}
-                                className='text-[#DE290C] mr-0 md:mr-10'
-                            >
-                                cliquez ici
-                            </button>
-                        </p>
-                    </span>
                 </div>
             </div>
             <div className='flex flex-col lg:flex-row items-start justify-start gap-24 pt-10'>

@@ -27,14 +27,14 @@ const EventsSection = () => {
   ];
 
   return (
-    <div className="container mx-auto px-5 py-10 relative  overflow-visible">
+    <div className="relative container mx-auto px-5 py-10 ">
       {/* Titre de la section */}
       <h2 className="text-[#C00000] text-2xl font-bold mb-8 text-left">
         Actualité et événements
       </h2>
 
       {/* Cartes des événements */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
         {events.map((event) => (
           <div
             key={event.id}
@@ -52,7 +52,7 @@ const EventsSection = () => {
               <h3 className="text-black font-bold text-lg lg:text-xl mb-4">
                 {event.title}
               </h3>
-              <p className="text-gray-700 text-sm lg:text-base leading-relaxed line-clamp-4 text-center">
+              <p className="text-gray-700 text-sm lg:text-base leading-relaxed text-center">
                 {event.description}
               </p>
             </div>
@@ -63,10 +63,12 @@ const EventsSection = () => {
         ))}
       </div>
 
-      {/* Boule Positionnée */}
-      {/* Utilisez `top-full` pour positionner la boule en dessous des cartes */}
-      <div className="absolute top-[180px] right-[-180px]">
+      {/* Boule Positionnée (Toujours Visible sur Toutes les Tailles d'Écran) */}
+      <div className="absolute left-[-50px] md:left-[-100px] z-0 top-[90%] transform -translate-y-1/2">
+        <Boule />
+      </div>
 
+      <div className="absolute right-[5px] md:right-[-10%] pb-[10px] top-[40%] z-0">
         <Boule />
       </div>
     </div>

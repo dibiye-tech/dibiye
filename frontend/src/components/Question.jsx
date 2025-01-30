@@ -26,7 +26,7 @@ const FAQPage = () => {
   };
 
   return (
-    <div className="container px-10 md:px-20 lg:px-32 font-sans bg-gray-100 py-10 md:py-20 lg:py-32  max-w-3xl mx-auto rounded-lg shadow-lg">
+    <div className="relative z-10 container px-10 md:px-20 lg:px-32 font-sans bg-gray-100 py-10 md:py-20 lg:py-32  max-w-3xl mx-auto rounded-lg shadow-lg">
       <header className="bg-[#2278AC] p-4 rounded-lg mb-6 text-center">
         <h1 className="text-white text-2xl font-bold">FAQ - Questions Fréquentes</h1>
       </header>

@@ -23,7 +23,7 @@ const Missions1 = () => {
             </div>
 
             {/* Partie droite avec le texte */}
-            <div className="w-full md:w-1/2 text-center md:text-left">
+            <div className="w-full md:w-1/2 text-center md:text-left ml-16">
                 <h2 className="text-[#2278AC] text-xl md:text-2xl font-semibold mb-4">
                 présentation de concours
                 </h2>

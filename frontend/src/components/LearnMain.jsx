@@ -221,7 +221,7 @@ const LearnMain = () => {
                         <img src={quotes} alt="" />
                         <p className='font-bold pb-3 pl-12 text-sm md:text-md lg:text-lg xl:text-xl'>Apprenez, évoluez, grandissez : notre offre d'enseignement vous accompagne vers la réussite.</p>
                         <span className='text-sm md:text-md lg:text-lg xl:text-xl'>Nos formations vous donnent accès aux dernières connaissances et pratiques dans votre domaine d'expertise, vous permettant de rester compétitif et performant. Le monde du travail évolue constamment. Nos formations vous donnent les outils nécessaires pour vous adapter aux changements et saisir de nouvelles opportunités. L'apprentissage est un processus continu. Notre offre d'enseignement vous permet de vous former tout au long de votre vie et de rester stimulé intellectuellement.</span>
-                        <img src={quotes} alt="" className='ml-[75%] lg:ml-[65%]' />
+                        <img src={quotes} alt="" className='ml-[75%] lg:ml-[25%]' />
                     </p>
                 </div>
                 {[{ title: 'Primaire', data: document, id: 1 }, { title: 'Secondaire', data: documents, id: 2 }, { title: 'Supérieure', data: documentss, id: 3 }].map((section, index) => (
@@ -247,9 +247,15 @@ const LearnMain = () => {
                                             </Link>
                                             <div className='flex flex-col items-center md:items-start md:w-[200px] pt-1 gap-2'>
                                                 <div className=''>
-                                                    <Link to={`/book/${id}`} key={id}>
-                                                        <p className='line-clamp-1 hover:line-clamp-2 hover:w-[100px] hover:md:w-[200px]'>{title}</p>
-                                                    </Link>
+                                                <Link to={`/book/${id}`} key={id} className="relative">
+                                                    <p className='line-clamp-1 hover:line-clamp-none hover:w-[100px] hover:md:w-[200px]'>
+                                                        {title}
+                                                    </p>
+                                                    <div className="mb-10 absolute right-[5px] top-0 w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity">
+                                                        <p className=''>{title}</p>
+                                                    </div>
+                                                </Link>
+
                                                 </div>
                                                 <div className='flex pr-10 md:pr-0 gap-3 lg:gap-5 text-red-500 pt-2'>
                                                     <div className='bg-white rounded-full shadow-md p-1 md:p-2 cursor-pointer' onClick={async () => {
