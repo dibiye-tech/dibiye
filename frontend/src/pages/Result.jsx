@@ -31,6 +31,9 @@ const Result = () => {
     const savedHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     setSearchHistory(savedHistory);
   }, []);
+  const handleRedirect = () => {
+    navigate(`/search?query=all`); // Assurez-vous que "all" récupère tous les concours
+  };
 
   useEffect(() => {
     // Récupérer le mot recherché depuis le localStorage
@@ -155,12 +158,22 @@ const Result = () => {
   return (
     <div className="container mx-auto px-5 md:px-10 pt-10 flex flex-col lg:flex-row">
       <div className="flex-grow">
+        
         <div className='flex justify-between items-center py-10'>
           <div>
             <a href="/">
               <button className='bg-[#2278AC] text-white rounded-xl py-2 px-5 hidden lg:block'>Retour</button>
             </a>
           </div>
+            <div className='flex justify-between items-center py-10'>
+                <button
+                    className='bg-[#2278AC] text-white rounded-xl py-2 px-5 hidden lg:block'
+                    onClick={() => navigate(`/search?query=all`)} // Ajout du paramètre "query"
+                >
+                    Rechercher dans concours
+                </button>
+            </div>
+
           <div className='absolute left-1/2 transform -translate-x-1/2 w-full max-w-xl md:max-w-2xl'>
             <div className='flex px-5 md:px-10 lg:px-20'>
               <input
@@ -218,9 +231,19 @@ const Result = () => {
 
         <div className='pt-5 flex justify-between items-center lg:hidden'>
             <div>
-                <a href="/">
+                <a href="/bibliotheque">
                 <button className='bg-[#2278AC] text-white rounded-xl py-2 px-5'>Retour</button>
                 </a>
+            </div>
+            <div>
+               
+                <button
+                    className='bg-[#2278AC] text-white rounded-xl py-2 px-5 '
+                    onClick={() => navigate(`/search?query=all`)} // Ajout du paramètre "query"
+                >
+                    Rechercher dans concours
+                </button>
+                
             </div>
             <div>
                 <CgMenuGridR 

@@ -23,7 +23,7 @@ const MissionSection = () => {
       </div>
 
       {/* Partie droite avec le texte */}
-      <div className="w-full md:w-1/2 text-center md:text-left">
+      <div className="w-full md:w-1/2 text-center md:text-left ">
         <h2 className="text-[#2278AC] text-xl md:text-2xl font-semibold mb-4">
           présentation de concours
         </h2>
@@ -40,7 +40,7 @@ const MissionSection = () => {
       </div>
 
       {/* Positionnement de la boule */}
-      <div className="absolute -bottom-6 right-[-150px]">
+      <div className="absolute -bottom-6 right-[30px] md:right-[-150px]">
         <Boule />
       </div>
     </div>

@@ -31,7 +31,7 @@ const ServicesPage = () => {
             <div>
               <h3 className="text-lg font-bold">Concours Nationaux</h3>
               <p className="text-2xl font-bold mt-2">
-                {counterState && <CountUp start={0} end={110} duration={2.75} />}
+                {counterState && <div><CountUp start={0} end={110} duration={2.75} />+</div>}
               </p>
             </div>
           </Link>
@@ -51,7 +51,7 @@ const ServicesPage = () => {
             <div>
               <h3 className="text-lg font-bold">Universités</h3>
               <p className="text-2xl font-bold mt-2">
-                {counterState && <CountUp start={0} end={150} duration={2.75} />}
+                {counterState && <div><CountUp start={0} end={150} duration={2.75} />+</div>}
               </p>
             </div>
           </Link>
@@ -71,7 +71,7 @@ const ServicesPage = () => {
             <div>
               <h3 className="text-lg font-bold">Bibliothèque</h3>
               <p className="text-2xl font-bold mt-2">
-                {counterState && <CountUp start={0} end={120} duration={2.75} />}
+                {counterState && <div><CountUp start={0} end={120} duration={2.75} />+</div>}
               </p>
             </div>
           </Link>

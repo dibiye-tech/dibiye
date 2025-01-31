@@ -23,7 +23,7 @@ const Missions1 = () => {
             </div>
 
             {/* Partie droite avec le texte */}
-            <div className="w-full md:w-1/2 text-center md:text-left ml-16">
+            <div className="w-full md:w-1/2 text-center md:text-left ml-0 md:ml-16 md:py-0 py-5">
                 <h2 className="text-[#2278AC] text-xl md:text-2xl font-semibold mb-4">
                 présentation de concours
                 </h2>
@@ -39,10 +39,10 @@ const Missions1 = () => {
                 </p>
             </div>
         </div>
-        <div className="absolute top-[950px]  left-[-80px]">
+        <div className="absolute top-[950px]  left-[-80px] ">
         <Boule />
       </div>
-      <div className="absolute top-[1800px]  left-[-80px]">
+      <div className="absolute top-[1800px]  left-[-80px] md:left-[-80px]">
         <Boule />
       </div>
     </div>

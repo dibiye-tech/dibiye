@@ -27,7 +27,7 @@ const EventsSection = () => {
   ];
 
   return (
-    <div className="relative container mx-auto px-5 py-10 ">
+    <div className="relative container mx-auto px-10 md:px-5 py-10 ">
       {/* Titre de la section */}
       <h2 className="text-[#C00000] text-2xl font-bold mb-8 text-left">
         Actualité et événements
@@ -68,7 +68,7 @@ const EventsSection = () => {
         <Boule />
       </div>
 
-      <div className="absolute right-[5px] md:right-[-10%] pb-[10px] top-[40%] z-0">
+      <div className="absolute right-[20px] md:right-[-10%] pb-[10px] top-[40%] z-0">
         <Boule />
       </div>
     </div>
