@@ -138,6 +138,45 @@ const Searchpage = () => {
       concoursItem.grandes_ecoles.some((ge) => filters.grandesEcoles.includes(String(ge.id)))
     );
   };
+
+  const fetchResults = async () => {
+  const query = searchParams.get('query') || ''; 
+  if (!query) return;
+
+  setLoading(true);
+  try {
+    const url = `http://127.0.0.1:8000/concours/search/?q=${encodeURIComponent(query)}&page=${page}`;
+    const response = await axios.get(url);
+    const data = response.data;
+
+    setResults({
+      concours: data.concours || [],
+      categories: data.categories || [],
+      subcategories: data.subcategories || [],
+      universities: data.universities || [],
+      ville: data.ville || []
+    });
+
+    setPagination({
+      currentPage: data.currentPage || 1,
+      totalPages: Math.ceil(data.concours.length / itemsPerPage) || 1,
+      next: data.next || null,
+      previous: data.previous || null
+    });
+
+    setNoResults(data.concours.length === 0);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des résultats:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+// Appel de fetchResults dans useEffect après définition
+useEffect(() => {
+  fetchResults();
+}, [searchParams]);
+
   
 
   const handleResultClick = (id, type,categoryId) => {
@@ -353,10 +392,10 @@ const Searchpage = () => {
                 {result.description && (
                   <p className="text-sm lg:text-md xl:text-lg ">{result.description}</p>
                 )}
-                <div className={`flex items-center mt-2 ${statusColor}`}>
-                  <span className="mr-2">{statusIcon}</span>
-                  <span>{status}</span>
-                </div>
+               <div className="flex items-center space-x-2 justify-end">
+                                <span className={`ml-4 ${statusColor}`}>{statusIcon}</span>
+                                <span className={`font-semibold ${statusColor}`}>{status}</span>
+                              </div>
               </div>
             );
           })}
@@ -376,42 +415,51 @@ const Searchpage = () => {
     <div className="flex flex-col min-h-screen text-sm lg:text-md xl:text-lg container mx-auto px-10 md:px-5">
       
       <div className="container mx-auto p-4 flex-grow flex flex-wrap lg:flex-nowrap">
-        {/* Section des résultats */}
-        <div className="w-full lg:w-3/4 pr-0 lg:pr-4">
-          <Resultitem searchTerm={searchTerm} onSearch={handleSearch} />
+            {/* Section des résultats */}
+          <div className="w-full lg:w-3/4 pr-0 lg:pr-4">
+               <Resultitem searchTerm={searchTerm} onSearch={handleSearch} />
   
-          {/* Boutons Retour et Filtres */}
-          <div className="flex justify-between items-center mt-8">
-            <div>
-              <a href="/homeconcours">
-                <button className='bg-[#2278AC] text-white rounded-xl py-2 px-5 block lg:hidden'>Retour</button>
-              </a>
+                    {/* Boutons Retour et Filtres */}
+              <div className='flex relative  top-35 -right-[15%]'>
+                    <a href="/resultat" className="">
+                      <button className="bg-[#2278AC] text-white rounded-xl py-2 px-5 text-xs  block lg:hidden">
+                        Rechercher dans bibliotechnique
+                      </button>
+                    </a>
+                </div>
+                <div className="flex justify-between items-center mt-8">
+                  <div className='flex  relative'>
+                    <a href="/homeconcours">
+                      <button className='bg-[#2278AC] text-white rounded-xl py-2 px-5 block lg:hidden'>Retour</button>
+                    </a>
+                  </div>
+            
+            
+                <button
+                  className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-gray-400"
+                  onClick={() => setShowFilters(true)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    className="w-5 h-5 text-gray-600"
+                  >
+                    <circle cx="5" cy="5" r="1.5" />
+                    <circle cx="12" cy="5" r="1.5" />
+                    <circle cx="19" cy="5" r="1.5" />
+                    <circle cx="5" cy="12" r="1.5" />
+                    <circle cx="12" cy="12" r="1.5" />
+                    <circle cx="19" cy="12" r="1.5" />
+                    <circle cx="5" cy="19" r="1.5" />
+                    <circle cx="12" cy="19" r="1.5" />
+                    <circle cx="19" cy="19" r="1.5" />
+                  </svg>
+                </button>
             </div>
-            <button
-              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-gray-400"
-              onClick={() => setShowFilters(true)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="w-5 h-5 text-gray-600"
-              >
-                <circle cx="5" cy="5" r="1.5" />
-                <circle cx="12" cy="5" r="1.5" />
-                <circle cx="19" cy="5" r="1.5" />
-                <circle cx="5" cy="12" r="1.5" />
-                <circle cx="12" cy="12" r="1.5" />
-                <circle cx="19" cy="12" r="1.5" />
-                <circle cx="5" cy="19" r="1.5" />
-                <circle cx="12" cy="19" r="1.5" />
-                <circle cx="19" cy="19" r="1.5" />
-              </svg>
-            </button>
-          </div>
-  <br></br>
+           <br></br>
           <h1 className="text-2xl font-bold py-5">
             Résultats de La recherche : <span className='text-red-500'>{searchTerm}</span>
           </h1>

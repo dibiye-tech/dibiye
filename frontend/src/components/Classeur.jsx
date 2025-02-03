@@ -84,7 +84,7 @@ const Classeur = () => {
 
   return (
     <Box className='mt-0 md:mt-20' p={2}>
-      <Box display="flex" alignItems="center" justifyContent="space-between" mb={8} className='container mx-auto px-5 md:px-10'>
+      <Box display="flex" alignItems="center" justifyContent="space-between" mb={8} className='container mx-auto px-510 md:px-0'>
         <Text className='text-lg md:text-xl' fontWeight="bold" color="red.500">
           {classeur.length <= 1 ? "Mon classeur" : "Mes classeurs"}
         </Text>
@@ -116,7 +116,7 @@ const Classeur = () => {
       </Modal>
 
       {classeur.length === 0 ? (
-        <Text className='container mx-auto px-5 md:px-10'>Aucun classeur ajouté.</Text>
+        <Text className='container mx-auto px-10 md:px-0'>Aucun classeur ajouté.</Text>
       ) : (
         <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }} spacing={5} mt={4} className='container mx-auto px-5 md:px-10 '>
           {classeur.map((data) => (

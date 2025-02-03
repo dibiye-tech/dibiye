@@ -64,9 +64,9 @@ const Books = () => {
         try {
             const classeurData = { name };
             await addClasseur(classeurData);
-            setName('');
             toast({ title: "Mon Classeur", description: "Classeur créé avec succès!", status: "info", duration: 10000, isClosable: true, position: "top" });
             onClose();
+            window.location.reload();
         } catch (error) {
             toast({ title: "Erreur", description: "Erreur lors de la création du classeur.", status: "error", duration: 10000, isClosable: true, position: "top" });
         }
@@ -183,11 +183,11 @@ const Books = () => {
                         <p className='float-start md:float-end pr-10'>{auteur}</p>
                     </div>
                     <div className='flex justify-end pr-10 md:pr-0 md:justify-start items-center gap-3 lg:gap-5 pt-0 pb-5 md:pb-0 text-red-500 md:my-2 lg:my-auto'>
-                        <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={async () => handleFavoriteClick(id)}>
-                            {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' /> : <FaRegHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' />}
-                        </div>
                         <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={openAddToClasseurModal}>
                             <IoFileTrayStacked className='w-auto md:w-[25px] h-auto md:h-[25px]' />
+                        </div>
+                        <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={async () => handleFavoriteClick(id)}>
+                            {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[25px] h-auto md:h-[25px]' />}
                         </div>
                     </div>
                     <Modal isOpen={isOpen} onClose={onClose}>

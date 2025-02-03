@@ -7,6 +7,7 @@ import Evenements from '../components/Evenements';
 import Avis from '../components/Tendance/Avis/Avis';
 import Historique from '../components/Subscribe/Historique';
 import Footer from '../components/Footer';
+
 const Accueil = () => {
   return (
     <div className='text-sm md:text-md lg:text-lg scroll-smooth'>

@@ -1,4 +1,5 @@
 import React from "react";
+import Boule from "../components/Boule";
 
 const EventsSection = () => {
   const events = [
@@ -26,32 +27,32 @@ const EventsSection = () => {
   ];
 
   return (
-    <div className="container mx-auto px-10 md:px-5 py-5 text-center">
+    <div className="relative container mx-auto px-10 md:px-5 py-10 ">
       {/* Titre de la section */}
-      <h2 className="text-[#C00000] text-2xl font-bold mb-8 text-left py-5">
+      <h2 className="text-[#C00000] text-2xl font-bold mb-8 text-left">
         Actualité et événements
       </h2>
 
       {/* Cartes des événements */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
         {events.map((event) => (
           <div
             key={event.id}
-            className="bg-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]  overflow-hidden flex flex-col justify-between h-[600px] lg:w-[460px]" // Ombre au bord + Longueur augmentée
+            className="bg-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col justify-between h-[500px] lg:h-[600px] w-full"
           >
             {/* Image */}
             <img
               src={event.image}
               alt={event.title}
-              className="object-cover w-full h-[250px]" // Hauteur augmentée pour l'image
+              className="object-cover w-full h-[200px] lg:h-[250px]"
             />
 
             {/* Contenu texte */}
-            <div className="p-6 flex-1">
-              <h3 className="text-black font-bold text-xl mb-4">
+            <div className="p-4 lg:p-6 flex-1">
+              <h3 className="text-black font-bold text-lg lg:text-xl mb-4">
                 {event.title}
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-sm lg:text-base leading-relaxed text-center">
                 {event.description}
               </p>
             </div>
@@ -60,6 +61,15 @@ const EventsSection = () => {
             <div className="bg-[#C00000] h-4 w-full"></div>
           </div>
         ))}
+      </div>
+
+      {/* Boule Positionnée (Toujours Visible sur Toutes les Tailles d'Écran) */}
+      <div className="absolute left-[-50px] md:left-[-100px] z-0 top-[90%] transform -translate-y-1/2">
+        <Boule />
+      </div>
+
+      <div className="absolute right-[20px] md:right-[-10%] pb-[10px] top-[40%] z-0">
+        <Boule />
       </div>
     </div>
   );

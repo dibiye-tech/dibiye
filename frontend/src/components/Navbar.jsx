@@ -125,7 +125,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
     
       return (
         <div className='text-sm md:text-md lg:text-lg xl:text-xl lg:bg-white pb-10'>
-            <div className='fixed w-[100%]  z-10 md:z-20  py-2 bg-white border-b-2 border-[#2278AC]'>
+            <div className='fixed w-[100%]  z-20 md:z-20  py-2 bg-white border-b-2 border-[#2278AC]'>
                 <div className='container mx-auto px-10 md:px-5 flex items-center justify-between'>
                 <div>
                     <a href="/" className='cursor-pointer'>

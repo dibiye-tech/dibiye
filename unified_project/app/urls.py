@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import GlobalSearchView
+from .views import CustomTokenObtainPairView
 from .views import CategoryListCreateView, BookListCreateView, BookDetailView, CategoryRetrieveUpdateDestroyView, SousCategoryListCreateView, SousCategoryDetailView, RecentDocumentsView, DocumentsByCategoryView, DocumentsBySousCategoryView, UserUpdateView, CommentCreateView, CommentListView, HistoryViewSet, FavoriteViewSet, ClasseurViewSet, ClasseurBookViewSet, DocumentsByBrancheView
 
 
@@ -26,10 +27,11 @@ urlpatterns = [
     path('favorites/<int:document_id>/', FavoriteViewSet.as_view({'delete': 'destroy'}), name='delete_favorite_entry'),
     path('classeur/', ClasseurViewSet.as_view({'post': 'create', 'get' : 'list'}), name= 'classeur'),
     path('classeur/<int:pk>/', ClasseurViewSet.as_view({'delete': 'destroy'}), name='delete_classeur_entry'),
-    path('classeurbook/', ClasseurBookViewSet.as_view({'post': 'create'}), name= 'classeur'),
+    path('classeurbook/', ClasseurBookViewSet.as_view({'post': 'create'}), name= 'classeur-book'),
     path('classeurbook/<int:classeur_id>/documents', ClasseurBookViewSet.as_view({'get': 'list'})),
     path('classeurbook/delete_all/', ClasseurBookViewSet.as_view({'delete': 'delete_all'}), name='classeurbook-delete-all'),
     path('classeurbook/<int:book_id>/', ClasseurBookViewSet.as_view({'delete': 'destroy'}), name='delete_classeurbook_entry'),
     path('search/', GlobalSearchView.as_view(), name='global-search'),
     path('comment/<int:book_id>/', CommentCreateView.as_view(), name='create_or_update_comment'),
+    path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
 ]

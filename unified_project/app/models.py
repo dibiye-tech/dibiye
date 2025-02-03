@@ -91,6 +91,9 @@ class History(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
+    def __str__(self):
+        return f"History of {self.document.title} by {self.user.username}"
+
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     document = models.ForeignKey(Book, on_delete=models.CASCADE)

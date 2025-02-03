@@ -84,7 +84,6 @@ const LearnMain = () => {
         try {
             const classeurData = { name };
             await addClasseur(classeurData);
-            setName(''); // Réinitialiser le nom
             toast({
                 title: "Mon Classeur",
                 description: "Classeur créé avec succès!",
@@ -93,8 +92,8 @@ const LearnMain = () => {
                 isClosable: true,
                 position: "top",
             });
-            onClose(); // Fermer le modal après succès
-            // Re-fetch les classeurs ou mettre à jour l'état si nécessaire
+            onClose();
+            window.location.reload();
         } catch (error) {
             console.error("Erreur lors de l'ajout du classeur:", error);
             toast({
@@ -245,28 +244,28 @@ const LearnMain = () => {
                                                     <img src={image} alt={title} className='w-[150px] md:w-[200px] h-[120px] md:h-[230px] rounded-lg' />
                                                 </div>
                                             </Link>
-                                            <div className='flex flex-col items-center md:items-start md:w-[200px] pt-1 gap-2'>
+                                            <div className='flex justify-between md:w-[200px] pt-1 gap-2 py-3'>
                                                 <div className=''>
                                                 <Link to={`/book/${id}`} key={id} className="relative">
-                                                    <p className='line-clamp-1 hover:line-clamp-none hover:w-[100px] hover:md:w-[200px]'>
-                                                        {title}
-                                                    </p>
-                                                    <div className="mb-10 absolute right-[5px] top-0 w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity">
+                                                    <div className="mb-10 absolute right-[-20px] md:left-[-30px] top-[-50px] w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity md:line-clamp-none text-sm md:text-md lg:text-lg xl:text-xl">
                                                         <p className=''>{title}</p>
                                                     </div>
+                                                    <p className='line-clamp-1 hover:w-[100px]'>
+                                                        {title}
+                                                    </p>
                                                 </Link>
 
                                                 </div>
-                                                <div className='flex pr-10 md:pr-0 gap-3 lg:gap-5 text-red-500 pt-2'>
-                                                    <div className='bg-white rounded-full shadow-md p-1 md:p-2 cursor-pointer' onClick={async () => {
-                                                            handleFavoriteClick(id);
-                                                    }}>
-                                                        {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[20px] h-auto md:h-[20px]' /> : <FaRegHeart className='w-auto md:w-[20px] h-auto md:h-[20px]' />}
-                                                    </div>
+                                                <div className='flex justify-end items-end pr-2 md:pr-0 gap-3 lg:gap-5 text-red-500 pt-2'>
                                                     <div>
-                                                        <div className='bg-white rounded-full shadow-md p-1 md:p-2 cursor-pointer' onClick={openAddToClasseurModal}>
+                                                        <div className='cursor-pointer' onClick={openAddToClasseurModal}>
                                                             <IoFileTrayStacked className='w-auto md:w-[20px] h-auto md:h-[20px]'/>
                                                         </div>
+                                                    </div>
+                                                    <div className='cursor-pointer' onClick={async () => {
+                                                            handleFavoriteClick(id);
+                                                        }}>
+                                                            {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[20px] h-auto md:h-[20px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[20px] h-auto md:h-[20px]' />}
                                                     </div>
                                                 </div>
                                             </div>

@@ -15,14 +15,26 @@ const Resultitem = ({onSearch, searchTerm }) => {
   };
 
   return (
-    <div className='flex justify-between items-center pt-10'>
-      <div>
-        <a href="/homeconcours">
-          <button className='bg-[#2278AC] text-white rounded-xl py-2 px-5 hidden lg:block'>Retour</button>
-        </a>
-      </div>
-      <form onSubmit={handleSubmit} className="flex items-center justify-center">
-        <div className="relative w-full md:w-[500px] lg:w-[700px] flex px-5 md:px-10 lg:px-20">
+    <div className='flex justify-between items-center py-10'>
+            <div className="flex justify-between items-center ">
+            {/* Bouton Retour à gauche */}
+            <a href="/homeconcours" >
+              <button className="bg-[#2278AC] text-white rounded-xl py-2 px-4 text-base  hidden lg:block">
+                Retour
+              </button>
+            </a>
+
+            {/* Bouton Rechercher à droite */}
+            <a href="/resultat" className="absolute -right-[-10%]">
+              <button className="bg-[#2278AC] text-white rounded-xl py-2 px-4 text-base  hidden lg:block ">
+                Rechercher dans bibliotechnique
+              </button>
+            </a>
+          </div>
+
+
+          <form onSubmit={handleSubmit} className="flex items-center justify-center">
+        <div className="relative w-full md:w-[500px] lg:w-[700px] flex px-5 md:px-10 lg:px-20 ">
           <input
             type="text"
             value={query}

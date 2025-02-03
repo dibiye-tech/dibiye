@@ -1,9 +1,9 @@
 import React from 'react';
+import Boule from '../components/Boule';
 
 const MissionSection = () => {
   return (
-
-    <div className="container mx-auto px-10 md:px-5 py-20 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start">
+    <div className="container mx-auto px-10 md:px-5 py-20 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start relative">
       {/* Partie gauche avec l'image et la citation */}
       <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
         <div className="relative bg-black text-white rounded-lg shadow-lg overflow-hidden w-11/12 md:w-10/12">
@@ -23,7 +23,7 @@ const MissionSection = () => {
       </div>
 
       {/* Partie droite avec le texte */}
-      <div className="w-full md:w-1/2 text-center md:text-left">
+      <div className="w-full md:w-1/2 text-center md:text-left ">
         <h2 className="text-[#2278AC] text-xl md:text-2xl font-semibold mb-4">
           présentation de concours
         </h2>
@@ -37,6 +37,11 @@ const MissionSection = () => {
         <p className="text-gray-700 text-sm md:text-base">
           Nous croyons en l'impact du partage de connaissances pour inspirer et éduquer.
         </p>
+      </div>
+
+      {/* Positionnement de la boule */}
+      <div className="absolute -bottom-6 right-[30px] md:right-[-150px]">
+        <Boule />
       </div>
     </div>
   );

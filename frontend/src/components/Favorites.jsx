@@ -113,7 +113,7 @@ const Favorites = () => {
   if (error) return <p>Erreur: {error}</p>;
 
   return (
-    <div className="container mx-auto md:px-5 px-10 mt-0 md:mt-20">
+    <div className="container mx-auto px-10 md:px-0 pt-0 lg:pt-20">
       <div className="overflow-hidden">
         <div className="flex justify-between items-center mb-4 md:mb-10 w-full gap-10 md:gap-32 lg:gap-96">
           <h2 className="text-sm md:text-md lg:text-lg xl:text-xl font-bold text-red-500">

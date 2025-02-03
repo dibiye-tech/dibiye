@@ -81,7 +81,7 @@ const Favoris = () => {
   };
 
   return (
-    <div className="container mx-auto py-12 px-10 md:px-5">
+    <div className="container mx-auto py-12 px-10 md:px-0">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-sm md:text-md lg:text-lg xl:text-xl font-bold text-red-500">
           Concours

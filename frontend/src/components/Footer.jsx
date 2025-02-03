@@ -22,16 +22,20 @@ const Footer = () => {
   const Links = [
     {
       id:1,
-      title: "Accueil"
+      title: "Accueil",
+      lien: "/"
     },{
       id:2,
-      title: "A propos"
+      title: "A propos",
+      lien: "/about"
     },{
       id:3,
-      title: "Bibliothèque"
+      title: "Bibliothèque",
+      lien: "/bibliotheque"
     },{
       id:4,
-      title: "Concours"
+      title: "Concours",
+      lien: "/homeconcours"
     }
   ];
 
@@ -40,9 +44,11 @@ const Footer = () => {
         <div className='bg-[#096197] py-7 md:py-12'>
             <div className='container mx-auto px-5 flex flex-row flex-wrap items-start justify-start md:justify-between md:flex-wrap gap-8'>
                 <div className='md:w-1/4'>
-                  <div className='pb-5'>
-                    <img src={logo} alt="" className='bg-white py-1 px-2 border rounded-full w-[120px] h-auto md:w-auto'/>
-                  </div>
+                  <a href="/">
+                    <div className='pb-5'>
+                      <img src={logo} alt="" className='bg-white py-1 px-2 border rounded-full w-[120px] h-auto md:w-auto'/>
+                    </div>
+                  </a>
                   <p className='text-white text-[14px] md:text-[16px] lg:text-[18px]'>
                     Bienvenue chez dibiye, nous sommes une entreprise qui propose des services dans les domaines du numériques et bien d’autres.
                   </p>
@@ -53,7 +59,7 @@ const Footer = () => {
                     {
                       Links.map((data) => (
                         <li key={data.id} className='text-white text-[14px] md:text-[16px] lg:text-[18px] pb-2'>
-                          <a href="#" className='hover:text-[#DE290C] focus:text-[#DE290C] focus:font-bold'>{data.title}</a>
+                          <a href={data.lien} className='hover:text-[#DE290C] focus:text-[#DE290C] focus:font-bold'>{data.title}</a>
                         </li>
                       ))
                     }

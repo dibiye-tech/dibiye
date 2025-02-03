@@ -8,6 +8,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
   const [subcategories, setSubcategories] = useState([]);
   const [error, setError] = useState(null);
@@ -284,15 +285,18 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
               className="mb-10"
             >
               <div className="flex flex-row justify-between items-start gap-4">
-                <h2 className="text-md md:text-lg lg:text-xl font-bold text-secondary capitalize underline text-red-500">
-                  {subcategory.name}
+                <h2 className="text-md md:text-lg lg:text-xl font-bold text-secondary capitalize underline text-red-500 cursor-pointer "  
+                 onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}>
+                  {subcategory.name }
+                  
                 </h2>
                 <button
-                  className="rounded-xl bg-[#2278AC] text-white py-2 px-4 hover:bg-[#096197]  focus:outline-none flex-shrink-0"
-                  onClick={() => navigate(`/subcategory/${subcategory.id}`)}
+                  className="rounded-xl bg-[#2278AC] text-white py-2 px-4 hover:bg-[#096197] focus:outline-none flex-shrink-0"
+                  onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}
                 >
                   Voir plus &gt;&gt;
                 </button>
+
               </div>
               <Slider {...settings} className="mt-5">
                 {subcategory.concours_set?.map((concours) => {

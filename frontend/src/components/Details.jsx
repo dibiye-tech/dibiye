@@ -1,17 +1,24 @@
-import React from 'react';
+import React , {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '@chakra-ui/react';
-import { getBookDetails, getDocumentsByCategory, checkTokenIsValid, addToHistory } from '../hooks/useFetchQuery';
-import Button from './Button';
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { IoFileTrayStacked } from "react-icons/io5";
+import { getBookDetails, getDocumentsByCategory, checkTokenIsValid, addToHistory, addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites } from '../hooks/useFetchQuery';
 import { MdOutlineStar, MdOutlineStarBorder } from "react-icons/md";
+import { useToast, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
 
 const Details = () => {
     const navigate = useNavigate();
     const toast = useToast();
     const { id } = useParams();
+    const [classeurList, setClasseurList] = useState([]);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [favoriteDocuments, setFavoriteDocuments] = useState({});
+    const [name, setName] = useState('');
+    const [modalType, setModalType] = useState(null);
 
+    // Data fetching hooks
     const { data: bookData, isLoading: isBookLoading, isError: isBookError } = useQuery(
         ['bookDetails', id],
         () => getBookDetails(id),
@@ -25,32 +32,37 @@ const Details = () => {
         { enabled: !!categoryId }
     );
 
-    const handleSeeMoreClick = () => {
-        if (id) {
-            navigate(`/livres/catégories/${id}`); // Changez cette route selon votre configuration de routes
-        } else {
-            toast({
-                title: "Erreur",
-                description: "Impossible de récupérer l'ID de la catégorie.",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
-        }
-    }; 
+    // Fetch classeur list
+    useEffect(() => {
+        const fetchClassers = async () => {
+            const data = await getClasseur();
+            setClasseurList(data);
+        };
 
-    if (isBookLoading) return <p>Loading book details...</p>;
-    if (isBookError) return <p>Erreur lors du chargement des détails du livre.</p>;
+        fetchClassers();
+    }, []);
 
-    if (isCategoryLoading) return <p>Loading related documents...</p>;
-    if (isCategoryError) return <p>Erreur lors du chargement des documents similaires.</p>;
+    // Fetch favorite documents
+    useEffect(() => {
+        const checkIfFavorite = async () => {
+            try {
+                const favorites = await getFavorites();
+                const favoritesMap = {};
+                favorites.forEach(fav => {
+                    favoritesMap[fav.document] = true;
+                });
+                setFavoriteDocuments(favoritesMap);
+            } catch (error) {
+                console.error("Erreur lors de la récupération des favoris:", error);
+            }
+        };
 
-    const { image, title, auteur, description } = bookData || {};
+        checkIfFavorite();
+    }, [id]);
 
     const handleDocumentClick = async (documentId) => {
         const isValidToken = await checkTokenIsValid();
-    
+
         if (isValidToken) {
             try {
                 await addToHistory(documentId);
@@ -75,7 +87,7 @@ const Details = () => {
             }
         } else {
             let history = JSON.parse(localStorage.getItem('history')) || [];
-    
+
             if (!history.includes(documentId)) {
                 history.push(documentId);
                 localStorage.setItem('history', JSON.stringify(history));
@@ -99,6 +111,65 @@ const Details = () => {
         }
     };
 
+    const openAddToClasseurModal = () => {
+        setModalType('addToClasseur');
+        onOpen();
+    };
+
+    const openCreateClasseurModal = () => {
+        setModalType('createClasseur');
+        onOpen();
+    };
+
+    const handleAddToClasseur = async (classeurId, documentId) => {
+        try {
+            await addDocumentToClasseur(classeurId, documentId);
+            toast({ title: "Document ajouté au classeur!", status: "success", duration: 10000, isClosable: true, position: "top" });
+            onClose();
+        } catch (error) {
+            toast({ title: "Erreur", description: error.message, status: "error", duration: 10000, isClosable: true, position: "top" });
+        }
+    };
+
+    const handleSubmition = async (e) => {
+        e.preventDefault();
+        try {
+            const classeurData = { name };
+            await addClasseur(classeurData);
+            toast({ title: "Mon Classeur", description: "Classeur créé avec succès!", status: "info", duration: 10000, isClosable: true, position: "top" });
+            onClose();
+            // Reloading the data (but without reloading the page)
+            const data = await getClasseur();
+            setClasseurList(data);
+        } catch (error) {
+            toast({ title: "Erreur", description: "Erreur lors de la création du classeur.", status: "error", duration: 10000, isClosable: true, position: "top" });
+        }
+    };
+
+    const handleFavoriteClick = async (documentId) => {
+        try {
+            if (favoriteDocuments[documentId]) {
+                await deleteFavorite(documentId);
+                setFavoriteDocuments(prev => ({ ...prev, [documentId]: false }));
+                toast({ title: "Mes favoris", description: "Document retiré des favoris!", status: "info", duration: 10000, isClosable: true, position: "top" });
+            } else {
+                await addFavorite(documentId);
+                setFavoriteDocuments(prev => ({ ...prev, [documentId]: true }));
+                toast({ title: "Mes favoris", description: "Document ajouté en favoris!", status: "info", duration: 10000, isClosable: true, position: "top" });
+            }
+        } catch (error) {
+            console.error("Erreur lors de la gestion des favoris:", error);
+        }
+    };
+
+    if (isBookLoading) return <p>Loading book details...</p>;
+    if (isBookError) return <p>Erreur lors du chargement des détails du livre.</p>;
+
+    if (isCategoryLoading) return <p>Loading related documents...</p>;
+    if (isCategoryError) return <p>Erreur lors du chargement des documents similaires.</p>;
+
+    const { image, title, auteur, description } = bookData || {};
+
     return (
         <div className='container mx-auto px-10 md:px-5'>
             <div className='my-10 border-2 border-[#096197] rounded-[20px] flex flex-col lg:flex-row start gap-5 items-start h-[100vh] md:h-[80vh]'>
@@ -114,7 +185,7 @@ const Details = () => {
                         <h3 className='font-bold'>{title || 'Titre du livre'}</h3>
                     </div>
                     <div>
-                        <p className='text-md md:text-lg lg:text-xl pb-[50%] md:pb-[15%] lg:pb-[30%] pt-3 lg:pt-10 leading-10 line-clamp-3 md:line-clamp-6 lg:line-clamp-none hover:overflow-y-scroll lg:hover:overflow-hidden'>
+                        <p className='text-md md:text-lg lg:text-xl pb-[5%] lg:pb-[10%] pt-3 lg:pt-10 leading-10 line-clamp-4 md:line-clamp-6 xl:line-clamp-none hover:overflow-y-scroll lg:hover:overflow-hidden'>
                             {description || 'Description non disponible.'}
                         </p>
                     </div>
@@ -123,7 +194,7 @@ const Details = () => {
                             onClick={async () => {
                                 handleDocumentClick(id);
                             }}
-                            className='text-[#DE290C] mr-0 md:mr-10 text-md md:text-lg lg:text-xl pt-10 md:pt-0'
+                            className='text-white mr-0 md:mr-10 text-md md:text-lg lg:text-xl pt-10 md:pt-0 bg-[#DE290C] rounded-lg py-2 px-4'
                         >
                             Continuez...
                         </button>
@@ -138,6 +209,57 @@ const Details = () => {
                             <div className='text-[#DE290C] pt-5 lg:pt-10 pb-2 lg:pb-5 font-semibold uppercase text-md md:text-lg lg:text-xl'>
                                 <p className=''>{auteur || 'Auteur inconnu'}</p>
                             </div>
+                            <div className='flex justify-end md:justify-start items-center gap-3 lg:gap-5 pb-5 md:pb-0 text-red-500 md:my-2 lg:my-auto pt-[5%] lg-[pt-10%]'>
+                                <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={openAddToClasseurModal}>
+                                    <IoFileTrayStacked className='w-auto md:w-[25px] h-auto md:h-[25px]' />
+                                </div>
+                                <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={async () => handleFavoriteClick(id)}>
+                                    {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[25px] h-auto md:h-[25px]' />}
+                                </div>
+                            </div>
+                                                <Modal isOpen={isOpen} onClose={onClose}>
+                                                    <ModalOverlay />
+                                                    <ModalContent>
+                                                        <ModalHeader>{modalType === 'createClasseur' ? 'Créer un Classeur' : 'Ajouter à un Classeur'}</ModalHeader>
+                                                        <ModalBody>
+                                                            {modalType === 'createClasseur' ? (
+                                                                <Input
+                                                                    placeholder='Nom du classeur'
+                                                                    value={name}
+                                                                    onChange={(e) => setName(e.target.value)}
+                                                                />
+                                                            ) : (
+                                                                <>
+                                                                    <List className='py-5'>
+                                                                        {classeurList.map((classeur) => (
+                                                                            <ListItem key={classeur.id} className='flex items-center cursor-pointer py-1 font-semibold text-md md:text-xl lg:text-xl hover:font-bold' onClick={() => handleAddToClasseur(classeur.id, id)}>
+                                                                                <ListIcon as={IoFileTrayStacked} color='red.500' />
+                                                                                {classeur.name}
+                                                                            </ListItem>
+                                                                        ))}
+                                                                    </List>
+                                                                    <Button 
+                                                                        colorScheme='blue' 
+                                                                        onClick={openCreateClasseurModal} // Ouvre le modal de création
+                                                                        mt={4} // Ajoute une marge en haut pour l'espacement
+                                                                    >
+                                                                        Créer un nouveau classeur
+                                                                    </Button>
+                                                                </>
+                                                            )}
+                                                        </ModalBody>
+                                                        <ModalFooter>
+                                                            {modalType === 'createClasseur' ? (
+                                                                <>
+                                                                    <Button colorScheme='blue' onClick={handleSubmition}>Ajouter</Button>
+                                                                    <Button onClick={onClose} ml={3}>Annuler</Button>
+                                                                </>
+                                                            ) : (
+                                                                <Button onClick={onClose}>Fermer</Button>
+                                                            )}
+                                                        </ModalFooter>
+                                                    </ModalContent>
+                                                </Modal>
                         </div>
                     </div>
                 </div>

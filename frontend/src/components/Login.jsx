@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import book from '../assets/images/book.png';
@@ -138,7 +138,7 @@ const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
     <>
     {
         orderPopup && (
-            <div className='popup'>
+            <div className='popup overflow-y-auto max-h-[80vh]'>
                 <div className='h-screen w-screen fixed top-0 left-0 bg-black/50 z-50 backdrop-blur-sm'>
             <div className='max-w-[950px] mx-auto px-5 my-[5%] md:my-[3%] md:px-auto pt-5'>
             <div className='pb-14 lg:pb-10 pl-[90%] lg:pl-[100%]'>
@@ -258,22 +258,30 @@ const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
                             <div className='pt-10 pb-5 text-center text-[#A39898]'>
                                 <p>Ou Connectez-vous</p>
                             </div>
-                            <div className='flex gap-5 md:flex-col'>
-                                <div className='flex items-center justify-center md:gap-5 bg-[#B5D0E0] border border-[#B5D0E0] rounded-[15px] py-2 px-5 w-[100%]'> 
-                                    <img src={google} alt="" width={35} height={35}/>
-                                    <div>
-                                        <p className='hidden md:block text-[14px] md:text-[16px] lg:text-[18px]'>Continuer avec Google</p>
-                                    </div>
+                            <div className='flex items-center justify-center gap-5 md:flex-col'>
+                                <div>
+                                    <a href="">
+                                        <div className='flex items-center justify-center md:gap-5 bg-[#B5D0E0] border border-[#B5D0E0] rounded-[15px] py-2 px-5 w-[100%]'> 
+                                            <img src={google} alt="" width={35} height={35}/>
+                                            <div>
+                                                <p className='hidden md:block text-[14px] md:text-[16px] lg:text-[18px]'>Continuer avec Google</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div className='flex items-center justify-center md:gap-5 bg-[#B5D0E0] border border-[#B5D0E0] rounded-[15px] py-2 px-5 w-[100%]'> 
-                                    <img src={facebook} alt="" width={35} height={35}/>
-                                    <div>
-                                        <p className='hidden md:block'>Continuer avec Google</p>
-                                    </div>
+                                <div>
+                                    <a href="">
+                                        <div className='flex items-center justify-center md:gap-5 bg-[#B5D0E0] border border-[#B5D0E0] rounded-[15px] py-2 px-5 w-[100%]'> 
+                                            <img src={facebook} alt="" width={35} height={35}/>
+                                            <div>
+                                                <p className='hidden md:block'>Continuer avec Facebook</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                             <div className='text-center pt-10 py-5'>
-                                <p>Vous n'avez pas de compte? <a href="#" className='text-[#096197] hover:underline' onClick={handlerOrder}>Créer votre compte</a></p>
+                                <p>Vous n'avez pas de compte? <a href="#" className='text-[#096197] hover:underline' onClick={() => { handlerOrder(); setOrderPopup(false);}} >Créer votre compte</a></p>
                             </div>
                         </div>
                     </div>
@@ -296,6 +304,6 @@ const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
     }
     </>
   )
-}
+};
 
 export default Login;
