@@ -122,7 +122,7 @@ const Documents = ({ concoursId }) => {
                   <h2 className="text-primary font-bold text-md md:text-lg lg:text-xl xl:text-2xl pb-5">
                     {doc.cycle.name}
                   </h2>
-                  <p className="text-sm md:text-md lg:text-lg xl:text-xl pb-5">{doc.cycle.description}</p>
+                  <p className="text-sm md:text-md lg:text-lg xl:text-xl pb-5 ">{doc.cycle.description}</p>
                 </>
               ) : (
                 <>
@@ -137,7 +137,7 @@ const Documents = ({ concoursId }) => {
                   <h2 className="text-primary font-bold text-2xl pb-5">
                     Informations du Concours
                   </h2>
-                  <p className="text-xl pb-5">{currentConcours.concours_description}</p>
+                  <p className="text-xl pb-5 ">{currentConcours.concours_description}</p>
                 </>
               )}
 
@@ -173,18 +173,21 @@ const Documents = ({ concoursId }) => {
         )}
 
         <div className="flex justify-center my-4">
-          {[...Array(Math.ceil(concours.length / documentsPerPage)).keys()].map((number) => (
-            <button
-              key={number + 1}
-              onClick={() => paginate(number + 1)}
-              className={`mx-1 px-4 py-2 ${
-                currentPage === number + 1 ? 'bg-blue-300 text-white' : 'bg-gray-200 text-gray-700'
-              } rounded`}
-            >
-              {number + 1}
-            </button>
-          ))}
+          {currentPage > 1 && (
+            [...Array(Math.ceil(concours.length / documentsPerPage)).keys()].map((number) => (
+              <button
+                key={number + 1}
+                onClick={() => paginate(number + 1)}
+                className={`mx-1 px-4 py-2 ${
+                  currentPage === number + 1 ? 'bg-blue-300 text-white' : 'bg-gray-200 text-gray-700'
+                } rounded`}
+              >
+                {number + 1}
+              </button>
+            ))
+          )}
         </div>
+
       </div>
     </div>
   );

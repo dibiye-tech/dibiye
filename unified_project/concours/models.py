@@ -3,8 +3,11 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from pdf2image import convert_from_path
-import os
 from django.conf import settings
+import os
+import sys
+from django.conf import settings
+from pdf2image.exceptions import PDFInfoNotInstalledError
 
 def upload_to(instance, filename):
     return f'posts/{filename}'
@@ -144,6 +147,7 @@ class SearchHistory(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
 
+
 class ConcoursDocument(models.Model):
     concours = models.ForeignKey(Concours, related_name='documents', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -151,13 +155,34 @@ class ConcoursDocument(models.Model):
     thumbnail = models.ImageField(upload_to='concours_thumbnails/', blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='documents', null=True, blank=True)
-    
+
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.document.name.endswith('.pdf') and not self.thumbnail:
+        super().save(*args, **kwargs)  # Sauvegarde initiale du document
+
+        # Éviter la conversion si le fichier n'est pas un PDF ou si un thumbnail existe déjà
+        if not self.document.name.endswith('.pdf') or self.thumbnail:
+            return
+
+        # Désactiver la conversion dans les tests
+        if "test" in sys.argv:
+            return
+
+        try:
             images = convert_from_path(self.document.path, first_page=1, last_page=1)
             image = images[0]
+
+            # Chemin du thumbnail
             thumbnail_path = f'concours_thumbnails/{self.id}_thumbnail.jpg'
-            image.save(os.path.join(settings.MEDIA_ROOT, thumbnail_path), 'JPEG')
+            full_thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_path)
+
+            # Sauvegarde de l'image
+            image.save(full_thumbnail_path, 'JPEG')
+
+            # Mettre à jour le champ `thumbnail`
             self.thumbnail = thumbnail_path
             super().save(update_fields=['thumbnail'])
+
+        except PDFInfoNotInstalledError:
+            print("⚠️ Poppler n'est pas installé, conversion PDF -> Thumbnail ignorée.")
+        except Exception as e:
+            print(f"❌ Erreur lors de la conversion du PDF en image: {e}")

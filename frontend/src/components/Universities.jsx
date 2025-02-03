@@ -86,11 +86,11 @@ const Universities = ({ universityId }) => {
             >
               <div className="flex flex-col">
                 <div className="overflow-hidden rounded-t-3xl">
-                  <img
-                    src={`http://127.0.0.1:8000${item.ecole_image}`}
-                    alt={item.ecole_name}
-                    className="rounded-t-3xl h-[300px] w-full object-cover"
-                  />
+                <img
+                  src={item.ecole_image}
+                  alt={item.ecole_name}
+                  className="rounded-t-3xl h-[300px] w-full object-cover"
+                />
                 </div>
                 <div className="p-6">
                   <h1 className="text-xl text-primary py-2 font-bold">{item.ecole_name}</h1>

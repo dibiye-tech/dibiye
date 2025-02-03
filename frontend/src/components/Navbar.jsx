@@ -192,54 +192,54 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                     </div>
                                 </li>
                                
-                                <li className='group relative cursor-pointer ml-7'>
-                                <Link to="/homeconcours"
-                                    className="flex justify-center items-center gap-[2px] py-2 whitespace-nowrap"
-                                >Concours
-                                    <span>
-                                    <FaCaretDown className="transition-all duration-500 group-hover:rotate-180" />
-                                    </span>
+                                <li className="group relative cursor-pointer ml-7">
+    <Link
+        to="/homeconcours"
+        className="flex justify-center items-center gap-2 py-2 whitespace-nowrap"
+    >
+        Concours
+        <span>
+            <FaCaretDown className="transition-transform duration-500 group-hover:rotate-180" />
+        </span>
+    </Link>
+    <div className="absolute z-10 hidden group-hover:block ml-[-150px] md:ml-[-400px] lg:ml-[-600px] rounded-md bg-white p-5 text-black shadow-xl">
+        <div className="flex flex-col md:flex-row gap-5 md:gap-10 items-start">
+            {/* Image */}
+            <div className="w-[150px] md:w-[200px]">
+                <img
+                    src="/images/livre1.png"
+                    alt="Concours Image"
+                    className="border rounded-lg w-full h-[150px] md:h-[200px] object-cover"
+                />
+            </div>
+
+            {/* Sous-catégories et catégories */}
+            <div className="flex flex-row gap-10 w-full items-start">
+                {dropdownLinks.map((data) => (
+                    <div
+                        key={data.id}
+                        className="flex flex-col items-start gap-2 min-w-[200px] md:min-w-[250px] h-full"
+                    >
+                        <p className="text-[#2278AC] font-bold">{data.title}</p>
+                        <ul className="mt-2 space-y-2">
+                            {data.subcategories.map((sub) => (
+                                <li key={sub.id}>
+                                    <Link
+                                        to={sub.link}
+                                        className="hover:text-[#DE290C] text-sm md:text-base"
+                                    >
+                                        {sub.name}
                                     </Link>
-                                <div className="absolute z-10 hidden group-hover:block ml-[-150px] md:ml-[-400px] lg:ml-[-600px] rounded-md bg-white p-5 text-black shadow-xl"> 
-                                    <div className='flex flex-col md:flex-row gap-5 md:gap-20'>
-                                    {/* Image */}
-                                    {/* Image */}
-                                <div className='w-[200px] h-auto'>
-                                <img 
-                                    src='/images/livre1.png' 
-                                    alt="Concours Image" 
-                                    className='border rounded-lg w-full md:w-[300px] h-[150px] md:h-full object-center' 
-                                />
-                                </div>
-    
-                                    {/* Sous-catégories et catégories */}
-                                    <div>
-                                        <ul className='flex flex-col md:flex-row gap-5 md:gap-20'>
-                                        {
-                                            dropdownLinks.map((data) => (
-                                            <div key={data.id} className='flex flex-col items-start justify-between gap-5 md:w-[100px] lg:w-[150px] xl:w-[200px]'>
-                                                <div>
-                                                    <p className='text-[#2278AC]'>{data.title}</p>
-                                                </div>
-                                                <div>
-                                                    <li className='flex flex-col items-start gap-2'>
-                                                        {
-                                                        data.subcategories.map(sub => (
-                                                            <Link to={sub.link} key={sub.id} className='hover:text-[#DE290C]'>
-                                                            {sub.name}
-                                                            </Link>
-                                                        ))
-                                                        }
-                                                    </li>
-                                                </div>
-                                            </div>
-                                            ))
-                                        }
-                                        </ul>
-                                    </div>
-                                    </div>
-                                </div>
                                 </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</li>
+
                             </ul>
                         </div>
                         <div className='flex items-center'>

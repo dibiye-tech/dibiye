@@ -34,11 +34,11 @@ const EventsSection = () => {
       </h2>
 
       {/* Cartes des événements */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10 ">
         {events.map((event) => (
           <div
             key={event.id}
-            className="bg-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col justify-between h-[500px] lg:h-[600px] w-full"
+            className="bg-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col justify-between h-[500px] lg:h-[600px] w-full rounded-lg"
           >
             {/* Image */}
             <img
@@ -48,7 +48,7 @@ const EventsSection = () => {
             />
 
             {/* Contenu texte */}
-            <div className="p-4 lg:p-6 flex-1">
+            <div className="p-4 lg:p-6 flex-1 rounded-lg">
               <h3 className="text-black font-bold text-lg lg:text-xl mb-4">
                 {event.title}
               </h3>

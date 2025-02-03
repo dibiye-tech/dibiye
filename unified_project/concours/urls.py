@@ -5,7 +5,7 @@ from .views import (
     ConcoursViewSet, ConcoursCategoryViewSet, ConcoursSubCategoryViewSet, 
     UniversityViewSet, PublishedConcoursViewSet, TestimonialViewSet, 
     SearchView, SearchHistoryView, ConcoursDocumentsListView, ConcoursDetailView, 
-    TestView, SimpleTestView, AllDocumentsView, GrandeEcoleListView 
+    TestView, SimpleTestView, AllDocumentsView, GrandeEcoleListView,  GrandesEcolesWithConcoursView
 )
 
 router = DefaultRouter()
@@ -27,5 +27,5 @@ urlpatterns = [
     path('documents/<int:concours_id>/all/', AllDocumentsView.as_view(), name='all-documents'),
     path('grandecoles/', GrandeEcoleListView.as_view(), name='grandecoles-list'),
     path('concoursfonctionpubs/<int:id>/', ConcoursDetailView.as_view(), name='concours-detail'),
-    path('universities/<int:university_id>/grandesecoles/', views.get_grandes_ecoles_with_concours, name='get_grandes_ecoles_with_concours'),  # Correctly imported view
+    path('universities/<int:university_id>/grandesecoles/', GrandesEcolesWithConcoursView.as_view(), name='get_grandes_ecoles_with_concours'),
 ]
