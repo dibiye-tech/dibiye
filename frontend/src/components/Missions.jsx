@@ -23,26 +23,33 @@ const MissionSection = () => {
       </div>
 
       {/* Partie droite avec le texte */}
-      <div className="w-full md:w-1/2 text-center md:text-left ">
-        <h2 className="text-[#2278AC] text-xl md:text-2xl font-semibold mb-4">
-          présentation de concours
+      <div className="w-full md:w-1/2 text-center md:text-left">
+        <h2 className="text-[#2278AC] text-xl md:text-3xl font-semibold mb-4">
+          Présentation de concours
         </h2>
-        <h3 className="text-gray-800 text-lg md:text-xl font-bold mb-4">Notre Mission</h3>
-        <p className="text-gray-700 text-sm md:text-base mb-4">
+        <h3 className="text-gray-800 text-lg md:text-2xl font-bold mb-4">Notre Mission</h3>
+        <p className="text-gray-700 text-sm md:text-lg mb-4">
           Dibiyè s'engage à rendre la culture accessible à tous grâce à une bibliothèque numérique innovante.
         </p>
-        <p className="text-gray-700 text-sm md:text-base mb-4">
+        <p className="text-gray-700 text-sm md:text-lg mb-4">
           Notre mission est de connecter les lecteurs du monde entier par le biais de concours stimulants et de contenus enrichissants.
         </p>
-        <p className="text-gray-700 text-sm md:text-base">
+        <p className="text-gray-700 text-sm md:text-lg z-0">
           Nous croyons en l'impact du partage de connaissances pour inspirer et éduquer.
         </p>
       </div>
 
       {/* Positionnement de la boule */}
-      <div className="absolute -bottom-6 right-[30px] md:right-[-150px]">
-        <Boule />
-      </div>
+      <div
+  className="absolute bottom-[-30px] right-[-10px] md:bottom-[-80px] md:right-[-10px] lg:bottom-[-50px] lg:right-[-120px] xl:right-[-150px] z-0"
+  style={{
+    transform: 'scale(0.6)', // Taille adaptée pour tous les écrans
+  }}
+>
+  <Boule />
+</div>
+
+
     </div>
   );
 };
