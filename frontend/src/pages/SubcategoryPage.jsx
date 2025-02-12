@@ -168,8 +168,11 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
                         </div>
                         <div className="w-full md:w-3/4 p-2 flex flex-col gap-2 justify-between text-sm md:text-md lg:text-lg xl:text-xl">
                           <h5 className="text-lg font-bold text-primary">{concours.name}</h5>
-                          <p className="text-gray-700">{concours.description}</p>
-                          <p className="text-gray-500">Date: {concours.concours_date}</p>
+                          <p className="text-gray-700 text-justify">{concours.description}</p>
+                          <p className="bg-blue-100 text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
+                            🗓 <span className="ml-2">Date: {concours.concours_date}</span>
+                          </p>
+
                           <div className="flex justify-between items-center mt-2">
                             <Link
                               to={`/presentationpage/${concours.id}`}
@@ -186,45 +189,42 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
                       </div>
                     );
                   })}
-            <div className="flex justify-center items-center mt-4 space-x-2">
-  {/* Bouton Précédent */}
-  <button
-    onClick={() => handlePageChange(currentPage - 1)}
-    disabled={currentPage === 1}
-    className={`px-4 py-2 rounded-lg ${
-      currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-primary text-white'
-    }`}
-  >
-    Précédent
-  </button>
+          <div className="flex items-center justify-center space-x-2 mt-4">
+              {/* Flèche Précédente */}
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-3 py-2 rounded-lg ${
+                  currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-primary text-white'
+                }`}
+              >
+                ◀️
+              </button>
 
-  {/* Numéros des pages */}
-  {getPageNumbers().map((page) => (
-    <button
-      key={page}
-      onClick={() => handlePageChange(page)}
-      className={`px-4 py-2 rounded-lg ${
-        currentPage === page ? 'bg-[#2278AC] text-white font-bold' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-      }`}
-    >
-      {page}
-    </button>
-  ))}
+              {/* Numéros des pages */}
+              {getPageNumbers().map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-4 py-2 rounded-lg ${
+                    currentPage === page ? 'bg-[#2278AC] text-white font-bold' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
 
-  {/* Bouton Suivant */}
-  <button
-    onClick={() => handlePageChange(currentPage + 1)}
-    disabled={currentPage === totalPages}
-    className={`px-4 py-2 rounded-lg ${
-      currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-primary text-white'
-    }`}
-  >
-    Suivant
-  </button>
-</div>
-
-
-
+              {/* Flèche Suivante */}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-2 rounded-lg ${
+                  currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-primary text-white'
+                }`}
+              >
+                ▶️
+              </button>
+            </div>
 
                 </>
               ) : (

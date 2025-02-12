@@ -380,32 +380,33 @@ class AllDocumentsView(APIView):
     from django.http import JsonResponse
 from .models import University
 
-def get_grandes_ecoles_with_concours(request, university_id):
-    try:
-        university = University.objects.get(id=university_id)
+class GrandesEcolesWithConcoursView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, university_id):
+        university = get_object_or_404(University, id=university_id)
         grandes_ecoles = university.grandes_ecoles.all()
 
         data = []
         for ecole in grandes_ecoles:
-            concours_list = []
-            for concours in ecole.concours.all():
-                concours_list.append({
+            concours_list = [
+                {
                     "concours_id": concours.id,
                     "concours_name": concours.name,
                     "concours_description": concours.description,
-                    "concours_image": concours.image.url if concours.image else None,
+                    "concours_image": request.build_absolute_uri(concours.image.url) if concours.image else None,
                     "subcategory_id": concours.subcategory.id if concours.subcategory else None,
                     "subcategory_name": concours.subcategory.name if concours.subcategory else None,
-                })
+                }
+                for concours in ecole.concours.all()
+            ]
             
             data.append({
                 "ecole_id": ecole.id,
                 "ecole_name": ecole.name,
-                "ecole_image": ecole.image.url if ecole.image else None,
+                "ecole_image": request.build_absolute_uri(ecole.image.url) if ecole.image else None,
                 "ecole_description": ecole.description,
                 "concours": concours_list,
             })
 
-        return JsonResponse(data, safe=False)
-    except University.DoesNotExist:
-        return JsonResponse({"error": "Université non trouvée"}, status=404)
+        return Response(data)

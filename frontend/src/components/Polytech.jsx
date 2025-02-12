@@ -39,7 +39,7 @@ const Polytech = ({ concoursId }) => {
           </div>
           <div className='w-full lg:w-1/2 flex flex-col justify-start'>
             <h1 className='font-bold text-lg sm:text-xl md:text-2xl xl:text-3xl text-primary mt-2 lg:mt-0'>{concours.name}</h1>
-            <p className='text-sm sm:text-base md:text-lg py-2'>{concours.description}</p>
+            <p className='text-sm sm:text-base md:text-lg py-2 text-justify'>{concours.description}</p>
             <p className='text-sm sm:text-base md:text-lg py-2'><strong>Date du concours :</strong> {concours.concours_date}</p>
           </div>
         </div>

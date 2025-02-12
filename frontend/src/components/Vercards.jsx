@@ -41,7 +41,7 @@ const Vercards = () => {
               <h1 className="font-bold text-md md:text-lg lg:text-xl xl:text-2xl text-[#2278AC] mt-2 lg:mt-4">
                 {subcategory.name}
               </h1>
-              <p className="text-sm md:text-base lg:text-lg xl:text-xl mt-2 md:mt-4">{subcategory.description}</p>
+              <p className="text-sm md:text-base lg:text-lg xl:text-xl mt-2 md:mt-4 text-justify">{subcategory.description}</p>
             </div>
           </div>
         </div>

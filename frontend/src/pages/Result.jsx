@@ -159,7 +159,7 @@ const Result = () => {
     <div className="container mx-auto px-5 md:px-10 pt-10 flex flex-col lg:flex-row">
       <div className="flex-grow">
         
-        <div className='flex justify-between items-center py-10'>
+        <div className='flex justify-between items-center py-1'>
           <div>
             <a href="/">
               <button className='bg-[#2278AC] text-white rounded-xl py-2 px-5 hidden lg:block'>Retour</button>
