@@ -101,7 +101,7 @@ const Favoris = () => {
           favorites.map((item) => (
             <div
               key={item.id}
-              className="relative bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 w-[18%] flex-shrink-0"
+              className="relative bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 w-full md:w-[25%] lg:w-[18%] flex-shrink-0"
             >
               {/* Bouton supprimer en haut à droite */}
               <button
@@ -113,12 +113,14 @@ const Favoris = () => {
               </button>
 
               {/* Image cliquable */}
-              <img
-                src={item.image}
-                alt={item.name}
-                className="h-48 w-full object-cover mb-4 rounded-lg cursor-pointer"
-                onClick={() => handleDivClick(item.id)}
-              />
+              <div className="flex items-start gap-2 lg:gap-5">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="h-48 w-full md:w-auto object-cover mb-4 rounded-lg cursor-pointer"
+                  onClick={() => handleDivClick(item.id)}
+                />
+              </div>
 
               {/* Nom du concours */}
               <div className="text-center">

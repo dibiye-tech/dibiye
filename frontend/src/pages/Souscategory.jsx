@@ -188,11 +188,11 @@ const Souscategory = () => {
             {/* Liste des documents */}
             <Box className='container mx-auto px-5 pb-52'>
                 {souscategoryDocuments?.length > 0 ? (
-                    <SimpleGrid columns={{ base: 2, sm:3, md: 4, xl: 6 }} spacing={5}>
+                    <SimpleGrid columns={{ base: 1, sm:2, md: 3, xl: 5 }} spacing={5}>
                         {souscategoryDocuments?.map((data) => (
                             <Box key={data.id} className='rounded-md shadow-lg p-2 lg:pl-10 text-sm md:text-md lg:text-lg xl:text-xl'>
                                 <a href={`/book/${data.id}`} className='flex flex-col items-start gap-2'>
-                                    <Image src={data.image || '/path/to/default/image.jpg'} alt={data.title || 'Couverture du document'} boxSize="160px" objectFit="cover" />
+                                    <Image src={data.image || '/path/to/default/image.jpg'} alt={data.title || 'Couverture du document'} boxSize="200px" objectFit="cover" />
                                     <Text mt={2} fontWeight="bold" width="160px" py={1}>{data.title || 'Titre non disponible'}</Text>
                                     <Text color="blue.600" fontWeight="semibold">{data.auteur || 'Auteur inconnu'}</Text>
                                 </a>

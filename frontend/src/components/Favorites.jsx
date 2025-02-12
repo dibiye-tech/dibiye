@@ -134,17 +134,17 @@ const Favorites = () => {
         {favorites.length === 0 ? (
           <p>Aucun livre ajouté aux favoris.</p>
         ) : (
-          <div className="flex flex-row items-center justify-start gap-3 md:gap-7 lg:gap-20 flex-wrap">
+          <div className="flex flex-wrap justify-start gap-4">
             {favorites.map((book) => (
               <div
                 key={book.document_details.id}
-                className="relative flex flex-col items-start"
+                className="relative bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 w-full md:w-[25%] lg:w-[18%] flex-shrink-0"
               >
                 {/* Bouton supprimer en haut à droite */}
                 <button
-                  onClick={() => confirmDeletion(book.document_details.id)}
+                  onClick={() => confirmDeletion(item.id)}
                   className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-                  aria-label={`Retirer ${book.document_details.title} des favoris`}
+                  aria-label={`Retirer ${book.name} des favoris`}
                 >
                   <IoMdCloseCircleOutline size={24} />
                 </button>
@@ -157,11 +157,11 @@ const Favorites = () => {
                     <img
                       src={`${baseUrl}${book.document_details.image}`}
                       alt={book.document_details.title}
-                      className="w-[120px] md:w-[150px] h-[150px] md:h-[180px] mb-2"
+                      className="h-48 w-full object-cover mb-4 rounded-lg cursor-pointer"
                     />
                   </div>
                 </Link>
-                <h3 className="text-sm md:text-md lg:text-lg xl:text-xl mb-2 w-[120px] md:w-[200px]">
+                <h3 className="text-sm md:text-md lg:text-lg xl:text-xl mb-2 w-[120px] md:w-[200px] font-bold text-gray-800 text-center">
                   {book.document_details.title}
                 </h3>
               </div>

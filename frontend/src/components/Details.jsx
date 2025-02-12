@@ -194,7 +194,7 @@ const Details = () => {
                             onClick={async () => {
                                 handleDocumentClick(id);
                             }}
-                            className='text-white mr-0 md:mr-10 text-md md:text-lg lg:text-xl pt-10 md:pt-0 bg-[#DE290C] rounded-lg py-2 px-4'
+                            className='text-white mr-0 md:mr-10 text-md md:text-lg lg:text-xl mt-10 md:mt-0 bg-[#DE290C] rounded-lg py-2 px-4'
                         >
                             Continuez...
                         </button>
@@ -278,14 +278,14 @@ const Details = () => {
                             </div> */}
                     </div>
                     <div className='pb-20'>
-                        <div className='flex flex-row flex-wrap justify-between md:justify-start items-start gap-2 md:gap-10 md:items-center'>
+                        <div className='flex flex-row flex-wrap justify-center md:justify-start items-start gap-5 md:gap-10 md:items-center pb-20 md:pb-auto'>
                             {categoryDocuments.length > 0 ? categoryDocuments.map(({ id, image, title, auteur }) => (
                                 <a href={`/book/${id}`} key={id}>
                                     <div className='flex flex-col gap-5 w-[140px] md:w-[200px]'>
                                         <div>
-                                            <img src={image || '/path/to/default/image.jpg'} alt={title || 'Document cover'} className='w-auto h-[250px] rounded-lg' />
+                                            <img src={image || '/path/to/default/image.jpg'} alt={title || 'Document cover'} className='w-auto h-[200px] md:h-[250px] rounded-lg' />
                                         </div>
-                                        <div className='line-clamp-1 text-sm md:text-md lg:text-lg xl:text-xl'>
+                                        <div className='md:line-clamp-1 text-sm md:text-md lg:text-lg xl:text-xl'>
                                             {title || 'Titre non disponible'}
                                         </div>
                                         <div className='text-[#096197] font-semibold text-sm md:text-md lg:text-lg xl:text-xl'>

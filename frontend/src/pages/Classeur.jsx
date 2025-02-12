@@ -10,6 +10,7 @@ import Profile1 from '../components/Profile1';
 import Favorites from '../components/Favorites';
 import MonClasseur from '../components/Classeur';
 import Historique from '../components/Historique';
+import Profile from "./Profile";
 
 const Classeur = () => {
     const [activeTab, setActiveTab] = useState(() => {
@@ -121,19 +122,19 @@ const Classeur = () => {
 
     return (
         <>
-        <div className='flex flex-col md:flex-row justify-start gap-2 text-md md:text-lg lg:text-xl'>
-            <Banner1 activeTab={activeTab} setActiveTab={setActiveTab} />
-            <Box className='container mx-auto pt-10 pb-52 lg:pb-60 md:w-2/3 px-2 md:px-0 mt-0 md:mt-10'>
+        <div className='flex flex-col md:flex-row justify-start gap-2 text-md md:text-lg lg:text-xl pb-32'>
+            <Box className='container mx-auto pt-10 pb-52 lg:pb-60 mt-0 md:mt-10 px-10 md:px-5'>
                 {activeTab === 'classeur' && (
                     <>
                         <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
                             <Text className='text-md md:text-lg lg:text-2xl' fontWeight="bold" color="red.500">{classeurName} :</Text>
-                            <Button 
-                                onClick={handleDeleteAllClasseurBook}
-                                colorScheme="red" 
-                                leftIcon={<FaTrashAlt />}>
-                                Tout supprimer
-                            </Button>
+                            <button
+                                onClick={() => handleDeleteAllClasseurBook()}
+                                className="text-red-500 hover:text-red-700 flex gap-2 items-center text-sm md:text-md lg:text-lg xl:text-xl"
+                            >
+                                <span>Tout supprimer</span>
+                                <FaTrashAlt />
+                            </button>
                         </Box>
                         {documents.length === 0 ? (
                             <div>
@@ -153,7 +154,7 @@ const Classeur = () => {
                                                 <img src={`http://localhost:8000${doc.image}`} alt={doc.title} style={{ borderRadius: '8px', maxHeight: '150px', objectFit: 'cover' }} className='w-[250px] h-[300px]' />
                                             </a>
                                             <Text fontWeight="bold" py={2}>
-                                                <a href={`/bibliotheque/enseignements/livre/${doc.id}`}>{doc.title}</a>
+                                                <a href={`/bibliotheque/enseignements/livre/${doc.id}`} className='line-clamp-1'>{doc.title}</a>
                                             </Text>
                                             <Text color="blue.600" fontWeight="semibold" py={1}>
                                                 <a href={`/bibliotheque/enseignements/livre/${doc.id}`}>{doc.auteur}</a>
