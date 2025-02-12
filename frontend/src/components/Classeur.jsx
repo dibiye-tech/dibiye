@@ -61,6 +61,7 @@ const Classeur = () => {
     try {
       await addClasseur(classeurData);
       setName('');
+      window.location.reload()
       toast({
         title: "Succès",
         description: "Classeur créé avec succès !",
@@ -84,8 +85,8 @@ const Classeur = () => {
 
   return (
     <Box className='mt-0 md:mt-20' p={2}>
-      <Box display="flex" alignItems="center" justifyContent="space-between" mb={8} className='container mx-auto px-510 md:px-0'>
-        <Text className='text-lg md:text-xl' fontWeight="bold" color="red.500">
+      <Box display="flex" alignItems="center" justifyContent="space-between" mb={8} className='container mx-auto px-10 md:px-5'>
+        <Text className='text-sm md:text-md lg:text-lg xl:text-xl' fontWeight="bold" color="red.500">
           {classeur.length <= 1 ? "Mon classeur" : "Mes classeurs"}
         </Text>
         <Button onClick={onOpen} className='bg-[#096197]' leftIcon={<IoIosAddCircle />}>
@@ -116,9 +117,9 @@ const Classeur = () => {
       </Modal>
 
       {classeur.length === 0 ? (
-        <Text className='container mx-auto px-10 md:px-0'>Aucun classeur ajouté.</Text>
+        <Text className='container mx-auto px-10 md:px-5'>Aucun classeur ajouté.</Text>
       ) : (
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }} spacing={5} mt={4} className='container mx-auto px-5 md:px-10 '>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }} spacing={5} mt={4} className='container mx-auto px-10 md:px-5'>
           {classeur.map((data) => (
             <Box key={data.id} position="relative" borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} boxShadow="md" bg="gray.100" textAlign="center" className='container mx-auto px-5 md:px-10'>
               <a href={`/classeur/${data.id}`}>

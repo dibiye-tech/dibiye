@@ -210,7 +210,7 @@ const HobbiesMain = () => {
     <div>
         <div className='container mx-auto px-5 py-20 text-sm md:text-md lg:text-lg'>
             <div className='text-sm md:text-md lg:text-lg'>
-                <h2 className='text-center text-[#DE290C] font-bold'><a href="/">Bibliothèque</a> &gt;&gt; Loisirs</h2>
+                <h2 className='text-center text-[#DE290C] font-bold'><a href="/bibliotheque">Bibliothèque</a> &gt;&gt; Loisirs</h2>
                 <hr className='bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10'/>
                 <p className='text-sm lg:text-lg'>
                   <img src={quotes} alt="" />
@@ -240,22 +240,27 @@ const HobbiesMain = () => {
                                                     <img src={image} alt={title} className='w-[150px] md:w-[200px] h-[200px] md:h-[250px]' />
                                                 </div>
                                             </Link>
-                                            <div className='flex flex-col justify-between items-center md:items-start md:w-[200px] pt-1 gap-2'>
+                                            <div className='flex justify-between md:w-[200px] pt-1 gap-2 py-3'>
                                                 <div className=''>
-                                                    <Link to={`/book/${id}`} key={id}>
-                                                        <p className='line-clamp-1 hover:w-[300px] hover:line-clamp-2'>{title}</p>
+                                                    <Link to={`/book/${id}`} key={id} className="relative">
+                                                        <div className="mb-10 absolute right-[-20px] md:left-[-30px] top-[-50px] w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity md:line-clamp-none text-sm md:text-md lg:text-lg xl:text-xl">
+                                                            <p className=''>{title}</p>
+                                                        </div>
+                                                        <p className='line-clamp-1 hover:w-[100px]'>
+                                                            {title}
+                                                        </p>
                                                     </Link>
                                                 </div>
-                                                <div className='flex pr-10 md:pr-0 gap-3 lg:gap-5 pb-5 md:pb-0 text-red-500 pt-2'>
-                                                    <div className='bg-white rounded-full shadow-md p-1 md:p-2 cursor-pointer' onClick={async () => {
-                                                            handleFavoriteClick(id);
-                                                    }}>
-                                                        {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[20px] h-auto md:h-[20px]' /> : <FaRegHeart className='w-auto md:w-[20px] h-auto md:h-[20px]' />}
-                                                    </div>
+                                                <div className='flex justify-end items-end pr-2 md:pr-0 gap-3 lg:gap-5 text-red-500 pt-2'>
                                                     <div>
-                                                        <div className='bg-white rounded-full shadow-md p-1 md:p-2 cursor-pointer' onClick={openAddToClasseurModal}>
+                                                        <div className='cursor-pointer' onClick={openAddToClasseurModal}>
                                                             <IoFileTrayStacked className='w-auto md:w-[20px] h-auto md:h-[20px]'/>
                                                         </div>
+                                                    </div>
+                                                    <div className='cursor-pointer' onClick={async () => {
+                                                        handleFavoriteClick(id);
+                                                    }}>
+                                                        {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[20px] h-auto md:h-[20px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[20px] h-auto md:h-[20px]' />}
                                                     </div>
                                                 </div>
                                             </div>

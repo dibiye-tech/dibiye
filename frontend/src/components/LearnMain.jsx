@@ -214,7 +214,7 @@ const LearnMain = () => {
         <div className='container mx-auto px-10 md:px-5 lg:px-20'>
             <div className='container mx-auto px-5 py-20 text-sm md:text-md lg:text-lg xl:text-xl'>
                 <div className='text-sm md:text-md lg:text-lg xl:text-xl'>
-                    <h2 className='text-center text-[#DE290C] font-bold text-md md:text-lg lg:text-xl xl:text-2xl'><a href="/">Bibliothèque</a> &gt;&gt; Enseignements</h2>
+                    <h2 className='text-center text-[#DE290C] font-bold text-md md:text-lg lg:text-xl xl:text-2xl'><a href="/biblioth">Bibliothèque</a> &gt;&gt; Enseignements</h2>
                     <hr className='bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10' />
                     <p className='text-sm lg:text-lg'>
                         <img src={quotes} alt="" />
@@ -238,19 +238,19 @@ const LearnMain = () => {
                             <Slider {...settings}>
                                 {section.data.map(({ id, image, title, auteur }) => (
                                     <div className='my-2 md:my-5 px-2'>
-                                        <div className='flex flex-col justify-center items-center md:items-start gap-4 h-auto w-[70%] md:w-[73%] lg:w-[220px] p-2 md:pr-0 ml-[15%] lg:ml-[17%] border-lg shadow-lg rounded-xl'>
+                                        <div className='flex flex-col justify-center items-center md:items-start gap-4 h-auto w-[70%] md:w-[73%] lg:w-[220px] p-2 md:pr-0 ml-[15%] lg:ml-[17%] border-lg shadow-lg rounded-xl md:h-[350px]'>
                                             <Link to={`/book/${id}`} key={id}>
                                                 <div>
                                                     <img src={image} alt={title} className='w-[150px] md:w-[200px] h-[120px] md:h-[230px] rounded-lg' />
                                                 </div>
                                             </Link>
-                                            <div className='flex justify-between md:w-[200px] pt-1 gap-2 py-3'>
+                                            <div className='flex justify-between items-center md:w-[200px] pt-1 gap-2 py-3'>
                                                 <div className=''>
                                                 <Link to={`/book/${id}`} key={id} className="relative">
                                                     <div className="mb-10 absolute right-[-20px] md:left-[-30px] top-[-50px] w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity md:line-clamp-none text-sm md:text-md lg:text-lg xl:text-xl">
                                                         <p className=''>{title}</p>
                                                     </div>
-                                                    <p className='line-clamp-1 hover:w-[100px]'>
+                                                    <p className='line-clamp-2'>
                                                         {title}
                                                     </p>
                                                 </Link>
