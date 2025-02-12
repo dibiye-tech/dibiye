@@ -277,140 +277,139 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
 
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {subcategories.length > 0 ? (
-          subcategories.map((subcategory) => (
-            <div
-              key={subcategory.id}
-              id={`subcategory-${subcategory.id}`}
-              className="mb-10"
-            >
-              <div className="flex flex-row justify-between items-start gap-4">
-                <h2 className="text-md md:text-lg lg:text-xl font-bold text-secondary capitalize underline text-red-500 cursor-pointer "  
-                 onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}>
-                  {subcategory.name }
-                  
-                </h2>
-                <button
-                  className="rounded-xl bg-[#2278AC] text-white py-2 px-4 hover:bg-[#096197] focus:outline-none flex-shrink-0"
-                  onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}
-                >
-                  Voir plus &gt;&gt;
-                </button>
-
-              </div>
-              <Slider {...settings} className="mt-5">
-                {subcategory.concours_set?.map((concours) => {
-                  const isFavorite =
-                    isUserAuthenticated &&
-                    favorites.some((fav) => fav.id === concours.id);
-
-                  const concoursDate = concours.concours_date
-                    ? new Date(concours.concours_date)
-                    : null;
-                  const today = new Date();
-
-                  let status = "";
-                  if (concoursDate && concoursDate > today) {
-                    status = "En attente";
-                  } else if (concoursDate && concoursDate < today) {
-                    status = "Expiré";
-                  } else {
-                    status = "En cours";
-                  }
-
-                  return (
-                    <div
-                      key={concours.id}
-                      className="p-4"
-                      onClick={() => updateHistory(concours)}
-                    >
-                      <div className="bg-white border rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between h-full">
-                        <Link to={`/presentationpage/${concours.id}`}>
-                          <img
-                            src={concours.image}
-                            alt={concours.name}
-                            className="w-full h-48 object-cover"
-                          />
-                        </Link>
-                        <Link
-  to={`/presentationpage/${concours.id}`}
-  className="p-4 flex flex-col justify-between flex-grow cursor-pointer"
->
-  <div className="flex items-center justify-between mb-2">
-    <p
-      className="text-lg font-semibold text-primary flex-grow mr-2"
-      style={{
-        display: "-webkit-box",
-        WebkitBoxOrient: "vertical",
-        WebkitLineClamp: 1,
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-      }}
+{subcategories.length > 0 ? (
+  subcategories.map((subcategory) => (
+    <div
+      key={subcategory.id}
+      id={`subcategory-${subcategory.id}`}
+      className="mb-10"
     >
-      {concours.name}
-    </p>
-    <span
-      className="text-lg flex-shrink-0"
-      title={status}
-      style={{ cursor: "pointer", marginLeft: "8px" }}
-    >
-      {status === "En attente" && "✅"}
-      {status === "Expiré" && "🔴"}
-      {status === "En cours" && "🟡"}
-    </span>
-    {isUserAuthenticated ? (
-      isFavorite ? (
-        <FaHeart
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleFavorite(concours);
-          }}
-          className="cursor-pointer text-red-600 flex-shrink-0 ml-2"
-          size={20}
-        />
-      ) : (
-        <FaRegHeart
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleFavorite(concours);
-          }}
-          className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
-          size={20}
-        />
-      )
-    ) : (
-      <FaRegHeart
-        onClick={(e) => {
-          e.stopPropagation();
-          toast.error(
-            "Connectez-vous pour ajouter en favoris !",
-            {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
+      <div className="flex flex-row justify-between items-start gap-4">
+        <h2 className="text-md md:text-lg lg:text-xl font-bold text-secondary capitalize underline text-red-500 cursor-pointer "  
+         onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}>
+          {subcategory.name }
+        </h2>
+        <button
+          className="rounded-xl bg-[#2278AC] text-white py-2 px-4 hover:bg-[#096197] focus:outline-none flex-shrink-0"
+          onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}
+        >
+          Voir plus &gt;&gt;
+        </button>
+      </div>
+      {subcategory.concours_set && subcategory.concours_set.length > 0 ? (
+        <Slider {...settings} className="mt-5">
+          {subcategory.concours_set.map((concours) => {
+            const isFavorite =
+              isUserAuthenticated &&
+              favorites.some((fav) => fav.id === concours.id);
+
+            const concoursDate = concours.concours_date
+              ? new Date(concours.concours_date)
+              : null;
+            const today = new Date();
+
+            let status = "";
+            if (concoursDate && concoursDate > today) {
+              status = "En attente";
+            } else if (concoursDate && concoursDate < today) {
+              status = "Expiré";
+            } else {
+              status = "En cours";
             }
-          );
-        }}
-        className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
-        size={20}
-      />
-    )}
-  </div>
-</Link>
 
-                      </div>
+            return (
+              <div
+                key={concours.id}
+                className="p-4"
+                onClick={() => updateHistory(concours)}
+              >
+                <div className="bg-white border rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between h-full">
+                  <Link to={`/presentationpage/${concours.id}`}>
+                    <img
+                      src={concours.image}
+                      alt={concours.name }
+                      className="w-full h-48 object-cover"
+                    />
+                  </Link>
+                  <Link className="p-4 flex flex-col justify-between flex-grow cursor-pointer">
+                    <div className="flex items-center justify-between mb-2">
+                      <p
+                        className="text-lg font-semibold text-primary flex-grow mr-2"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 1,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {concours.name}
+                      </p>
+                      <span
+                        className="text-lg flex-shrink-0"
+                        title={status}
+                        style={{ cursor: "pointer", marginLeft: "8px" }}
+                      >
+                        {status === "En attente" && "✅"}
+                        {status === "Expiré" && "🔴"}
+                        {status === "En cours" && "🟡"}
+                      </span>
+                      {isUserAuthenticated ? (
+                        isFavorite ? (
+                          <FaHeart
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(concours);
+                            }}
+                            className="cursor-pointer text-red-600 flex-shrink-0 ml-2"
+                            size={20}
+                          />
+                        ) : (
+                          <FaRegHeart
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(concours);
+                            }}
+                            className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
+                            size={20}
+                          />
+                        )
+                      ) : (
+                        <FaRegHeart
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toast.error(
+                              "Connectez-vous pour ajouter en favoris !",
+                              {
+                                position: "top-right",
+                                autoClose: 3000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                              }
+                            );
+                          }}
+                          className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
+                          size={20}
+                        />
+                      )}
                     </div>
-                  );
-                })}
-              </Slider>
-            </div>
-          ))
-        ) : (
-          <p>Aucune sous-catégorie disponible pour cette catégorie.</p>
-        )}
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </Slider>
+      ) : (
+        <p className="text-center text-gray-500 mt-4">Aucun concours disponible pour cette sous-catégorie.</p>
+      )}
+    </div>
+  ))
+) : (
+  <p className="text-center text-gray-500 mt-4">Les éléments pour cette catégorie ne sont pas encore disponibles.</p>
+)}
+
       </div>
     );
   }
