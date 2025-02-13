@@ -167,9 +167,10 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
                           />
                         </div>
                         <div className="w-full md:w-3/4 p-2 flex flex-col gap-2 justify-between text-sm md:text-md lg:text-lg xl:text-xl">
-                          <h5 className="text-lg font-bold text-primary">{concours.name}</h5>
+                          <h5 className="text-lg font-bold text-primary">{concours.name}
+                          </h5>
                           <p className="text-gray-700 text-justify">{concours.description}</p>
-                          <p className="bg-blue-100 text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
+                          <p className="bg-blue-100 w-[230px] text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
                             🗓 <span className="ml-2">Date: {concours.concours_date}</span>
                           </p>
 

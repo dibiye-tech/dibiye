@@ -137,9 +137,9 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                             <div onClick={() => setNav(!nav)} className='lg:hidden'>
                                         {
                                             nav ?
-                                            <MdClose className='text-[#2278AC] w-[26px] h-[29.58px] lg:hidden'/>
+                                            <MdClose className='text-[#2278AC] font-bold w-[26px] h-[29.58px] lg:hidden'/>
                                             : 
-                                            <FiMenu className='text-[#2278AC] w-[26px] h-[29.58px] lg:hidden'/>
+                                            <FiMenu className='text-[#2278AC] font-bold w-[26px] h-[29.58px] lg:hidden'/>
                                         }
                             </div>
                         </div>
@@ -174,7 +174,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                                         DropdownLinks.map((data) => (
                                                             <div key={data.id} className='flex flex-col items-start justify-between gap-5'>
                                                                 <div>
-                                                                    <p className='text-[#2278AC]'>{data.title}</p>
+                                                                    <p className='text-[#2278AC] font-bold'>{data.title}</p>
                                                                 </div>
                                                                 <div>
                                                                     <li className='flex flex-col items-start gap-2'>
@@ -226,7 +226,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                 <li key={sub.id}>
                                     <Link
                                         to={sub.link}
-                                        className="hover:text-[#DE290C] text-sm md:text-base"
+                                        className="hover:text-[#DE290C]"
                                     >
                                         {sub.name}
                                     </Link>

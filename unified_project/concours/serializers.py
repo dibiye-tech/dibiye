@@ -123,9 +123,10 @@ class ConcoursDocumentSerializer(serializers.ModelSerializer):
         read_only=True
     )
 
-class Meta:
+    class Meta:
         model = ConcoursDocument
         fields = ['id', 'title', 'document', 'thumbnail', 'uploaded_at', 'concours', 'cycle']
+
 
 
 
