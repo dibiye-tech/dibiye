@@ -119,8 +119,6 @@ const CardsUni = () => {
     </div>
   );
 };
-
+ 
 export default CardsUni;
-
-
 
