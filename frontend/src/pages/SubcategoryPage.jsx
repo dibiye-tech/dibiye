@@ -244,7 +244,7 @@ const toggleFavorite = (concours) => {
                         <div className="w-full md:w-3/4 p-2 flex flex-col gap-2 justify-between text-sm md:text-md lg:text-lg xl:text-xl">
                           <h5 className="text-lg font-bold text-primary flex items-center gap-2">
                             {concours.name}
-                            <button
+                            {/* <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 isUserAuthenticated
@@ -261,7 +261,7 @@ const toggleFavorite = (concours) => {
                               ) : (
                                 <FaRegHeart className="text-gray-400" size={20} />
                               )}
-                            </button>
+                            </button> */}
 
                           </h5>
                           <p className="text-gray-700 text-justify">{concours.description}</p>
