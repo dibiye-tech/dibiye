@@ -493,3 +493,6 @@ class TestAPIViews(APITestCase):
         self.assertIn('books', response.data)
         self.assertIn('categories', response.data)
         self.assertIn('sous_categories', response.data)
+
+
+# INTEGRATION TESTS
