@@ -55,6 +55,9 @@ const SliderHome = () => {
                 width: '100%',
               }}
             >
+              {/* Overlay pour l'effet d'opacité */}
+             <div className="absolute top-0 left-0 w-full h-full bg-blue-900 bg-opacity-20"></div>
+
               <h1 className='text-xl md:text-3xl text-center font-extrabold leading-8 tracking-wide capitalize text-white italic pt-3 max-w-3xl'>
                 {slide.title}
               </h1>

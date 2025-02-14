@@ -119,12 +119,6 @@ const CardsUni = () => {
     </div>
   );
 };
-<<<<<<< HEAD
  
 export default CardsUni;
-=======
 
-export default CardsUni;
-
-
->>>>>>> c6fd98fe8abc89e78545a6b3b5e685d975a94ab6
