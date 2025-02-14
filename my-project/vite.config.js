@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     fs: {
       allow: [
-        'C:/Users/Guest/InfoConcour (2)/InfoConcour/my-project',
+        'C:/Users/Guest/InfoConcour/InfoConcour/my-project',
       ]
     }
   }
