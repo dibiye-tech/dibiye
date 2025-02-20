@@ -4,6 +4,25 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react'; // Icônes modernes
+
+const SmallPrevArrow = ({ onClick }) => (
+    <div 
+        className="absolute left-[-15px] top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md border rounded-full p-1 cursor-pointer hover:bg-gray-100 md:hidden"
+        onClick={onClick}
+    >
+        <ChevronLeft size={18} className="text-gray-600"/>
+    </div>
+);
+
+const SmallNextArrow = ({ onClick }) => (
+    <div 
+        className="absolute right-[-15px] top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md border rounded-full p-1 cursor-pointer hover:bg-gray-100 md:hidden"
+        onClick={onClick}
+    >
+        <ChevronRight size={18} className="text-gray-600"/>
+    </div>
+);
 
 const Tendance = () => {
     const [concours, setConcours] = useState([]);
@@ -33,35 +52,26 @@ const Tendance = () => {
     if (error) return <p>Erreur : {error.message}</p>;
 
     const settings = {
-        dots: true,
+        dots: true, // Les dots sont activés par défaut (pour grand écran)
         infinite: concours.length > 3,
-        speed: 800,
+        speed: 500,
         slidesToShow: 3,
         slidesToScroll: 3,
         autoplay: concours.length > 3,
         autoplaySpeed: 4000,
         cssEase: "ease-in-out",
-        centerMode: false,
         pauseOnHover: true,
-        arrows: false, // Désactive les flèches de navigation
-        appendDots: dots => (
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-                <ul className="flex justify-center">{dots}</ul>
-            </div>
-        ),
+        arrows: false, // Désactiver les flèches sur grand écran
         responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                }
-            },
             {
                 breakpoint: 1024,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
+                    dots: false, // ❌ Désactiver les dots sur écrans moyens
+                    arrows: true, // ✅ Activer les flèches sur écrans moyens
+                    prevArrow: <SmallPrevArrow />,
+                    nextArrow: <SmallNextArrow />,
                 }
             },
             {
@@ -69,7 +79,10 @@ const Tendance = () => {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    dots: true,
+                    dots: false, // ❌ Désactiver les dots sur mobile
+                    arrows: true, // ✅ Activer les flèches sur mobile
+                    prevArrow: <SmallPrevArrow />,
+                    nextArrow: <SmallNextArrow />,
                 }
             }
         ]

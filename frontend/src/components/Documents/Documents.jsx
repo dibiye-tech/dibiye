@@ -122,7 +122,7 @@ const Documents = ({ concoursId }) => {
                   <h2 className="text-primary font-bold text-md md:text-lg lg:text-xl xl:text-2xl pb-5">
                     {doc.cycle.name}
                   </h2>
-                  <p className="text-sm md:text-md lg:text-lg xl:text-xl pb-5 ">{doc.cycle.description}</p>
+                  <p className="text-sm md:text-md lg:text-lg xl:text-xl pb-5 text-justify ">{doc.cycle.description}</p>
                 </>
               ) : (
                 <>
@@ -131,13 +131,13 @@ const Documents = ({ concoursId }) => {
                       <h2 className="text-primary font-bold text-2xl pb-5">
                         Objectif du Concours de la Fonction Professionnelles
                       </h2>
-                      <p className="text-xl pb-5">{currentConcours.category_description_plus}</p>
+                      <p className="text-xl pb-5 text-justify">{currentConcours.category_description_plus}</p>
                     </>
                   )}
                   <h2 className="text-primary font-bold text-2xl pb-5">
                     Informations du Concours
                   </h2>
-                  <p className="text-xl pb-5 ">{currentConcours.concours_description}</p>
+                  <p className="text-xl pb-5 text-justify">{currentConcours.concours_description}</p>
                 </>
               )}
 
