@@ -323,80 +323,72 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
                 className="p-4"
                 onClick={() => updateHistory(concours)}
               >
-                <div className="bg-white border rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between h-full">
-                  <Link to={`/presentationpage/${concours.id}`}>
-                    <img
-                      src={concours.image}
-                      alt={concours.name }
-                      className="w-full h-48 object-cover"
-                    />
-                  </Link>
-                  <Link className="p-4 flex flex-col justify-between flex-grow cursor-pointer">
-                    <div className="flex items-center justify-between mb-2">
-                      <p
-                        className="text-lg font-semibold text-primary flex-grow mr-2"
-                        style={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {concours.name}
-                      </p>
-                      <span
-                        className="text-lg flex-shrink-0"
-                        title={status}
-                        style={{ cursor: "pointer", marginLeft: "8px" }}
-                      >
-                        {status === "En attente" && "✅"}
-                        {status === "Expiré" && "🔴"}
-                        {status === "En cours" && "🟡"}
-                      </span>
-                      {isUserAuthenticated ? (
-                        isFavorite ? (
-                          <FaHeart
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleFavorite(concours);
+                 <div className="bg-white border rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between h-full">
+                    <Link to={`/presentationpage/${concours.id}`}>
+                      <img src={concours.image} alt={concours.name} className="w-full h-48 object-cover" />
+                    </Link>
+
+                    <div className="p-4 flex flex-col justify-between flex-grow cursor-pointer">
+                      <div className="flex items-center justify-between mb-2">
+                        <Link to={`/presentationpage/${concours.id}`} className="flex-grow">
+                          <p
+                            className="text-lg font-semibold text-primary"
+                            style={{
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 1,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
                             }}
-                            className="cursor-pointer text-red-600 flex-shrink-0 ml-2"
-                            size={20}
-                          />
+                          >
+                            {concours.name}
+                          </p>
+                        </Link>
+
+                        <span className="text-lg flex-shrink-0 ml-2" title={status}>
+                          {status === "En attente" && "✅"}
+                          {status === "Expiré" && "🔴"}
+                          {status === "En cours" && "🟡"}
+                        </span>
+
+                        {isUserAuthenticated ? (
+                          isFavorite ? (
+                            <FaHeart
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                toggleFavorite(concours);
+                              }}
+                              className="cursor-pointer text-red-600 flex-shrink-0 ml-2"
+                              size={20}
+                            />
+                          ) : (
+                            <FaRegHeart
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                toggleFavorite(concours);
+                              }}
+                              className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
+                              size={20}
+                            />
+                          )
                         ) : (
                           <FaRegHeart
                             onClick={(e) => {
                               e.stopPropagation();
-                              toggleFavorite(concours);
+                              toast.error("Connectez-vous pour ajouter en favoris !", {
+                                position: "top-right",
+                                autoClose: 3000,
+                              });
                             }}
                             className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
                             size={20}
                           />
-                        )
-                      ) : (
-                        <FaRegHeart
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toast.error(
-                              "Connectez-vous pour ajouter en favoris !",
-                              {
-                                position: "top-right",
-                                autoClose: 3000,
-                                hideProgressBar: true,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                              }
-                            );
-                          }}
-                          className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
-                          size={20}
-                        />
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </Link>
-                </div>
+                  </div>
               </div>
             );
           })}
