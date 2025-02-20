@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import {
-  useToast,
   Button,
   Modal,
   ModalOverlay,
@@ -14,12 +13,13 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Favoris = () => {
   const [favorites, setFavorites] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null); // Stocke l'élément sélectionné pour suppression
   const navigate = useNavigate();
-  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure(); // Gère le modal
 
   useEffect(() => {
@@ -43,14 +43,13 @@ const Favoris = () => {
         JSON.stringify(updatedFavorites)
       );
     }
-    toast({
-      title: "Concours supprimé",
-      description: "Le concours a été retiré des favoris.",
-      status: "info",
-      duration: 5000,
-      isClosable: true,
-      position: "top-right",
-    });
+    toast.info(
+                    "Concours retiré des favoris.",
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                    }
+                  );
     onClose(); // Ferme le modal après suppression
   };
 
@@ -60,14 +59,13 @@ const Favoris = () => {
     if (savedUser && savedUser.id) {
       localStorage.removeItem(`favorites_user_${savedUser.id}`);
     }
-    toast({
-      title: "Tous les favoris supprimés",
-      description: "Tous les concours ont été retirés des favoris.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "top-right",
-    });
+    toast.success(
+                    "Tous les concours ont été retiré des favoris.",
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                    }
+                  );
     onClose(); // Ferme le modal après suppression
   };
 
@@ -101,12 +99,12 @@ const Favoris = () => {
           favorites.map((item) => (
             <div
               key={item.id}
-              className="relative bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 w-full md:w-[25%] lg:w-[18%] flex-shrink-0"
+              className="relative bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 w-full md:w-[35%] lg:w-[20%] xl:w-[18%] flex-shrink-0"
             >
               {/* Bouton supprimer en haut à droite */}
               <button
                 onClick={() => confirmDeletion(item.id)}
-                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                className="absolute top-0 right-0 text-red-500 hover:text-red-700"
                 aria-label={`Retirer ${item.name} des favoris`}
               >
                 <IoMdCloseCircleOutline size={24} />
@@ -117,14 +115,14 @@ const Favoris = () => {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="h-48 w-full md:w-auto object-cover mb-4 rounded-lg cursor-pointer"
+                  className="h-48 w-full object-cover mb-4 rounded-lg cursor-pointer"
                   onClick={() => handleDivClick(item.id)}
                 />
               </div>
 
               {/* Nom du concours */}
-              <div className="text-center">
-                <h2 className="text-lg font-bold text-gray-800 mb-2">
+              <div className="text-center md:text-left">
+                <h2 className="text-sm md:text-md lg:text-lg xl:text-xl mb-2 font-bold text-gray-800">
                   {item.name.length > 25
                     ? `${item.name.substring(0, 25)}...`
                     : item.name}

@@ -74,13 +74,11 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                 subtitle1: "Primaire",
                 subtitle2: "Secondaire",
                 subtitle3: "Superieur",
-                link: "/bibliotheque/enseignements#primaire",
+                link: "/bibliotheque/enseignements",
             },{
                 id: 2,
                 title: "Loisirs",
-                subtitle1: "Loisir1",
-                subtitle2: "Loisir2",
-                subtitle3: "Loisir3",
+                subtitle1: "santé",
                 link: "/bibliotheque/loisirs",
             }
         ];
@@ -104,6 +102,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                   return {
                     id: category.id,
                     title: category.name,
+                    lien: "/homeconcours",
                     subcategories: relatedSubcategories.map(sub => ({
                       id: sub.id,
                       name: sub.name,
@@ -172,12 +171,12 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                                 <ul className='flex flex-col md:flex-row gap-5 md:gap-20'>
                                                     {
                                                         DropdownLinks.map((data) => (
-                                                            <div key={data.id} className='flex flex-col items-start justify-between gap-5'>
+                                                            <div key={data.id} className='flex flex-col items-start justify-start gap-5'>
                                                                 <div>
-                                                                    <p className='text-[#2278AC] font-bold'>{data.title}</p>
+                                                                    <a href={data.link}><p className='text-[#2278AC] font-bold'>{data.title}</p></a>
                                                                 </div>
                                                                 <div>
-                                                                    <li className='flex flex-col items-start gap-2'>
+                                                                    <li className='flex flex-col justify-start items-start gap-2'>
                                                                         <a href={data.link} className='hover:text-[#DE290C]'>{data.subtitle1}</a>
                                                                         <a href={data.link} className='hover:text-[#DE290C]'>{data.subtitle2}</a>
                                                                         <a href={data.link} className='hover:text-[#DE290C]'>{data.subtitle3}</a>
@@ -220,7 +219,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                         key={data.id}
                         className="flex flex-col items-start gap-2 min-w-[200px] md:min-w-[250px] h-full"
                     >
-                        <p className="text-[#2278AC] font-bold">{data.title}</p>
+                        <a href={data.lien}><p className="text-[#2278AC] font-bold">{data.title}</p></a>
                         <ul className="mt-2 space-y-2">
                             {data.subcategories.map((sub) => (
                                 <li key={sub.id}>

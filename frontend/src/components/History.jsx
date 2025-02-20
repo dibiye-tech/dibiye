@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useToast } from '@chakra-ui/react';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getHistory, getBookDetails, deleteHistory, deleteAllHistory } from '../hooks/useFetchQuery';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Slider from 'react-slick';
@@ -10,7 +11,6 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 const History = () => {
-    const toast = useToast();
     const [histories, setHistories] = useState([]);
     const baseUrl = "http://localhost:8000";
 
@@ -29,13 +29,9 @@ const History = () => {
                 ];
                 setHistories(combinedHistory);
             } catch (error) {
-                toast({
-                    title: "Information",
-                    description: error.message,
-                    status: "info",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "top",
+                toast.error(error.message, {
+                    position: "top-right",
+                    autoClose: 3000,
                 });
             }
         };
@@ -47,22 +43,14 @@ const History = () => {
         try {
             await deleteHistory(historyId);
             setHistories(prevHistories => prevHistories.filter(history => history && history.document.id !== historyId));
-            toast({
-                title: "Succès",
-                description: "Ce document a été supprimé de l'historique.",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
+            toast.success("Ce document a été supprimé de l'historique!", {
+                position: "top-right",
+                autoClose: 3000,
             });
         } catch (error) {
-            toast({
-                title: "Erreur",
-                description: error.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 3000,
             });
         }
     };
@@ -72,22 +60,14 @@ const History = () => {
             await deleteAllHistory();
             setHistories([]);
             localStorage.removeItem('history'); 
-            toast({
-                title: "Succès",
-                description: "Tout l'historique a été supprimé.",
-                status: "success",
-                duration: 10000,
-                isClosable: true,
-                position: "top",
-            });
+            toast.success("Tout l'historique a été supprimé!", {
+                position: "top-right",
+                autoClose: 3000,
+             });
         } catch (error) {
-            toast({
-                title: "Erreur",
-                description: error.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 3000,
             });
         }
     };
@@ -126,6 +106,7 @@ const History = () => {
 
     return (
         <div className='container mx-auto px-10 md:px-5 lg:px-10 py-10'>
+            <ToastContainer />
             <div>
                 {histories.length > 0 ? (
                     <div className='flex justify-between gap-3 items-center pb-8'>

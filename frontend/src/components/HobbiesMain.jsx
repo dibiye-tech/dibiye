@@ -10,12 +10,13 @@ import { useQuery } from 'react-query';
 import {  FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoFileTrayStacked } from "react-icons/io5";
 import { addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites, getDocumentsBySousCategory } from '../hooks/useFetchQuery';
-import { useToast, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const HobbiesMain = () => {
 
     const [favoriteDocuments, setFavoriteDocuments] = useState({});
-    const toast = useToast();
     const [classeurList, setClasseurList] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState('');
@@ -24,19 +25,15 @@ const HobbiesMain = () => {
     const navigate = useNavigate();
 
     const handleSeeMoreClick = (categoryId) => {
-        if (categoryId) {
-            navigate(`/livres/sous-catégories/${categoryId}`); // Changez cette route selon votre configuration de routes
-        } else {
-            toast({
-                title: "Erreur",
-                description: "Impossible de récupérer l'ID de la sous-catégorie.",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
-        }
-    };
+            if (categoryId) {
+                navigate(`/livres/sous-catégories/${categoryId}`);
+            } else {
+                toast.error("Impossible de récupérer la sous-catégorie !", {
+                    position: "top-right",
+                    autoClose: 3000,
+                  });
+            }
+        };
 
     const openAddToClasseurModal = () => {
         setModalType('addToClasseur');
@@ -49,18 +46,23 @@ const HobbiesMain = () => {
     };
 
     const handleAddToClasseur = async (classeurId, documentId) => {
-        try {
-            await addDocumentToClasseur(classeurId, documentId);
-            toast({ title: "Document ajouté au classeur!", status: "success", duration: 10000,
-                isClosable: true,
-                position: "top", });
-            onClose();
-        } catch (error) {
-            toast({ title: "Erreur", description: error.message, status: "error", duration: 10000,
-                isClosable: true,
-                position: "top", });
-        }
-    };
+            try {
+                await addDocumentToClasseur(classeurId, documentId);
+                toast.success(
+                    "Votre classeur a été ajouté.",
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                    }
+                  );
+                onClose();
+            } catch (error) {
+                toast.error(error.message , {
+                    position: "top-right",
+                    autoClose: 3000,
+                  });
+            }
+        };
     
 
     useEffect(() => {
@@ -73,33 +75,26 @@ const HobbiesMain = () => {
     }, []);
 
     const handleSubmition = async (e) => {
-        e.preventDefault();
-        try {
-            const classeurData = { name };
-            await addClasseur(classeurData);
-            setName(''); // Réinitialiser le nom
-            toast({
-                title: "Mon Classeur",
-                description: "Classeur créé avec succès!",
-                status: "info",
-                duration: 10000,
-                isClosable: true,
-                position: "top",
-            });
-            onClose(); // Fermer le modal après succès
-            // Re-fetch les classeurs ou mettre à jour l'état si nécessaire
-        } catch (error) {
-            console.error("Erreur lors de l'ajout du classeur:", error);
-            toast({
-                title: "Erreur",
-                description: "Erreur lors de la création du classeur. Veuillez vous connectez",
-                status: "error",
-                duration: 10000,
-                isClosable: true,
-                position: "top",
-            });
-        }
-    };
+            e.preventDefault();
+            try {
+                const classeurData = { name };
+                await addClasseur(classeurData);
+                toast.success(
+                    "Votre classeur a été ajouté.",
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                    }
+                  );
+                onClose();
+                window.location.reload();
+            } catch (error) {
+                toast.error(error.message , {
+                    position: "top-right",
+                    autoClose: 3000,
+                  });
+            }
+        };
  
     const checkIfFavorite = async () => {
         try {
@@ -119,42 +114,30 @@ const HobbiesMain = () => {
     }, [id]);
 
     const handleFavoriteClick = async (documentId) => {
-        try {
-            if (favoriteDocuments[documentId]) {
-                await deleteFavorite(documentId);
-                setFavoriteDocuments(prev => ({ ...prev, [documentId]: false }));
-                toast({
-                    title: "Mes favoris",
-                    description: "Document retiré des favoris!",
-                    status: "info",
-                    duration: 10000,
-                    isClosable: true,
-                    position: "top",
-                });
-            } else {
-                await addFavorite(documentId);
-                setFavoriteDocuments(prev => ({ ...prev, [documentId]: true }));
-                toast({
-                    title: "Mes favoris",
-                    description: "Document ajouté en favoris!",
-                    status: "info",
-                    duration: 10000,
-                    isClosable: true,
-                    position: "top",
-                });
+            try {
+                if (favoriteDocuments[documentId]) {
+                    await deleteFavorite(documentId);
+                    setFavoriteDocuments(prev => ({ ...prev, [documentId]: false }));
+                    toast.info("Document retiré des favoris!", {
+                        position: "top-right",
+                        autoClose: 3000,
+                      });
+                } else {
+                    await addFavorite(documentId);
+                    setFavoriteDocuments(prev => ({ ...prev, [documentId]: true }));
+                    toast.info("Document ajouté aux favoris!", {
+                        position: "top-right",
+                        autoClose: 3000,
+                      });
+                }
+                await checkIfFavorite();
+            } catch (error) {
+                toast.error(error.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                  });
             }
-            await checkIfFavorite();
-        } catch (error) {
-            toast({
-                title: "Mes favoris",
-                description: error.message,
-                status: "error",
-                duration: 10000,
-                isClosable: true,
-                position: "top",
-            });
-        }
-    };
+        };
 
   const queries = [
     useQuery(['documents', 4], () => getDocumentsBySousCategory(4)),
@@ -208,7 +191,8 @@ const HobbiesMain = () => {
     
   return (
     <div>
-        <div className='container mx-auto px-5 py-20 text-sm md:text-md lg:text-lg'>
+        <div className='container mx-auto px-5 py-20 text-sm md:text-md lg:text-lg xl:text-xl'>
+            <ToastContainer />
             <div className='text-sm md:text-md lg:text-lg'>
                 <h2 className='text-center text-[#DE290C] font-bold'><a href="/bibliotheque">Bibliothèque</a> &gt;&gt; Loisirs</h2>
                 <hr className='bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10'/>
@@ -216,7 +200,7 @@ const HobbiesMain = () => {
                   <img src={quotes} alt="" />
                     <span className='pl-12'>Nos formations vous donnent accès aux dernières connaissances et pratiques dans votre domaine d'expertise, vous permettant de rester compétitif et performant. Le monde du travail évolue constamment. Nos formations vous donnent les outils nécessaires pour vous adapter aux changements et saisir de nouvelles opportunités. L'apprentissage est un processus continu. Notre offre d'enseignement vous permet de vous former tout au long de votre vie et de rester stimulé intellectuellement.</span>
                     <p className='font-bold pt-3'>Apprenez, évoluez, grandissez : notre offre d'enseignement vous accompagne vers la réussite !</p>
-                  <img src={quotes} alt="" className='ml-[75%] lg:ml-[65%]'/>
+                  <img src={quotes} alt="" className='ml-[65%] lg:ml-[55%]'/>
                 </p>
             </div>
             {[{ title: 'Santé', data: document, id: 4 }].map((section, index) => (
@@ -246,7 +230,7 @@ const HobbiesMain = () => {
                                                         <div className="mb-10 absolute right-[-20px] md:left-[-30px] top-[-50px] w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity md:line-clamp-none text-sm md:text-md lg:text-lg xl:text-xl">
                                                             <p className=''>{title}</p>
                                                         </div>
-                                                        <p className='line-clamp-1 hover:w-[100px]'>
+                                                        <p className='line-clamp-2'>
                                                             {title}
                                                         </p>
                                                     </Link>

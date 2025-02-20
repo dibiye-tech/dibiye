@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import {
-  useToast,
   Button,
   Modal,
   ModalOverlay,
@@ -19,13 +18,14 @@ import {
   deleteFavorite,
   deleteAllFavorites,
 } from "../hooks/useFetchQuery";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null); // Stocke l'élément sélectionné pour suppression
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const baseUrl = "http://localhost:8000";
 
@@ -36,14 +36,13 @@ const Favorites = () => {
         setFavorites(data);
       } catch (err) {
         setError(err.message);
-        toast({
-          title: "Erreur",
-          description: "Impossible de charger les favoris.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "top-right",
-        });
+        toast.error(
+                "Impossible de charger les favoris.",
+                {
+                  position: "top-right",
+                  autoClose: 3000,
+                }
+              );
       } finally {
         setLoading(false);
       }
@@ -56,23 +55,21 @@ const Favorites = () => {
     try {
       await deleteFavorite(id);
       setFavorites(favorites.filter((book) => book.id !== id));
-      toast({
-        title: "Favori supprimé",
-        description: "Le document a été retiré des favoris.",
-        status: "info",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
+      toast.info(
+              "Favoris supprimé",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
     } catch (err) {
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la suppression.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
+      toast.error(
+              "Erreur lors de la supression des favoris",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
     } finally {
       onClose();
     }
@@ -82,23 +79,21 @@ const Favorites = () => {
     try {
       await deleteAllFavorites();
       setFavorites([]);
-      toast({
-        title: "Succès",
-        description: "Tous les favoris ont été supprimés.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
+      toast.success(
+              "Tous les favoris ont été supprimé.",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
     } catch (err) {
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la suppression.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
+      toast.error(
+              "Erreur lors de la supression des favoris",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
     } finally {
       onClose();
     }
@@ -113,7 +108,8 @@ const Favorites = () => {
   if (error) return <p>Erreur: {error}</p>;
 
   return (
-    <div className="container mx-auto px-10 md:px-0 pt-0 lg:pt-20">
+    <div className="container mx-auto px-10 md:px-0 pt-0 md:pt-10 lg:pt-20">
+      <ToastContainer />
       <div className="overflow-hidden">
         <div className="flex justify-between items-center mb-4 md:mb-10 w-full gap-10 md:gap-32 lg:gap-96">
           <h2 className="text-sm md:text-md lg:text-lg xl:text-xl font-bold text-red-500">
@@ -138,12 +134,12 @@ const Favorites = () => {
             {favorites.map((book) => (
               <div
                 key={book.document_details.id}
-                className="relative bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 w-full md:w-[25%] lg:w-[18%] flex-shrink-0"
+                className="relative bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 w-full md:w-[35%] lg:w-[20%] xl:w-[18%] flex-shrink-0"
               >
                 {/* Bouton supprimer en haut à droite */}
                 <button
                   onClick={() => confirmDeletion(item.id)}
-                  className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                  className="absolute top-0 right-0 text-red-500 hover:text-red-700"
                   aria-label={`Retirer ${book.name} des favoris`}
                 >
                   <IoMdCloseCircleOutline size={24} />
@@ -161,7 +157,7 @@ const Favorites = () => {
                     />
                   </div>
                 </Link>
-                <h3 className="text-sm md:text-md lg:text-lg xl:text-xl mb-2 w-[120px] md:w-[200px] font-bold text-gray-800 text-center">
+                <h3 className="text-sm md:text-md lg:text-lg xl:text-xl mb-2 font-bold text-gray-800 text-center md:text-left">
                   {book.document_details.title}
                 </h3>
               </div>

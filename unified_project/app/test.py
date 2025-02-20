@@ -6,6 +6,7 @@ from .models import Book, Category, SousCategory, Comment, Favorite, Classeur, C
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.test import TestCase
+from locust import HttpUser, task, between
 
 
 
@@ -496,3 +497,15 @@ class TestAPIViews(APITestCase):
 
 
 # INTEGRATION TESTS
+
+class APILoadTest(HttpUser):
+    wait_time = between(0.5, 1)  # Temps d'attente entre les requêtes (500ms à 1s)
+
+    @task
+    def test_get_users(self):
+        self.client.get("/api/users/")  # Remplacez par l'URL de votre API
+
+    @task
+    def test_create_user(self):
+        user_data = {"username": "testuser", "password": "password123"}
+        self.client.post("/api/users/", json=user_data)

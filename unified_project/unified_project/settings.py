@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'django_cron',
+    'debug_toolbar',
 ]
 
 REST_FRAMEWORK = {
@@ -74,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 
@@ -213,3 +215,12 @@ DJOSER = {
 DOMAIN = "localhost:5173"
 
 SITE_NAME = "Dibiye Digital"
+
+SECURE_HSTS_SECONDS = 31536000
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+

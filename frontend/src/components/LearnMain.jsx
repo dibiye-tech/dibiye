@@ -11,7 +11,9 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoFileTrayStacked } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites } from '../hooks/useFetchQuery';
-import { useToast, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LearnMain = () => {
     const { id } = useParams();
@@ -24,7 +26,6 @@ const LearnMain = () => {
     ];
 
     const [favoriteDocuments, setFavoriteDocuments] = useState({});
-    const toast = useToast();
     const [classeurList, setClasseurList] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState('');
@@ -43,29 +44,30 @@ const LearnMain = () => {
     const handleAddToClasseur = async (classeurId, documentId) => {
         try {
             await addDocumentToClasseur(classeurId, documentId);
-            toast({ title: "Document ajouté au classeur!", status: "success", duration: 10000,
-                isClosable: true,
-                position: "top", });
+            toast.success(
+                "Votre classeur a été ajouté.",
+                {
+                  position: "top-right",
+                  autoClose: 3000,
+                }
+              );
             onClose();
         } catch (error) {
-            toast({ title: "Erreur", description: error.message, status: "error", duration: 10000,
-                isClosable: true,
-                position: "top", });
+            toast.error(error.message , {
+                position: "top-right",
+                autoClose: 3000,
+              });
         }
     };
 
     const handleSeeMoreClick = (categoryId) => {
         if (categoryId) {
-            navigate(`/livres/sous-catégories/${categoryId}`); // Changez cette route selon votre configuration de routes
+            navigate(`/livres/sous-catégories/${categoryId}`);
         } else {
-            toast({
-                title: "Erreur",
-                description: "Impossible de récupérer l'ID de la sous-catégorie.",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
+            toast.error("Impossible de récupérer la sous-catégorie !", {
+                position: "top-right",
+                autoClose: 3000,
+              });
         }
     }; 
     
@@ -84,26 +86,20 @@ const LearnMain = () => {
         try {
             const classeurData = { name };
             await addClasseur(classeurData);
-            toast({
-                title: "Mon Classeur",
-                description: "Classeur créé avec succès!",
-                status: "info",
-                duration: 10000,
-                isClosable: true,
-                position: "top",
-            });
+            toast.success(
+                "Votre classeur a été ajouté.",
+                {
+                  position: "top-right",
+                  autoClose: 3000,
+                }
+              );
             onClose();
             window.location.reload();
         } catch (error) {
-            console.error("Erreur lors de l'ajout du classeur:", error);
-            toast({
-                title: "Erreur",
-                description: error.message,
-                status: "error",
-                duration: 10000,
-                isClosable: true,
-                position: "top",
-            });
+            toast.error(error.message , {
+                position: "top-right",
+                autoClose: 3000,
+              });
         }
     };
  
@@ -112,7 +108,7 @@ const LearnMain = () => {
             const favorites = await getFavorites();
             const favoritesMap = {};
             favorites.forEach(fav => {
-                favoritesMap[fav.document] = true; // Utilisez l'ID du document comme clé
+                favoritesMap[fav.document] = true;
             });
             setFavoriteDocuments(favoritesMap);
         } catch (error) {
@@ -130,36 +126,24 @@ const LearnMain = () => {
             if (favoriteDocuments[documentId]) {
                 await deleteFavorite(documentId);
                 setFavoriteDocuments(prev => ({ ...prev, [documentId]: false }));
-                toast({
-                    title: "Mes favoris",
-                    description: "Document retiré des favoris!",
-                    status: "info",
-                    duration: 10000,
-                    isClosable: true,
-                    position: "top",
-                });
+                toast.info("Document retiré des favoris!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                  });
             } else {
                 await addFavorite(documentId);
                 setFavoriteDocuments(prev => ({ ...prev, [documentId]: true }));
-                toast({
-                    title: "Mes favoris",
-                    description: "Document ajouté en favoris!",
-                    status: "info",
-                    duration: 10000,
-                    isClosable: true,
-                    position: "top",
-                });
+                toast.info("Document ajouté aux favoris!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                  });
             }
             await checkIfFavorite();
         } catch (error) {
-            toast({
-                title: "Mes favoris",
-                description: error.message,
-                status: "error",
-                duration: 10000,
-                isClosable: true,
-                position: "top",
-            });
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 3000,
+              });
         }
     };
     
@@ -212,6 +196,7 @@ const LearnMain = () => {
 
     return (
         <div className='container mx-auto px-10 md:px-5 lg:px-20'>
+            <ToastContainer />
             <div className='container mx-auto px-5 py-20 text-sm md:text-md lg:text-lg xl:text-xl'>
                 <div className='text-sm md:text-md lg:text-lg xl:text-xl'>
                     <h2 className='text-center text-[#DE290C] font-bold text-md md:text-lg lg:text-xl xl:text-2xl'><a href="/biblioth">Bibliothèque</a> &gt;&gt; Enseignements</h2>
@@ -244,7 +229,7 @@ const LearnMain = () => {
                                                     <img src={image} alt={title} className='w-[150px] md:w-[200px] h-[120px] md:h-[230px] rounded-lg' />
                                                 </div>
                                             </Link>
-                                            <div className='flex justify-between items-center md:w-[200px] pt-1 gap-2 py-3'>
+                                            <div className='flex justify-between items-end md:w-[200px] pt-1 gap-2 py-3'>
                                                 <div className=''>
                                                 <Link to={`/book/${id}`} key={id} className="relative">
                                                     <div className="mb-10 absolute right-[-20px] md:left-[-30px] top-[-50px] w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity md:line-clamp-none text-sm md:text-md lg:text-lg xl:text-xl">
@@ -256,7 +241,7 @@ const LearnMain = () => {
                                                 </Link>
 
                                                 </div>
-                                                <div className='flex justify-end items-end pr-2 md:pr-0 gap-3 lg:gap-5 text-red-500 pt-2'>
+                                                <div className='flex justify-end items-end pr-2 md:pr-0 gap-1 lg:gap-2 text-red-500 pt-2'>
                                                     <div>
                                                         <div className='cursor-pointer' onClick={openAddToClasseurModal}>
                                                             <IoFileTrayStacked className='w-auto md:w-[20px] h-auto md:h-[20px]'/>

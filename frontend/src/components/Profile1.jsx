@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { FaUserCircle } from "react-icons/fa";
-import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Input, Stack, FormErrorMessage, FormErrorIcon, useToast } from "@chakra-ui/react";
+import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Input, Stack, FormErrorMessage, FormErrorIcon } from "@chakra-ui/react";
 import { useUser } from '../hooks/useUser';
 import { useForm } from 'react-hook-form'; 
 import { UPDATE_PROFILE } from '../hooks/useFetchQuery'; 
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Profile1 = () => {
 
   const { user, setUser } = useUser();
-  const toast = useToast();
 
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });
 
@@ -41,29 +42,29 @@ const Profile1 = () => {
       const updatedUser = await UPDATE_PROFILE(formData);
 
       setUser(updatedUser);
-      toast({
-        title: "Profil mis à jour!",
-        position: "top",
-        status: "success",
-        duration: 7000,
-        isClosable: true,
-      });
+      toast.success(
+        "Profil mis à jour.",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
       window.location.reload();
     }catch (error) {
         console.error('Erreur lors de la mise à jour du profil:', error.response ? error.response.data : error.message);
-        toast({
-            title: "Échec de la mise à jour!",
-            position: "top",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-        });
+        toast.error(
+          "Echec lors de la mise à jour.",
+          {
+            position: "top-right",
+            autoClose: 3000,
+          }
+        );
     }
   };
 
   return (
     <div>
-      
+      <ToastContainer />
       <div className='flex gap-10 flex-wrap mt-0 md:mt-10'>
           <div className='mt-0 md:mt-10 mx-5 md:mx-0 p-10 md:p-20 md:h-[700px] w-[800px] md:w-[400px] lg:w-[600px] text-slate-900 border rounded-xl shadow-2xl h-auto flex flex-col gap-5 items-center md:items-start'>
             <div>

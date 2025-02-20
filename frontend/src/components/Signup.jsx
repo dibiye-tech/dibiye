@@ -9,7 +9,6 @@ import google from '../assets/images/google.png';
 import facebook from '../assets/images/facebook.png';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form'; 
-import { useToast } from "@chakra-ui/react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiEye, HiEyeOff } from "react-icons/hi";
@@ -32,6 +31,9 @@ import {
     FormErrorMessage,
     FormErrorIcon,
   } from "@chakra-ui/react";
+  
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = ({order, setOrder, handlerOrderPopup}) => {
 
@@ -49,8 +51,6 @@ const Signup = ({order, setOrder, handlerOrderPopup}) => {
     const inputRef = useRef(null);
     const navigate = useNavigate();
     const { isOpen, onToggle } = useDisclosure();
-
-    const toast = useToast();
     const {
         register,
         handleSubmit,
@@ -69,49 +69,44 @@ const Signup = ({order, setOrder, handlerOrderPopup}) => {
 
     const mutation = useMutation((c) => CREATE_NEW_USER(c), {
         onSuccess: () => {
-        toast({
-            title: "Enregistrement réussi!",
-            description:
-            "Consultez votre boite mail pour confirmer votre compte",
-            position: "top",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-        });
+            toast.success(
+                "Enregistrement réussi.. Veuillez consulter votre boite mail",
+                {
+                  position: "top-right",
+                  autoClose: 3000,
+                }
+              );
         setOrderPopup(false);
         window.location.reload();
         },
         onError: (error) => {
         if (error.response.status === 400) {
             if (error.response.data.email) {
-            toast({
-                title: "Echec!!",
-                description: error.response.data.email[0],
-                position: "top",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            });
+                toast.error(
+                    error.response.data.email[0],
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                    }
+                  );
             }
             if (error.response.data.username) {
-            toast({
-                title: "Echec!!",
-                description: error.response.data.username[0],
-                position: "top",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            });
+                toast.error(
+                    error.response.data.username[0],
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                    }
+                  );
             }
             if (error.response.data.password) {
-            toast({
-                title: "Echec!!",
-                description: error.response.data.password[0],
-                position: "top",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            });
+                toast.error(
+                    error.response.data.password[0],
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                    }
+                  );
             }
         }
         },
@@ -121,35 +116,33 @@ const Signup = ({order, setOrder, handlerOrderPopup}) => {
 
     if (error) {
         error.code == "ERR_NETWORK" &&
-        toast({
-            title: error.message,
-            description: "Vérifier votre connexion internet",
-            position: "top",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-        });
+        toast.error(
+            error.message ,
+            {
+              position: "top-right",
+              autoClose: 5000,
+            }
+          );
     }
 
     const onSubmit = (data) => {
         if (data.password !== data.confirmPassword) {
-        toast({
-            title: "Les mots de passes ne correspondent pas",
-            description: "Please check your password",
-            position: "top",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-        });
+            toast.error(
+                "Les mots ne correspondent pas.",
+                {
+                  position: "top-right",
+                  autoClose: 5000,
+                }
+              );
         return;
         }
-        toast({
-        title: "Enregistrement...",
-        position: "top-right",
-        status: "info",
-        duration: 9000,
-        isClosable: true,
-        });
+        toast.info(
+            "Enregistrement...",
+            {
+              position: "top-right",
+              autoClose: 5000,
+            }
+          );
 
         reset();
         // eslint-disable-next-line no-unused-vars
@@ -163,6 +156,7 @@ const Signup = ({order, setOrder, handlerOrderPopup}) => {
     {
         order && (
             <div className='popup overflow-y-auto max-h-[80vh]'>
+            <ToastContainer />
             <div className='h-screen w-screen fixed top-0 left-0 bg-black/50 z-50 backdrop-blur-sm scroll-m-1'>
             <div className='max-w-[950px] mx-auto px-5 my-[5%] md:my-[3%] md:px-auto'>
             <div className='pb-14 lg:pb-10 pl-[90%] lg:pl-[100%]'>
@@ -323,19 +317,6 @@ const Signup = ({order, setOrder, handlerOrderPopup}) => {
                                 <Button
                                     bg="#096197"
                                     type="submit"
-                                    isLoading={isLoading}
-                                    isDisabled={!isValid || isLoading}
-                                    _hover={{
-                                    bg: "#096197",
-                                    }}
-                                    _disabled={{
-                                    backgroundColor: "gray",
-                                    cursor: "not-allowed",
-                                    color: "gray.400",
-                                    _hover: {
-                                        backgroundColor: "gray",
-                                    },
-                                    }}
                                     color="white"
                                 >
                                     Enregistrement

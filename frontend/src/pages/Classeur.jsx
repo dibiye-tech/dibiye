@@ -10,7 +10,7 @@ import Profile1 from '../components/Profile1';
 import Favorites from '../components/Favorites';
 import MonClasseur from '../components/Classeur';
 import Historique from '../components/Historique';
-import Profile from "./Profile";
+import Favoris from '../components/Subscribe/Favoris';
 
 const Classeur = () => {
     const [activeTab, setActiveTab] = useState(() => {
@@ -106,12 +106,17 @@ const Classeur = () => {
         switch (activeTab) {
             case 'profile':
                 return <Profile1 />;
-            case 'favorites':
-                return <Favorites />;
+                case 'favorites':
+                    return (
+                      <>
+                        <Favorites />
+                        <Favoris />
+                      </>
+                    );
             case 'classeur':
                 return <MonClasseur />;
-            case 'history':
-                return <Historique />;
+            // case 'history':
+            //     return <Historique />;
             default:
                 return <Profile1 />;
         }
@@ -123,10 +128,11 @@ const Classeur = () => {
     return (
         <>
         <div className='flex flex-col md:flex-row justify-start gap-2 text-md md:text-lg lg:text-xl pb-32'>
-            <Box className='container mx-auto pt-10 pb-52 lg:pb-60 mt-0 md:mt-10 px-10 md:px-5'>
+            <Banner1 activeTab={activeTab} setActiveTab={setActiveTab}/>
+            <Box className='container mx-auto pb-52 lg:pb-60 mt-0  px-10 md:px-5'>
                 {activeTab === 'classeur' && (
                     <>
-                        <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+                        <Box display="flex" justifyContent="space-between" alignItems="center" mb={4} className='pt-20'>
                             <Text className='text-md md:text-lg lg:text-2xl' fontWeight="bold" color="red.500">{classeurName} :</Text>
                             <button
                                 onClick={() => handleDeleteAllClasseurBook()}

@@ -45,13 +45,13 @@ const Banner1 = ({ activeTab, setActiveTab }) => {
           <img src={classeur} alt="Classeur" className='w-10 md:w-16'/>
           <p className='hidden lg:block cursor-pointer'>Mes classeurs</p>
         </div>
-        <div
+        {/* <div
           className={`rounded-full lg:rounded-none flex gap-5 items-center w-auto lg:w-[100%] px-2 py-2 lg:px-10 lg:py-5 ${activeTab === 'history' ? 'bg-blue-100 px-2 py-2 lg:px-10 lg:py-5' : ''}`}
           onClick={() => setActiveTab('history')}
         >
           <img src={history} alt="History" className='w-10 md:w-16'/>
           <p className='hidden lg:block cursor-pointer'>Historique</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

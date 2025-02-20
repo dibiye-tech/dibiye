@@ -23,7 +23,6 @@ import {
     useDisclosure,
     Stack,
     Text,
-    useToast,
     FormErrorMessage,
     FormErrorIcon,
   } from "@chakra-ui/react";
@@ -33,6 +32,8 @@ import { GET_AUTH, setTokens } from "../hooks/useFetchQuery";
 import { useUser } from "../hooks/useUser";
 import { useRef } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
@@ -49,7 +50,6 @@ const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
         <img src={boy} alt="Livres" width={380} height={150} className='w-[420px] h-[650px]'/>
     ]
 
-    const toast = useToast();
     const inputRef = useRef(null);
     const navigate = useNavigate();
     const { setUser } = useUser();
@@ -71,13 +71,13 @@ const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
     const mutation = useMutation((c) => GET_AUTH(c), {
         onSuccess: (data) => {
             let { access, refresh, ...newUser } = data;
-            toast({
-              title: "Connexion réussie!",
-              position: "top",
-              status: "success",
-              duration: 5000,
-              isClosable: true,
-            });
+            toast.success(
+                            "Connexion réussie..",
+                            {
+                              position: "top-right",
+                              autoClose: 3000,
+                            }
+                          );
             setTokens(access, refresh);
     
             // Sauvegarde des données utilisateur dans le stockage local
@@ -91,45 +91,45 @@ const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
           },
         onError: (error) => {
           if (error.detail) {
-            toast({
-              title: error.detail,
-              position: "top",
-              status: "error",
-              duration: 6000,
-              isClosable: true,
-            });
+            toast.error(
+                            error.detail,
+                            {
+                              position: "top-right",
+                              autoClose: 3000,
+                            }
+                          );
             return;
           }
           if (error.error) {
-            toast({
-              title: error.error,
-              position: "top",
-              status: "error",
-              duration: 6000,
-              isClosable: true,
-            });
+            toast.error(
+                            error.error,
+                            {
+                              position: "top-right",
+                              autoClose: 3000,
+                            }
+                          );
             return;
           }
-          toast({
-            title: "Nom d'utilisateur ou mot de passe incorrect",
-            position: "top",
-            status: "error",
-            duration: 6000,
-            isClosable: true,
-          });
+          toast.error(
+                          "Nom d'utilisateur ou mot de passe incorrect.",
+                          {
+                            position: "top-right",
+                            autoClose: 3000,
+                          }
+                        );
         },
       });
 
     const { isLoading } = mutation;
 
     function onSubmit(credentials) {
-        toast({
-        title: "Connexion...",
-        position: "top-right",
-        status: "info",
-        duration: 1000,
-        isClosable: true,
-        });
+        toast.info(
+                        "Connexion...",
+                        {
+                          position: "top-right",
+                          autoClose: 3000,
+                        }
+                      );
         resetField("password");
         mutation.mutate(credentials);
     }
@@ -139,6 +139,7 @@ const Login = ({orderPopup, setOrderPopup, handlerOrder}) => {
     {
         orderPopup && (
             <div className='popup overflow-y-auto max-h-[80vh]'>
+                <ToastContainer />
                 <div className='h-screen w-screen fixed top-0 left-0 bg-black/50 z-50 backdrop-blur-sm'>
             <div className='max-w-[950px] mx-auto px-5 my-[5%] md:my-[3%] md:px-auto pt-5'>
             <div className='pb-14 lg:pb-10 pl-[90%] lg:pl-[100%]'>

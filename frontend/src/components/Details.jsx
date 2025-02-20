@@ -6,11 +6,12 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoFileTrayStacked } from "react-icons/io5";
 import { getBookDetails, getDocumentsByCategory, checkTokenIsValid, addToHistory, addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites } from '../hooks/useFetchQuery';
 import { MdOutlineStar, MdOutlineStarBorder } from "react-icons/md";
-import { useToast, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Details = () => {
     const navigate = useNavigate();
-    const toast = useToast();
     const { id } = useParams();
     const [classeurList, setClasseurList] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,23 +67,15 @@ const Details = () => {
         if (isValidToken) {
             try {
                 await addToHistory(documentId);
-                toast({
-                    title: "Succès",
-                    description: "Ce document a été ajouté à votre historique.",
-                    status: "success",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "top",
-                });
                 navigate(`/bibliotheque/enseignements/livre/${documentId}`);
+                toast.success("Ce document a été ajouté à l'historique", {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
             } catch (error) {
-                toast({
-                    title: "Erreur",
-                    description: "Impossible d'enregistrer à l'historique.",
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "top",
+                toast.error(error.message , {
+                    position: "top-right",
+                    autoClose: 3000,
                 });
             }
         } else {
@@ -91,23 +84,17 @@ const Details = () => {
             if (!history.includes(documentId)) {
                 history.push(documentId);
                 localStorage.setItem('history', JSON.stringify(history));
-                toast({
-                    title: "Succès",
-                    description: "Ce document a été ajouté à votre historique local.",
-                    status: "success",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "top",
+                toast.success("Ce document a été ajouté à l'historique local", {
+                    position: "top-right",
+                    autoClose: 3000,
                 });
             }
-            toast({
-                title: "Accès réservé aux abonnés",
-                description: "Ce contenu est réservé aux abonnés. Veuillez vous connecter pour y accéder.",
-                status: "info",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
+            else {
+                toast.info("Accès reservé aux abonnés!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
         }
     };
 
@@ -124,10 +111,16 @@ const Details = () => {
     const handleAddToClasseur = async (classeurId, documentId) => {
         try {
             await addDocumentToClasseur(classeurId, documentId);
-            toast({ title: "Document ajouté au classeur!", status: "success", duration: 10000, isClosable: true, position: "top" });
+            toast.success("Document ajouté au classeur", {
+                position: "top-right",
+                autoClose: 3000,
+            });
             onClose();
         } catch (error) {
-            toast({ title: "Erreur", description: error.message, status: "error", duration: 10000, isClosable: true, position: "top" });
+            toast.error(error.message , {
+                position: "top-right",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -136,13 +129,19 @@ const Details = () => {
         try {
             const classeurData = { name };
             await addClasseur(classeurData);
-            toast({ title: "Mon Classeur", description: "Classeur créé avec succès!", status: "info", duration: 10000, isClosable: true, position: "top" });
+            toast.success("Classeur a été crée", {
+                position: "top-right",
+                autoClose: 3000,
+            });
             onClose();
             // Reloading the data (but without reloading the page)
             const data = await getClasseur();
             setClasseurList(data);
         } catch (error) {
-            toast({ title: "Erreur", description: "Erreur lors de la création du classeur.", status: "error", duration: 10000, isClosable: true, position: "top" });
+            toast.error("Erreur lors de la création du classeur", {
+                position: "top-right",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -151,11 +150,17 @@ const Details = () => {
             if (favoriteDocuments[documentId]) {
                 await deleteFavorite(documentId);
                 setFavoriteDocuments(prev => ({ ...prev, [documentId]: false }));
-                toast({ title: "Mes favoris", description: "Document retiré des favoris!", status: "info", duration: 10000, isClosable: true, position: "top" });
+                toast.info("Document retiré des favoris", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
             } else {
                 await addFavorite(documentId);
                 setFavoriteDocuments(prev => ({ ...prev, [documentId]: true }));
-                toast({ title: "Mes favoris", description: "Document ajouté en favoris!", status: "info", duration: 10000, isClosable: true, position: "top" });
+                toast.info("Document ajouté en favoris", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
             }
         } catch (error) {
             console.error("Erreur lors de la gestion des favoris:", error);
@@ -172,6 +177,7 @@ const Details = () => {
 
     return (
         <div className='container mx-auto px-10 md:px-5'>
+            <ToastContainer />
             <div className='my-10 border-2 border-[#096197] rounded-[20px] flex flex-col lg:flex-row start gap-5 items-start h-[100vh] md:h-[80vh]'>
                 <div>
                     <img 
@@ -258,8 +264,8 @@ const Details = () => {
                                                                 <Button onClick={onClose}>Fermer</Button>
                                                             )}
                                                         </ModalFooter>
-                                                    </ModalContent>
-                                                </Modal>
+                                </ModalContent>
+                            </Modal>
                         </div>
                     </div>
                 </div>

@@ -5,17 +5,18 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-query';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoFileTrayStacked } from "react-icons/io5";
-import { useToast, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
 import { useUser } from '../hooks/useUser'; 
 import Avis from "./Avis";
 import Avis1 from "./Avis1";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Books = () => {
     const { id } = useParams();
     const [content, setContent] = useState('');
     const { user } = useUser();
     const [favoriteDocuments, setFavoriteDocuments] = useState({});
-    const toast = useToast();
     const [classeurList, setClasseurList] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState('');
@@ -41,14 +42,20 @@ const Books = () => {
     };
 
     const handleAddToClasseur = async (classeurId, documentId) => {
-        try {
-            await addDocumentToClasseur(classeurId, documentId);
-            toast({ title: "Document ajouté au classeur!", status: "success", duration: 10000, isClosable: true, position: "top" });
-            onClose();
-        } catch (error) {
-            toast({ title: "Erreur", description: error.message, status: "error", duration: 10000, isClosable: true, position: "top" });
-        }
-    };
+            try {
+                await addDocumentToClasseur(classeurId, documentId);
+                toast.success("Document ajouté au classeur", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+                onClose();
+            } catch (error) {
+                toast.error(error.message , {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
+        };
 
     useEffect(() => {
         const fetchClassers = async () => {
@@ -60,17 +67,25 @@ const Books = () => {
     }, []);
 
     const handleSubmition = async (e) => {
-        e.preventDefault();
-        try {
-            const classeurData = { name };
-            await addClasseur(classeurData);
-            toast({ title: "Mon Classeur", description: "Classeur créé avec succès!", status: "info", duration: 10000, isClosable: true, position: "top" });
-            onClose();
-            window.location.reload();
-        } catch (error) {
-            toast({ title: "Erreur", description: "Erreur lors de la création du classeur.", status: "error", duration: 10000, isClosable: true, position: "top" });
-        }
-    };
+            e.preventDefault();
+            try {
+                const classeurData = { name };
+                await addClasseur(classeurData);
+                toast.success("Classeur a été crée", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+                onClose();
+                // Reloading the data (but without reloading the page)
+                const data = await getClasseur();
+                setClasseurList(data);
+            } catch (error) {
+                toast.error("Erreur lors de la création du classeur", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
+        };
 
     const checkIfFavorite = async () => {
         try {
@@ -90,21 +105,26 @@ const Books = () => {
     }, [id]);
 
     const handleFavoriteClick = async (documentId) => {
-        try {
-            if (favoriteDocuments[documentId]) {
-                await deleteFavorite(documentId);
-                setFavoriteDocuments(prev => ({ ...prev, [documentId]: false }));
-                toast({ title: "Mes favoris", description: "Document retiré des favoris!", status: "info", duration: 10000, isClosable: true, position: "top" });
-            } else {
-                await addFavorite(documentId);
-                setFavoriteDocuments(prev => ({ ...prev, [documentId]: true }));
-                toast({ title: "Mes favoris", description: "Document ajouté en favoris!", status: "info", duration: 10000, isClosable: true, position: "top" });
+            try {
+                if (favoriteDocuments[documentId]) {
+                    await deleteFavorite(documentId);
+                    setFavoriteDocuments(prev => ({ ...prev, [documentId]: false }));
+                    toast.info("Document retiré des favoris", {
+                        position: "top-right",
+                        autoClose: 3000,
+                    });
+                } else {
+                    await addFavorite(documentId);
+                    setFavoriteDocuments(prev => ({ ...prev, [documentId]: true }));
+                    toast.info("Document ajouté en favoris", {
+                        position: "top-right",
+                        autoClose: 3000,
+                    });
+                }
+            } catch (error) {
+                console.error("Erreur lors de la gestion des favoris:", error);
             }
-            await checkIfFavorite();
-        } catch (error) {
-            console.error("Erreur lors de la gestion des favoris:", error);
-        }
-    };
+        };
 
     const mutation = useMutation((newComment) => createComment(id, newComment), {
         onSuccess: () => {
@@ -123,7 +143,10 @@ const Books = () => {
     
         const accessToken = getAccessToken();
         if (!accessToken) {
-            toast({ title: "Erreur", description: "Vous devez être connecté pour ajouter un commentaire.", status: "error", duration: 5000, isClosable: true, position: "top" });
+            toast.error("Vous devez etre connecté pour ajouter un commentaire!", {
+                position: "top-right",
+                autoClose: 3000,
+            });
             return;
         }
     
@@ -152,6 +175,7 @@ const Books = () => {
 
     return (
         <div className='container mx-auto px-10 md:px-5 overflow-hidden'>
+            <ToastContainer />
             <div className='my-10 border-2 border-[#096197] rounded-[20px] flex flex-col lg:flex-row gap-5 items-start h-auto lg:h-[60vh] bg-gradient-to-t md:bg-gradient-to-r from-[#ffffff] via-[#c4dfee] to-[#a5d8f8] shadow-xl'>
                 <div>
                     <img

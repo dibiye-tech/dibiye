@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { IoIosAddCircle } from "react-icons/io";
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, useDisclosure, Box, Text, SimpleGrid, IconButton, useToast } from '@chakra-ui/react';
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, useDisclosure, Box, Text, SimpleGrid, IconButton } from '@chakra-ui/react';
 import { addClasseur, getClasseur, deleteClasseur } from '../hooks/useFetchQuery';
 import { IoFileTrayStacked } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Classeur = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState('');
   const [classeur, setClasseur] = useState([]);
   const [error, setError] = useState(null);
-  const toast = useToast();
   const { id } = useParams();
 
   useEffect(() => {
@@ -32,23 +34,15 @@ const Classeur = () => {
     try {
       await deleteClasseur(id);
       setClasseur((prev) => prev.filter(cl => cl.id !== id)); // Mise à jour de l'état local
-      toast({
-        title: "Succès",
-        description: "Classeur supprimé avec succès.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top",
-      });
+      toast.success("Classeur supprimé.", {
+                          position: "top-right",
+                          autoClose: 3000,
+                      });
     } catch (error) {
-      toast({
-        title: "Erreur",
-        description: "Erreur lors de la suppression du classeur.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top",
-      });
+      toast.error("Erreur lors de la supression du classeur.", {
+                          position: "top-right",
+                          autoClose: 3000,
+                      });
     }
   };
 
@@ -62,29 +56,22 @@ const Classeur = () => {
       await addClasseur(classeurData);
       setName('');
       window.location.reload()
-      toast({
-        title: "Succès",
-        description: "Classeur créé avec succès !",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top",
-      });
+      toast.success("Classeur crée.", {
+                          position: "top-right",
+                          autoClose: 3000,
+                      });
     } catch (error) {
       setError("Erreur lors de l'ajout du classeur.");
-      toast({
-        title: "Erreur",
-        description: "Erreur lors de la création du classeur.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top",
-      });
+      toast.error("Erreur lors de l'ajout d'un classeur", {
+                          position: "top-right",
+                          autoClose: 3000,
+                      });
     }
   };
 
   return (
     <Box className='mt-0 md:mt-20' p={2}>
+      <ToastContainer />
       <Box display="flex" alignItems="center" justifyContent="space-between" mb={8} className='container mx-auto px-10 md:px-5'>
         <Text className='text-sm md:text-md lg:text-lg xl:text-xl' fontWeight="bold" color="red.500">
           {classeur.length <= 1 ? "Mon classeur" : "Mes classeurs"}
