@@ -22,6 +22,7 @@
     "@mui/icons-material": "^6.3.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@tailwindcss/line-clamp": "^0.4.4",
+    "all": "^0.0.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
