@@ -279,15 +279,15 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
                     favorites.some((fav) => fav.id === concours.id);
       
                     if (concoursDate && concoursDate > today) {
-                      status = 'Concours disponible';
+                      status = 'En cours"';
                       statusColor = 'text-green-500';
                       statusIcon = '✅';
                     } else if (concoursDate && concoursDate <= today && (!publicationDate || publicationDate > today)) {
-                      status = 'En attente de résultat';
+                      status = 'En attente';
                       statusColor = 'text-yellow-500';
                       statusIcon = '⏳';
                     } else if (publicationDate && publicationDate <= today) {
-                      status = 'Concours déjà passé';
+                      status = 'Expiré';
                       statusColor = 'text-red-500';
                       statusIcon = '🔴';
                     }
@@ -307,9 +307,10 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
 
                           </h5>
                           <p className="text-gray-700 text-justify">{concours.description}</p>
-                          <p className="bg-blue-100 w-[230px] text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
+                          <p className="bg-blue-100 w-full max-w-[230px] text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
                             🗓 <span className="ml-2">Date: {concours.concours_date}</span>
                           </p>
+
 
                           <div className="flex justify-between items-center mt-2">
                             <Link to={`/presentationpage/${concours.id}`} className="text-[#2278AC] font-semibold inline-block">
@@ -319,7 +320,7 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
                                 {/* Icône avec effet hover pour afficher le texte sur mobile */}
                                 <span  className={`relative ml-2 ${statusColor} font-bold flex items-center group`}>
                                 <span>{statusIcon}</span>
-                                <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2  bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                   {status}
                                 </span>
                                 </span>
