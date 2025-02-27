@@ -164,19 +164,19 @@ const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
   let statusColor = '';
   let statusIcon = '';
   
-  if (concoursDate && concoursDate > today) {
-      status = 'Concours disponible';
-      statusColor = 'text-green-500';
-      statusIcon = '✅';
-  } else if (concoursDate && concoursDate <= today && (!publicationDate || publicationDate > today)) {
-      status = 'En attente de résultat';
-      statusColor = 'text-yellow-500';
-      statusIcon = '⏳';
-  } else if (publicationDate && publicationDate <= today) {
-      status = 'Concours déjà passé';
-      statusColor = 'text-red-500';
-      statusIcon = '🔴';
-  }
+    if (concoursDate && concoursDate > today) {
+                      status = 'En cours"';
+                      statusColor = 'text-green-500';
+                      statusIcon = '✅';
+                    } else if (concoursDate && concoursDate <= today && (!publicationDate || publicationDate > today)) {
+                      status = 'En attente';
+                      statusColor = 'text-yellow-500';
+                      statusIcon = '⏳';
+                    } else if (publicationDate && publicationDate <= today) {
+                      status = 'Expiré';
+                      statusColor = 'text-red-500';
+                      statusIcon = '🔴';
+                    }
   
 
 
@@ -192,73 +192,69 @@ const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
               className='w-full h-auto max-h-[200px] sm:max-h-[250px] md:max-h-[300px] lg:max-h-[350px] object-cover rounded-t-3xl lg:rounded-l-3xl lg:rounded-t-none' 
             />
           </div>
-          <div className='w-full lg:w-1/2 flex flex-col justify-start'>
-            <h1 className='font-bold text-lg sm:text-xl md:text-2xl xl:text-3xl text-primary mt-2 lg:mt-0'>{concours.name}</h1>
-            
-            <p className='text-sm sm:text-base md:text-lg py-2 text-justify'>{concours.description}</p>
-            <div className="flex items-center justify-between w-full">
-              {/* Conteneur de la date */}
-              <p className="bg-blue-100 w-[230px] text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
-                🗓 <span className="ml-2">Date: {concours.concours_date}</span>
-              </p>
-              <p className={`relative ml-2 ${statusColor} font-bold flex items-center group`}>
-                <span>{statusIcon}</span>
-                <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  {status}
-                </span>
-             
-              {/* Icône des favoris à l'extrême droite */}
-              {isUserAuthenticated ? (
-                isFavorite ? (
-                  <FaHeart
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      toggleFavorite(concours);
-                    }}
-                    className="cursor-pointer text-red-600 flex-shrink-0 ml-4"
-                    size={20}
-                  />
-                ) : (
-                  <FaRegHeart
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      toggleFavorite(concours);
-                    }}
-                    className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
-                    size={20}
-                  />
-                )
-              ) : (
-                <FaRegHeart
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("📌 isUserAuthenticated au clic sur l'icône Favori :", isUserAuthenticated);
+          <div className='relative w-full lg:w-1/2 flex flex-col justify-start pb-8'> {/* Ajout de pb-8 pour éviter que la date touche le bas */}
 
-                    if (!isUserAuthenticated) {
-                      console.log("❌ L'utilisateur n'est pas authentifié, affichage du toast...");
-                      
-                      setTimeout(() => {
-                        toast.error("Connectez-vous pour ajouter en favoris !", {
-                          position: "top-right",
-                          autoClose: 3000,
-                        });
-                      }, 100);
-                      
-                      return;
-                    }
+<h1 className="flex justify-between items-center font-bold text-lg sm:text-xl md:text-2xl xl:text-3xl text-primary mt-2 lg:mt-0 mb-2">
+  <span>{concours.name}</span>
+  {isUserAuthenticated ? (
+    isFavorite ? (
+      <FaHeart
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          toggleFavorite(concours);
+        }}
+        className="cursor-pointer text-red-600 flex-shrink-0 ml-4"
+        size={20}
+      />
+    ) : (
+      <FaRegHeart
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          toggleFavorite(concours);
+        }}
+        className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
+        size={20}
+      />
+    )
+  ) : (
+    <FaRegHeart
+      onClick={(e) => {
+        e.stopPropagation();
+        toast.error("Connectez-vous pour ajouter en favoris !", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }}
+      className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
+      size={20}
+    />
+  )}
+</h1>
 
-                    toggleFavorite(concours);
-                  }}
-                  className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
-                  size={20}
-                />
-              )}
-               </p>
-            </div>
+<p className='text-sm sm:text-base md:text-lg py-2 text-justify'>{concours.description}</p>
 
-          </div>
+{/* Conteneur de la Date et du Statut - Fixé en bas */}
+<div className="absolute bottom-0 left-0 right-0 flex items-center justify-between py-4 px-4 bg-white">
+  {/* Design de la Date */}
+  <p className="bg-blue-100 text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
+    🗓 <span className="ml-2">Date: {concours.concours_date}</span>
+  </p>
+  
+  {/* Design du Statut avec l'effet au survol */}
+  <p className={`relative ml-2 ${statusColor} font-bold flex items-center group`}>
+    <span>{statusIcon}</span>
+    <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+      {status}
+    </span>
+  </p>
+</div>
+
+</div>
+
+
+
         </div>
       </div>
     </div>

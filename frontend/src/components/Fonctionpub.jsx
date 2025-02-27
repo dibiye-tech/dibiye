@@ -308,14 +308,24 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
               : null;
             const today = new Date();
 
-            let status = "";
+            let status = '';
+            let statusColor = '';
+            let statusIcon = '';
+            
             if (concoursDate && concoursDate > today) {
               status = "En attente";
+              statusColor = 'text-yellow-500';  // Par exemple
+              statusIcon = "⏳";
             } else if (concoursDate && concoursDate < today) {
               status = "Expiré";
+              statusColor = 'text-red-500';
+              statusIcon = "🔴";
             } else {
               status = "En cours";
+              statusColor = 'text-green-500';
+              statusIcon = "✅";
             }
+            
 
             return (
               <div
@@ -329,26 +339,29 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
                     </Link>
 
                     <div className="p-4 flex flex-col justify-between flex-grow cursor-pointer">
-                      <div className="flex items-center justify-between mb-2">
-                        <Link to={`/presentationpage/${concours.id}`} className="flex-grow">
-                          <p
-                            className="text-lg font-semibold text-primary"
-                            style={{
-                              display: "-webkit-box",
-                              WebkitBoxOrient: "vertical",
-                              WebkitLineClamp: 1,
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            {concours.name}
-                          </p>
-                        </Link>
+                    <div className="flex items-center justify-between mb-2">
+                      <Link to={`/concours/${concours.id}`}>
+                        <p
+                          className="text-lg font-semibold text-primary"
+                          style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 1,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {concours.name}
+                        </p>
+                      </Link>
 
-                        <span className="text-lg flex-shrink-0 ml-2" title={status}>
-                          {status === "En attente" && "✅"}
-                          {status === "Expiré" && "🔴"}
-                          {status === "En cours" && "🟡"}
+                      {/* Regroupement des icônes de statut et favoris */}
+                      <div className="flex items-center space-x-2">
+                        <span className={`relative ${statusColor} font-bold flex items-center group`}>
+                          <span>{statusIcon}</span>
+                          <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            {status}
+                          </span>
                         </span>
 
                         {isUserAuthenticated ? (
@@ -359,7 +372,7 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
                                 e.preventDefault();
                                 toggleFavorite(concours);
                               }}
-                              className="cursor-pointer text-red-600 flex-shrink-0 ml-2"
+                              className="cursor-pointer text-red-600 flex-shrink-0"
                               size={20}
                             />
                           ) : (
@@ -369,7 +382,7 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
                                 e.preventDefault();
                                 toggleFavorite(concours);
                               }}
-                              className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
+                              className="cursor-pointer text-gray-400 flex-shrink-0"
                               size={20}
                             />
                           )
@@ -382,11 +395,13 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
                                 autoClose: 3000,
                               });
                             }}
-                            className="cursor-pointer text-gray-400 flex-shrink-0 ml-2"
+                            className="cursor-pointer text-gray-400 flex-shrink-0"
                             size={20}
                           />
                         )}
                       </div>
+                    </div>
+
                     </div>
                   </div>
               </div>
