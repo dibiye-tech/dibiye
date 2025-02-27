@@ -2,8 +2,9 @@ from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer,
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from .models import User, Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche
+from .models import User, Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche, NewsletterSubscriber
 from rest_framework import serializers
+from django.contrib.auth import authenticate
 
 
 user = get_user_model()
@@ -26,28 +27,22 @@ class UserCreateSerializer(BaseUserCreateSerializer):
 
 class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
-        fields = ['id', 'first_name',
-                  'last_name', 'email',
-                  'username',
-                  'is_active',
-                  'is_deactivated',
-                  'photo',
-                  'description',
-                  ]
+        fields = ['id', 'first_name', 'last_name', 'email', 'username',
+                  'is_active', 'is_deactivated', 'photo', 'description']
 
     def validate(self, attrs):
         validated_attr = super().validate(attrs)
         username = validated_attr.get('username')
 
-        user = User.objects.get(username=username)
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise ValidationError("Utilisateur avec cet email non trouvé.")
 
         if user.is_deactivated:
-            raise ValidationError(
-                'Account deactivated')
-
+            raise ValidationError("Compte désactivé.")
         if not user.is_active:
-            raise ValidationError(
-                'Account not activated')
+            raise ValidationError("Compte non activé.")
 
         return validated_attr
 
@@ -153,3 +148,32 @@ class ClasseurBookSerializer(serializers.ModelSerializer):
         model = ClasseurBook
         fields = '__all__'
 
+class NewsletterSubscriberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsletterSubscriber
+        fields = ['email']
+
+class NewsletterSerializer(serializers.Serializer):
+    subject = serializers.CharField(max_length=255)
+    message = serializers.CharField()
+
+# class CustomUserLoginSerializer(serializers.Serializer):
+#     email = serializers.EmailField()
+#     password = serializers.CharField()
+
+#     def validate(self, attrs):
+#         email = attrs.get('email')
+#         password = attrs.get('password')
+
+#         if not email or not password:
+#             raise serializers.ValidationError("Les deux champs email et mot de passe sont obligatoires")
+
+#         try:
+#             user = get_user_model().objects.get(email=email)
+#         except get_user_model().DoesNotExist:
+#             raise serializers.ValidationError("Aucun utilisateur trouvé avec cet email")
+
+#         if not user.check_password(password):
+#             raise serializers.ValidationError("Mot de passe incorrect")
+
+#         return attrs

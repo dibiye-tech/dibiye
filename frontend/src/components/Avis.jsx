@@ -65,11 +65,11 @@ const Avis = ({ comments }) => {
                     <h1 className="text-md md:text-lg lg:text-xl font-bold text-[#2278AC]">Avis des utilisateurs</h1>
                     <p className="text-lg text-gray-500 mt-2">Découvrez les expériences de nos lecteurs !</p>
                 </div>
-                <div>
+                <div className=''>
                     {comments.length > 0 ? (
                         <Slider {...settings}>
                             {comments.map(comment => (
-                                <div className='text-black flex flex-col gap-5 items-start p-4 bg-white rounded-lg shadow-md px-6 py-4 w-full mb-3 border-b border-gray-300 hover:shadow-lg transition-shadow duration-200' key={comment.id}>
+                                <div className='text-black flex gap-20 items-start p-4 bg-white rounded-lg shadow-md px-6 py-6 w-full mb-3 border-b border-gray-300 hover:shadow-lg transition-shadow duration-200' key={comment.id}>
                                     <div className="flex flex-col md:flex-row gap-4  md:gap-20">
                                         {/* Avatar and Username section */}
                                         <div className='flex flex-row items-center space-x-4'>

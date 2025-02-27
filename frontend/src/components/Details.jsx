@@ -178,24 +178,28 @@ const Details = () => {
     return (
         <div className='container mx-auto px-10 md:px-5'>
             <ToastContainer />
-            <div className='my-10 border-2 border-[#096197] rounded-[20px] flex flex-col lg:flex-row start gap-5 items-start h-[100vh] md:h-[80vh]'>
+            <div className='my-10 border-2 border-[#096197] rounded-[20px] flex flex-col lg:flex-row start gap-5 items-start h-auto md:h-[80vh]'>
                 <div>
                     <img 
                         src={image || '/path/to/default/image.jpg'}
                         alt={title || 'Book cover'}
-                        className='rounded-t-[20px] lg:rounded-l-[20px] lg:rounded-tr-[0px] h-[300px] lg:h-[79.6vh] w-[600px] md:w-[1200px]' 
+                        className='rounded-t-[18px] lg:rounded-l-[18px] lg:rounded-tr-[0px] h-[300px] lg:h-[79.6vh] w-[700px] md:w-[1200px]' 
                     />
                 </div>
-                <div className='flex flex-col gap-2 px-5 lg:px-2 lg:w-[2000px]'>
+                <div className='gap-2 px-5 lg:px-2 lg:w-[2000px]'>
+                    <div className='flex flex-col justify-around'>
                     <div className='text-[#DE290C] pt-2 lg:pt-5 text-lg md:text-xl lg:text-2xl'>
                         <h3 className='font-bold'>{title || 'Titre du livre'}</h3>
                     </div>
                     <div>
-                        <p className='text-md md:text-lg lg:text-xl pb-[5%] lg:pb-[10%] pt-3 lg:pt-10 leading-10 line-clamp-4 md:line-clamp-6 xl:line-clamp-none hover:overflow-y-scroll lg:hover:overflow-hidden'>
+                        <p className='text-md md:text-lg lg:text-xl  pt-3 lg:pt-10 leading-10 line-clamp-4 md:line-clamp-6 hover:overflow-y-scroll lg:hover:overflow-hidden lg:h-[350px]'>
                             {description || 'Description non disponible.'}
                         </p>
                     </div>
-                    <div className='flex flex-col-reverse md:flex-row justify-center md:justify-between items-center md:items-start bottom-0'>
+                    <div className='text-[#DE290C] pt-5 lg:pt-10 pb-2 md:pb-5 lg:pb-10 font-semibold uppercase text-md md:text-lg lg:text-xl'>
+                        <p className=''>{auteur || 'Auteur inconnu'}</p>
+                    </div>
+                    <div className='lg:pt-[5%]'>
                         <button
                             onClick={async () => {
                                 handleDocumentClick(id);
@@ -204,24 +208,21 @@ const Details = () => {
                         >
                             Continuez...
                         </button>
-                        <div className='flex flex-col justify-center items-center'>
-                            <div className='flex  gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl'>
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                            </div>
-                            <div className='text-[#DE290C] pt-5 lg:pt-10 pb-2 lg:pb-5 font-semibold uppercase text-md md:text-lg lg:text-xl'>
-                                <p className=''>{auteur || 'Auteur inconnu'}</p>
-                            </div>
-                            <div className='flex justify-end md:justify-start items-center gap-3 lg:gap-5 pb-5 md:pb-0 text-red-500 md:my-2 lg:my-auto pt-[5%] lg-[pt-10%]'>
+                        <div className='flex flex-col-reverse md:flex-row justify-start items-start gap-5 md:justify-between md:items-center pt-10 lg:pt-20'>
+                            <div className='flex justify-end md:justify-start items-center gap-3 lg:gap-5 pb-5 md:pb-0 text-red-500 md:my-2 lg:my-auto'>
                                 <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={openAddToClasseurModal}>
-                                    <IoFileTrayStacked className='w-auto md:w-[25px] h-auto md:h-[25px]' />
+                                    <IoFileTrayStacked className='w-auto md:w-[25px] h-auto md:h-[25px]'/>
                                 </div>
                                 <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={async () => handleFavoriteClick(id)}>
                                     {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[25px] h-auto md:h-[25px]' />}
                                 </div>
+                            </div>
+                            <div className='flex gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl pr-0 md:pr-10'>
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
+                                <MdOutlineStarBorder />
                             </div>
                                                 <Modal isOpen={isOpen} onClose={onClose}>
                                                     <ModalOverlay />
@@ -268,7 +269,14 @@ const Details = () => {
                             </Modal>
                         </div>
                     </div>
+                    </div>
                 </div>
+            </div>
+            <div className='text-center text-[#DE290C] font-bold text-md md:text-lg lg:text-xl xl:text-2xl'>
+                <h2>
+                    <a href="/bibliotheque">Bibliothèque</a> &gt;&gt; <a href="/bibliotheque/enseignements">Enseignements</a> &gt;&gt; Livres
+                </h2>
+                <hr className='bg-[#DE290C] w-[100px] md:w-[200px] h-1 mx-auto mt-2 mb-10' />
             </div>
             <div className='flex flex-col lg:flex-row items-start justify-start gap-24 pt-10'>
                 {/* <div className='border-2 border-[#096197] rounded-[20px] w-[100%] lg:w-[35%] h-[50vh] lg:h-[100vh] mb-3 md:mb-10'>

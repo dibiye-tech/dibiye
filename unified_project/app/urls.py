@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import GlobalSearchView
-from .views import CustomTokenObtainPairView
+from .views import CustomTokenObtainPairView, NewsletterSignup
 from .views import CategoryListCreateView, BookListCreateView, BookDetailView, CategoryRetrieveUpdateDestroyView, SousCategoryListCreateView, SousCategoryDetailView, RecentDocumentsView, DocumentsByCategoryView, DocumentsBySousCategoryView, UserUpdateView, CommentCreateView, CommentListView, HistoryViewSet, FavoriteViewSet, ClasseurViewSet, ClasseurBookViewSet, DocumentsByBrancheView
 
 
@@ -34,4 +34,6 @@ urlpatterns = [
     path('search/', GlobalSearchView.as_view(), name='global-search'),
     path('comment/<int:book_id>/', CommentCreateView.as_view(), name='create_or_update_comment'),
     path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('newsletter/signup/', NewsletterSignup.as_view(), name='newsletter-signup'),
+    # path('send-newsletter/', send_newsletter, name='send_newsletter'),
 ]

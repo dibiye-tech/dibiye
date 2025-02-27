@@ -563,5 +563,24 @@ export const fetchSearchResults = async (query) => {
   }
 };
 
+export const subscribeToNewsletter = async (email) => {
+  try {
+    const response = await api.post('app/newsletter/signup/', { email }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 201) {
+      return { success: true, message: 'Merci de vous etre abonné à notre newsletter.' };
+    } else {
+      return { success: false, message: response.data?.detail || 'Une erreur s\'est produite.' };
+    }
+  } catch (error) {
+    return { success: false, message: error.response?.data?.detail || 'Une erreur réseau s\'est produite.' };
+  }
+};
+
+
 
 

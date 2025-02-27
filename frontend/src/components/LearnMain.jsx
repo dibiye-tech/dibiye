@@ -45,7 +45,7 @@ const LearnMain = () => {
         try {
             await addDocumentToClasseur(classeurId, documentId);
             toast.success(
-                "Votre classeur a été ajouté.",
+                "Votre document a été ajouté à ce classeur.",
                 {
                   position: "top-right",
                   autoClose: 3000,
@@ -81,11 +81,11 @@ const LearnMain = () => {
         fetchClassers();
     }, []);
 
-    const handleSubmition = async (e) => {
+    const handleSubmition = async (e, classeurId, documentId) => {
         e.preventDefault();
         try {
             const classeurData = { name };
-            await addClasseur(classeurData);
+            const newClasseur = await addClasseur(classeurData);
             toast.success(
                 "Votre classeur a été ajouté.",
                 {
@@ -195,11 +195,11 @@ const LearnMain = () => {
     };
 
     return (
-        <div className='container mx-auto px-10 md:px-5 lg:px-20'>
+        <div className=''>
             <ToastContainer />
-            <div className='container mx-auto px-5 py-20 text-sm md:text-md lg:text-lg xl:text-xl'>
-                <div className='text-sm md:text-md lg:text-lg xl:text-xl'>
-                    <h2 className='text-center text-[#DE290C] font-bold text-md md:text-lg lg:text-xl xl:text-2xl'><a href="/biblioth">Bibliothèque</a> &gt;&gt; Enseignements</h2>
+            <div className='py-20 text-sm md:text-md lg:text-lg xl:text-xl'>
+                <div className='container mx-auto px-10 md:px-5 text-sm md:text-md lg:text-lg xl:text-xl'>
+                    <h2 className='text-center text-[#DE290C] font-bold text-md md:text-lg lg:text-xl xl:text-2xl'><a href="/bibliotheque">Bibliothèque</a> &gt;&gt; Enseignements</h2>
                     <hr className='bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10' />
                     <p className='text-sm lg:text-lg'>
                         <img src={quotes} alt="" />
@@ -210,7 +210,7 @@ const LearnMain = () => {
                 </div>
                 {[{ title: 'Primaire', data: document, id: 1 }, { title: 'Secondaire', data: documents, id: 2 }, { title: 'Supérieure', data: documentss, id: 3 }].map((section, index) => (
                     <div key={index} className='py-5' id='primaire'>
-                        <div className='flex justify-between items-center font-bold pb-5'>
+                        <div className='container mx-auto px-10 md:px-5 flex justify-between items-center font-bold pb-5'>
                             <div>
                                 <p className='text-md md:text-xl lg:text-2xl underline text-[#DE290C]'><a href="">{section.title}</a></p>
                             </div>
@@ -218,30 +218,29 @@ const LearnMain = () => {
                                 <button className={`bg-[#096197] text-white border px-2 py-1 border-[#2278AC] rounded-[10px] w-auto text-center hover:bg-[#2278AC] cursor-pointer pt-15`}>Voir plus &gt;&gt;</button>
                             </div>
                         </div>
-                        <div className='pt-3 mx-8'>
+                        <div className='pt-3 mx-8 px-0 md:px-10'>
                         {section.data.length > 0 ? (
                             <Slider {...settings}>
                                 {section.data.map(({ id, image, title, auteur }) => (
-                                    <div className='my-2 md:my-5 px-2'>
-                                        <div className='flex flex-col justify-center items-center md:items-start gap-4 h-auto w-[70%] md:w-[73%] lg:w-[220px] p-2 md:pr-0 ml-[15%] lg:ml-[17%] border-lg shadow-lg rounded-xl md:h-[350px]'>
+                                    <div className='container mx-auto md:px-5 my-2 md:my-5 px-2'>
+                                        <div className='bg-white pb-5 rounded-xl shadow-md h-[300px] md:h-[400px]'>
                                             <Link to={`/book/${id}`} key={id}>
                                                 <div>
-                                                    <img src={image} alt={title} className='w-[150px] md:w-[200px] h-[120px] md:h-[230px] rounded-lg' />
+                                                    <img src={image} alt={title} className='rounded-t-xl h-[200px] md:h-[300px] w-full'/>
                                                 </div>
                                             </Link>
-                                            <div className='flex justify-between items-end md:w-[200px] pt-1 gap-2 py-3'>
+                                            <div className='py-5 px-3 flex justify-between'>
                                                 <div className=''>
-                                                <Link to={`/book/${id}`} key={id} className="relative">
-                                                    <div className="mb-10 absolute right-[-20px] md:left-[-30px] top-[-50px] w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity md:line-clamp-none text-sm md:text-md lg:text-lg xl:text-xl">
-                                                        <p className=''>{title}</p>
-                                                    </div>
-                                                    <p className='line-clamp-2'>
-                                                        {title}
-                                                    </p>
-                                                </Link>
-
+                                                    <Link to={`/book/${id}`} key={id} className="relative">
+                                                        <div className="mb-10 absolute right-[-20px] md:left-[-30px] top-[-50px] w-[200px] md:w-[300px] rounded-lg p-2 bg-white border border-gray-300 opacity-0 hover:opacity-100 transition-opacity md:line-clamp-none text-sm md:text-md lg:text-lg xl:text-xl">
+                                                            <p className=''>{title}</p>
+                                                        </div>
+                                                        <p className='line-clamp-2 font-semibold text-sm md:text-md lg:text-lg xl:text-xl'>
+                                                            {title}
+                                                        </p>
+                                                    </Link>
                                                 </div>
-                                                <div className='flex justify-end items-end pr-2 md:pr-0 gap-1 lg:gap-2 text-red-500 pt-2'>
+                                                <div className='flex justify-between items-center gap-1 lg:gap-2 text-red-500 pt-2'>
                                                     <div>
                                                         <div className='cursor-pointer' onClick={openAddToClasseurModal}>
                                                             <IoFileTrayStacked className='w-auto md:w-[20px] h-auto md:h-[20px]'/>

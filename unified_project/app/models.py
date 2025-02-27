@@ -11,6 +11,7 @@ class User(AbstractUser):
     is_deactivated = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     description = models.TextField(blank=True, null=True, max_length=50)
+    subscribe_to_newsletter = models.BooleanField(default=False)
 
     # # Ajout de related_name pour éviter les conflits
     # groups = models.ManyToManyField(
@@ -117,5 +118,21 @@ class ClasseurBook(models.Model):
 
     def __str__(self):
         return f'{self.classeur.name} - {self.book.title}' 
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)
+    date_subscribed = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+class Newsletter(models.Model):
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    date_sent = models.DateTimeField(null=True, blank=True)
+    sent = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.subject
 
 
