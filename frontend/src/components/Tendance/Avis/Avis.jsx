@@ -56,7 +56,7 @@ const Avis = () => {
 
   return (
     <div
-      className="relative bg-cover bg-center py-10 mb-20"
+      className="relative mx-auto bg-cover bg-center py-10 mb-20 px-6 "
       style={{
         backgroundImage: `url('/images/young.jpg')`,
       }}

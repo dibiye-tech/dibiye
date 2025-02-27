@@ -7,6 +7,7 @@ import Evenements from '../components/Evenements';
 import Avis from '../components/Tendance/Avis/Avis';
 import Historique from '../components/Subscribe/Historique';
 import Footer from '../components/Footer';
+import Videopass from '../components/Videopass';
 
 const Accueil = () => {
   return (
@@ -18,6 +19,7 @@ const Accueil = () => {
       <Evenements/>
       <Historique />
       <Avis />
+      <Videopass/>
       <Footer />
     
     </div>

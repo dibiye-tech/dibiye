@@ -73,15 +73,12 @@ const EventsSection = () => {
       </div>
 
       {/* Boules Décoratives Responsives */}
-      <div className="hidden md:block absolute left-[-40px] lg:left-[-90px] top-[90%] md:top-[85%] lg:top-[80%] transform -translate-y-1/2 z-0">
+      <div className="md:block absolute left-[3px] lg:left-[-90px] top-[95%] md:top-[85%] lg:top-[80%] transform -translate-y-1/2 z-0">
         <Boule />
       </div>
 
       <div
-        className="hidden md:block absolute right-[-20px] lg:right-[-50px] top-[40%] md:top-[35%] lg:top-[40%] z-0"
-        style={{
-          transform: "scale(0.7)", // Réduction de la taille par défaut
-        }}
+        className="md:block absolute right-[5px] lg:right-[-50px] top-[37%] md:top-[35%] lg:top-[40%] z-0"
       >
         <Boule />
       </div>
