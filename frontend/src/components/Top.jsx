@@ -48,7 +48,7 @@ const Top = () => {
     };
 
     return (
-        <div>
+        <div  className="">
             { backToTopButton && (
                 <button
                     onClick={scrollUp}
