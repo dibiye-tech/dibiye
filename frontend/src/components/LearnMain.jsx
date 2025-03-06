@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getDocumentsBySousCategory } from '../hooks/useFetchQuery'; // Import de la fonction générale
+import { getDocumentsBySousCategory, getBranchesBySousCategory } from '../hooks/useFetchQuery'; // Import de la fonction générale
 import { useQuery } from 'react-query';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoFileTrayStacked } from "react-icons/io5";

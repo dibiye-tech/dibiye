@@ -121,6 +121,16 @@ class DocumentsByBrancheView(generics.ListAPIView):
 
         return queryset
 
+class BranchesBySousCategory(generics.ListAPIView):
+    serializer_class = BrancheSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        sous_category_id = self.kwargs['sous_category_id']
+        queryset = Branche.objects.filter(sous_category_id=sous_category_id)
+
+        return queryset
+
 class DocumentsBySousCategoryView(generics.ListAPIView):
     serializer_class = BookSerializer
     permission_classes = [AllowAny]

@@ -167,12 +167,12 @@ export const getSousCategories = async () => {
   }
 }
 
-export const getDocumentsBySousCategory = async (id) => {
+export const getDocumentsBySousCategory = async (sousCategoryId) => {
   try {
-    const response = await axios.get(`${baseUrl}app/documents/sous_category/${id}/`);
+    const response = await axios.get(`${baseUrl}app/documents/sous_category/${sousCategoryId}/`);
     return response.data;
   } catch (error) {
-    console.error(`Erreur lors de la récupération des documents pour la sous-catégorie ${id}`, error);
+    console.error(`Erreur lors de la récupération des documents pour la sous-catégorie ${sousCategoryId}`, error);
     throw error;
   }
 };
@@ -203,6 +203,16 @@ export const getDocumentsByCategory = async (categoryId) => {
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la récupération des documents par catégorie", error);
+    throw error;
+  }
+};
+
+export const getBranchesBySousCategory = async (id) => {
+  try {
+    const response = await axios.get(`${baseUrl}app/branches/souscategories/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des branches par sous catégories", error);
     throw error;
   }
 };

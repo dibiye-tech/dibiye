@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import GlobalSearchView
+from .views import GlobalSearchView, BranchesBySousCategory
 from .views import CustomTokenObtainPairView, NewsletterSignup
 from .views import CategoryListCreateView, BookListCreateView, BookDetailView, CategoryRetrieveUpdateDestroyView, SousCategoryListCreateView, SousCategoryDetailView, RecentDocumentsView, DocumentsByCategoryView, DocumentsBySousCategoryView, UserUpdateView, CommentCreateView, CommentListView, HistoryViewSet, FavoriteViewSet, ClasseurViewSet, ClasseurBookViewSet, DocumentsByBrancheView
 
@@ -14,6 +14,7 @@ urlpatterns = [
     path('documents', BookListCreateView.as_view(), name='documents'),
     path('documents/recent/', RecentDocumentsView.as_view(), name='recent-documents'),
     path('documents/category/<int:category_id>/', DocumentsByCategoryView.as_view(), name='documents-by-category'),
+    path('branches/souscategories/<int:sous_category_id>/', BranchesBySousCategory.as_view(), name="branches-by-souscategory"),
     path('documents/sous_category/<int:sous_category_id>/', DocumentsBySousCategoryView.as_view(), name='documents-by-sous-category'),
     path('documents/sous_category/<int:sous_category_id>/branche/<int:branche_id>/', DocumentsByBrancheView.as_view(), name='documents-by-branche'),
     path('user/update/', UserUpdateView.as_view(), name='user-update'),

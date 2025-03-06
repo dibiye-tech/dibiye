@@ -49,6 +49,7 @@ class SousCategory(models.Model):
 class Branche(models.Model):
     name = models.CharField(max_length=255)
     sous_category = models.ForeignKey(SousCategory, related_name='branches', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='description/', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -94,7 +95,7 @@ class History(models.Model):
         ordering = ['-timestamp']
 
     def __str__(self):
-        return f"History of {self.document.title} by {self.user.username}"
+        return f"History of {self.document.title}"
 
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

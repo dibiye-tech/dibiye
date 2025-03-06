@@ -93,7 +93,7 @@ class BrancheSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Branche
-        fields = ['id', 'name', 'sous_category']
+        fields = ['id', 'name', 'image',  'sous_category']
 
 class BookSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
