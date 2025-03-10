@@ -43,7 +43,7 @@ const MissionSection = () => {
       <div
         className="absolute bottom-[-30px] right-[8px] top-[40%] 
                    md:bottom-[-80px] md:right-[-10px] 
-                   lg:bottom-[-50px] lg:right-[-115px] 
+                   lg:bottom-[-50px] lg:right-[-110px] 
                    xl:right-[-140px] z-[-1]"
       >
         <Boule />

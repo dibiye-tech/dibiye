@@ -49,11 +49,11 @@ const Missions1 = () => {
         <Boule />
       </div>
 
-      <div
+      {/* <div
         className="hidden md:block absolute lg:left-[-20px] md:left-[-270px] left-[10px] top-[40%] md:top-[10%] lg:top-[-90%] transform -translate-y-1/2 z-[-1]" 
       >
         <Boule />
-      </div>
+      </div> */}
     </div>
   );
 };
