@@ -5,9 +5,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomTokenObtainPairSerializer, CategorySerializer, SousCategorySerializer, BookSerializer, UserUpdateSerializer, CommentSerializer, CommentCreateSerializer, HistorySerializer, FavoriteSerializer, ClasseurSerializer, ClasseurBookSerializer, BrancheSerializer
+from .serializers import CustomTokenObtainPairSerializer, CategorySerializer, SousCategorySerializer, BookSerializer, UserUpdateSerializer, CommentSerializer, CommentCreateSerializer, HistorySerializer, FavoriteSerializer, ClasseurSerializer, ClasseurBookSerializer, BrancheSerializer, NewsletterSubscriberSerializer, NewsletterSerializer
 from rest_framework import generics
-from .models import Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche
+from .models import Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche, NewsletterSubscriber
 from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import viewsets, pagination
@@ -19,8 +19,10 @@ from elasticsearch_dsl.connections import connections
 from elasticsearch_dsl.query import MultiMatch
 import logging
 from math import ceil
-# from .search_index import BookDocument, CategoryDocument, SousCategoryDocument
 from unidecode import unidecode
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 User = get_user_model()
 
@@ -116,6 +118,16 @@ class DocumentsByBrancheView(generics.ListAPIView):
 
         if branche_id:
             queryset = queryset.filter(branche_id=branche_id)  # Filtre par branche
+
+        return queryset
+
+class BranchesBySousCategory(generics.ListAPIView):
+    serializer_class = BrancheSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        sous_category_id = self.kwargs['sous_category_id']
+        queryset = Branche.objects.filter(sous_category_id=sous_category_id)
 
         return queryset
 
@@ -424,7 +436,44 @@ class GlobalSearchView(APIView):
 
         return Response(results, status=status.HTTP_200_OK)
 
+class NewsletterSignup(APIView):
+    permission_classes = [AllowAny]
 
+    def post(self, request, *args, **kwargs):
+        serializer = NewsletterSubscriberSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data.get('email')
+            # Vérifie si l'email est déjà abonné
+            if NewsletterSubscriber.objects.filter(email=email).exists():
+                return Response({'detail': 'Email already subscribed.'}, status=status.HTTP_400_BAD_REQUEST)
+            # Enregistrer l'email dans la base de données
+            serializer.save()
+            return Response({'detail': 'Subscribed successfully!'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def send_newsletter(request):
+    # serializer = NewsletterSerializer(data=request.data)
+    
+    # if serializer.is_valid():
+    #     subject = serializer.validated_data['subject']
+    #     message = serializer.validated_data['message']
+    #     from_email = settings.EMAIL_HOST_USER
+        
+    #     subscribers = NewsletterSubscriber.objects.all()
+        
+    #     for subscriber in subscribers:
+    #         send_mail(
+    #             subject,
+    #             message,
+    #             from_email,
+    #             [subscriber.email], 
+    #         )
+        
+    #     return Response({'message': 'Newsletter envoyée à tous les abonnés.'}, status=200)
+    
+    # return Response(serializer.errors, status=400)
 
 
 

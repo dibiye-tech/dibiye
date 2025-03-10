@@ -11,7 +11,6 @@ import {
   InputRightElement,
   useDisclosure,
   Stack,
-  useToast,
   FormErrorMessage,
   FormErrorIcon,
 } from "@chakra-ui/react";
@@ -21,10 +20,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RESET_PASSWORD } from "../hooks/useFetchQuery";
 import { useMutation } from "react-query";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ResetPassword = () => {
   const { uid, token } = useParams();
-  const toast = useToast();
   const inputRef = useRef(null);
   const secondInputRef = useRef(null);
   const navigate = useNavigate();
@@ -55,24 +55,16 @@ const ResetPassword = () => {
 
   const mutation = useMutation((c) => RESET_PASSWORD(c), {
     onSuccess: () => {
-      toast({
-        title: "Mot de passer retrouver",
-        description: "Connectez-vous avec votre nouveau mot de passe",
-        position: "top",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
+      toast.success("Connectez vous avec votre nouveau mot de passe !", {
+        position: "top-right",
+        autoClose: 3000,
       });
       navigate("/");
     },
     onError: (error) => {
-      toast({
-        title: "Echec !!",
-        description: error.message,
-        position: "top",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
       });
     },
   });
@@ -82,12 +74,9 @@ const ResetPassword = () => {
   function onSubmit(credentials) {
     reset();
     if (!uid || !token) {
-      toast({
-        title: "Vous n'avez pas accès à cette page",
-        position: "top",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
+      toast.error("Vous n'avez pas accès à cette page!", {
+        position: "top-right",
+        autoClose: 3000,
       });
       navigate("/");
 
@@ -99,12 +88,9 @@ const ResetPassword = () => {
       console.log(credentials);
 
       if (credentials.password !== credentials.confirmPassword) {
-        toast({
-          title: "Les mots de passen ne correspondent pas",
-          position: "top",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
+        toast.error("Les mots de passes ne correspondent pas!", {
+          position: "top-right",
+          autoClose: 3000,
         });
         return;
       }
@@ -124,7 +110,7 @@ const ResetPassword = () => {
       py={{ base: "12", md: "12" }}
       px={{ base: "0", sm: "8" }}
       h="100vh"
-    >
+    ><ToastContainer />
       <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         <Stack
           spacing="2"
@@ -179,7 +165,7 @@ const ResetPassword = () => {
                       {...register("password", {
                         required: true,
                         minLength: 6,
-                        maxLength: 12,
+                        maxLength: 16,
                       })}
                     />
                   </InputGroup>
@@ -198,7 +184,7 @@ const ResetPassword = () => {
                   {errors.password?.type === "maxLength" && (
                     <FormErrorMessage>
                       <FormErrorIcon />
-                      Password must be at most 12 characters
+                      Password must be at most 16 characters
                     </FormErrorMessage>
                   )}
                 </FormControl>
