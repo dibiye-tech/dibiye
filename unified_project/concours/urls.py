@@ -5,7 +5,7 @@ from .views import (
     ConcoursViewSet, ConcoursCategoryViewSet, ConcoursSubCategoryViewSet, 
     UniversityViewSet, PublishedConcoursViewSet, TestimonialViewSet, 
     SearchView, SearchHistoryView, ConcoursDocumentsListView, ConcoursDetailView, 
-    TestView, SimpleTestView, AllDocumentsView, GrandeEcoleListView,  GrandesEcolesWithConcoursView
+    TestView, SimpleTestView, AllDocumentsView, GrandeEcoleListView,  GrandesEcolesWithConcoursView, TrendingConcoursView, UpdateConcoursViews
 )
 
 router = DefaultRouter()
@@ -15,6 +15,7 @@ router.register(r'concourscategories', ConcoursCategoryViewSet, basename='concou
 router.register(r'testimonials', TestimonialViewSet, basename='testimonial')
 router.register(r'concourssubcategories', ConcoursSubCategoryViewSet, basename='concourssubcategory')
 router.register(r'universities', UniversityViewSet, basename='university')
+
 
 urlpatterns = [
     path('', include(router.urls)),  # Inclure toutes les routes du routeur
@@ -28,4 +29,8 @@ urlpatterns = [
     path('grandecoles/', GrandeEcoleListView.as_view(), name='grandecoles-list'),
     path('concoursfonctionpubs/<int:id>/', ConcoursDetailView.as_view(), name='concours-detail'),
     path('universities/<int:university_id>/grandesecoles/', GrandesEcolesWithConcoursView.as_view(), name='get_grandes_ecoles_with_concours'),
+    path('concours/trending/', TrendingConcoursView.as_view(), name='trending-concours'),
+    path('concours/update-views/<int:concours_id>/', UpdateConcoursViews.as_view(), name='update_concours_views'),
+    # path('api/locations/', LocationListView.as_view(), name='get_locations'),
 ]
+

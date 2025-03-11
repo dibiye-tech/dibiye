@@ -133,36 +133,36 @@ const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
         };
         
 
-  useEffect(() => {
-    const fetchConcours = async () => {
-      if (!concoursId) {
-        console.error('Aucun ID spécifié');
-        return;
-      }
-      try {
-        const response = await fetch(`http://localhost:8000/concours/concoursfonctionpubs/${concoursId}/`);
-        if (!response.ok) throw new Error('Échec de la récupération du concours');
-        const data = await response.json();
-        setConcours(data);
-      } catch (error) {
-        console.error('Erreur lors de la récupération du concours:', error);
-      }
-    };
+          useEffect(() => {
+            const fetchConcours = async () => {
+              if (!concoursId) {
+                console.error('Aucun ID spécifié');
+                return;
+              }
+              try {
+                const response = await fetch(`http://localhost:8000/concours/concoursfonctionpubs/${concoursId}/`);
+                if (!response.ok) throw new Error('Échec de la récupération du concours');
+                const data = await response.json();
+                setConcours(data);
+              } catch (error) {
+                console.error('Erreur lors de la récupération du concours:', error);
+              }
+            };
 
-    fetchConcours();
-  }, [concoursId]);
+            fetchConcours();
+          }, [concoursId]);
 
-  if (!concours) {
-    return <div>Loading...</div>;
-  }
-  const isFavorite = isUserAuthenticated && favorites.some((fav) => fav.id === concours.id);
+          if (!concours) {
+            return <div>Loading...</div>;
+          }
+          const isFavorite = isUserAuthenticated && favorites.some((fav) => fav.id === concours.id);
 
-  const concoursDate = concours.concours_date ? new Date(concours.concours_date) : null;
-  const publicationDate = concours.concours_publication ? new Date(concours.concours_publication) : null;
-  const today = new Date();
-  let status = '';
-  let statusColor = '';
-  let statusIcon = '';
+          const concoursDate = concours.concours_date ? new Date(concours.concours_date) : null;
+          const publicationDate = concours.concours_publication ? new Date(concours.concours_publication) : null;
+          const today = new Date();
+          let status = '';
+          let statusColor = '';
+          let statusIcon = '';
   
     if (concoursDate && concoursDate > today) {
                       status = 'En cours"';
@@ -194,64 +194,64 @@ const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
           </div>
           <div className='relative w-full lg:w-1/2 flex flex-col justify-start pb-8'> {/* Ajout de pb-8 pour éviter que la date touche le bas */}
 
-<h1 className="flex justify-between items-center font-bold text-lg sm:text-xl md:text-2xl xl:text-3xl text-primary mt-2 lg:mt-0 mb-2">
-  <span>{concours.name}</span>
-  {isUserAuthenticated ? (
-    isFavorite ? (
-      <FaHeart
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          toggleFavorite(concours);
-        }}
-        className="cursor-pointer text-red-600 flex-shrink-0 ml-4"
-        size={20}
-      />
-    ) : (
-      <FaRegHeart
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          toggleFavorite(concours);
-        }}
-        className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
-        size={20}
-      />
-    )
-  ) : (
-    <FaRegHeart
-      onClick={(e) => {
-        e.stopPropagation();
-        toast.error("Connectez-vous pour ajouter en favoris !", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      }}
-      className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
-      size={20}
-    />
-  )}
-</h1>
+              <h1 className="flex justify-between items-center font-bold text-lg sm:text-xl md:text-2xl xl:text-3xl text-primary mt-2 lg:mt-0 mb-2">
+                <span>{concours.name}</span>
+                {isUserAuthenticated ? (
+                  isFavorite ? (
+                    <FaHeart
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        toggleFavorite(concours);
+                      }}
+                      className="cursor-pointer text-red-600 flex-shrink-0 ml-4"
+                      size={20}
+                    />
+                  ) : (
+                    <FaRegHeart
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        toggleFavorite(concours);
+                      }}
+                      className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
+                      size={20}
+                    />
+                  )
+                ) : (
+                  <FaRegHeart
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toast.error("Connectez-vous pour ajouter en favoris !", {
+                        position: "top-right",
+                        autoClose: 3000,
+                      });
+                    }}
+                    className="cursor-pointer text-gray-400 flex-shrink-0 ml-4"
+                    size={20}
+                  />
+                )}
+              </h1>
 
-<p className='text-sm sm:text-base md:text-lg py-2 text-justify'>{concours.description}</p>
+          <p className='text-sm sm:text-base md:text-lg py-2 text-justify'>{concours.description}</p>
 
-{/* Conteneur de la Date et du Statut - Fixé en bas */}
-<div className="absolute bottom-0 left-0 right-0 flex items-center justify-between py-4 px-4 bg-white">
-  {/* Design de la Date */}
-  <p className="bg-blue-100 text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
-    🗓 <span className="ml-2">Date: {concours.concours_date}</span>
-  </p>
-  
-  {/* Design du Statut avec l'effet au survol */}
-  <p className={`relative ml-2 ${statusColor} font-bold flex items-center group`}>
-    <span>{statusIcon}</span>
-    <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-      {status}
-    </span>
-  </p>
-</div>
+          {/* Conteneur de la Date et du Statut - Fixé en bas */}
+          <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between py-4 w-full bg-white">
+            {/* Design de la Date */}
+            <p className="bg-blue-100 text-[#2278AC] text-lg font-bold px-4 py-2 rounded-md shadow-lg flex items-center">
+              🗓 <span className="ml-2">Date: {concours.concours_date}</span>
+            </p>
+            
+            {/* Design du Statut avec l'effet au survol */}
+            <p className={`relative ${statusColor} font-bold flex items-center group gap-x-6`}>
+              <span className="pl-6">{statusIcon}</span> {/* Augmenter l'espace avec `pl-6` */}
+              <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                {status}
+              </span>
+            </p>
+          </div>
 
-</div>
+          </div>
 
 
 

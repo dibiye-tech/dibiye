@@ -111,15 +111,26 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
       }
     }, [user]);
 
-    const updateHistory = (concours) => {
+    const updateHistory = async (concours) => {
       const historyKey = isUserAuthenticated
         ? `history_user_${user.id}`
         : "history_temp";
     
-      // Charger l'historique existant
+         // 🔹 Incrémenter les vues du concours avant de rediriger
+      try {
+        const response = await axios.post(
+          `http://localhost:8000/concours/concours/update-views/${concours.id}/`
+        );
+        console.log("Vue enregistrée :", response.data.views);
+      } catch (error) {
+        console.error("Erreur lors de l'enregistrement de la vue :", error);
+      }
+      
+    
+      // 🔹 Charger l'historique existant
       const storedHistory = localStorage.getItem(historyKey);
       let existingHistory = [];
-      
+    
       if (storedHistory) {
         try {
           existingHistory = JSON.parse(storedHistory);
@@ -128,15 +139,15 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
         }
       }
     
-      // Vérifiez si le concours est déjà dans l'historique
+      // 🔹 Vérifier si le concours est déjà dans l'historique
       const exists = existingHistory.some((item) => item.id === concours.id);
     
       if (!exists) {
-        // Ajouter le nouveau concours à l'historique
+        // 🔹 Ajouter le nouveau concours à l'historique
         const updatedHistory = [...existingHistory, concours];
         setHistory(updatedHistory);
     
-        // Sauvegarder l'historique mis à jour
+        // 🔹 Sauvegarder l'historique mis à jour
         localStorage.setItem(historyKey, JSON.stringify(updatedHistory));
         console.log(`Historique mis à jour pour la clé ${historyKey}:`, updatedHistory);
       } else {
@@ -144,6 +155,8 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
       }
     };
     
+  
+  
 
     
     // Fonction pour charger l'historique persistant depuis le localStorage
@@ -329,82 +342,90 @@ const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
 
             return (
               <div
-                key={concours.id}
-                className="p-4"
-                onClick={() => updateHistory(concours)}
-              >
-                 <div className="bg-white border rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between h-full">
-                    <Link to={`/presentationpage/${concours.id}`}>
-                      <img src={concours.image} alt={concours.name} className="w-full h-48 object-cover" />
-                    </Link>
-
-                    <div className="p-4 flex flex-col justify-between flex-grow cursor-pointer">
-                    <div className="flex items-center justify-between mb-2">
-                      <Link to={`/concours/${concours.id}`}>
-                        <p
-                          className="text-lg font-semibold text-primary"
-                          style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 1,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {concours.name}
-                        </p>
-                      </Link>
-
-                      {/* Regroupement des icônes de statut et favoris */}
-                      <div className="flex items-center space-x-2">
-                        <span className={`relative ${statusColor} font-bold flex items-center group`}>
-                          <span>{statusIcon}</span>
-                          <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            {status}
-                          </span>
+              key={concours.id}
+              className="p-4 cursor-pointer"
+              onClick={async () => {
+                try {
+                  await axios.post(
+                    `http://localhost:8000/concours/concours/update-views/${concours.id}/`
+                  );
+                  console.log(`Vue enregistrée pour le concours ${concours.id}`);
+                  // 🔹 Mise à jour de l'historique local
+                  updateHistory(concours);
+            
+                  // 🔹 Redirection après mise à jour
+                  navigate(`/presentationpage/${concours.id}`);
+                } catch (error) {
+                  console.error("Erreur lors de l'enregistrement de la vue :", error);
+                }
+              }}
+            >
+              <div className="bg-white border rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between h-full">
+                <img src={concours.image} alt={concours.name} className="w-full h-48 object-cover" />
+            
+                <div className="p-4 flex flex-col justify-between flex-grow">
+                  <div className="flex items-center justify-between mb-2">
+                    <p
+                      className="text-lg font-semibold text-primary"
+                      style={{
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {concours.name}
+                    </p>
+            
+                    {/* Icônes de statut et favoris */}
+                    <div className="flex items-center space-x-2">
+                      <span className={`relative ${statusColor} font-bold flex items-center group`}>
+                        <span>{statusIcon}</span>
+                        <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                          {status}
                         </span>
-
-                        {isUserAuthenticated ? (
-                          isFavorite ? (
-                            <FaHeart
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                toggleFavorite(concours);
-                              }}
-                              className="cursor-pointer text-red-600 flex-shrink-0"
-                              size={20}
-                            />
-                          ) : (
-                            <FaRegHeart
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                toggleFavorite(concours);
-                              }}
-                              className="cursor-pointer text-gray-400 flex-shrink-0"
-                              size={20}
-                            />
-                          )
+                      </span>
+            
+                      {isUserAuthenticated ? (
+                        isFavorite ? (
+                          <FaHeart
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(concours);
+                            }}
+                            className="cursor-pointer text-red-600 flex-shrink-0"
+                            size={20}
+                          />
                         ) : (
                           <FaRegHeart
                             onClick={(e) => {
                               e.stopPropagation();
-                              toast.error("Connectez-vous pour ajouter en favoris !", {
-                                position: "top-right",
-                                autoClose: 3000,
-                              });
+                              toggleFavorite(concours);
                             }}
                             className="cursor-pointer text-gray-400 flex-shrink-0"
                             size={20}
                           />
-                        )}
-                      </div>
-                    </div>
-
+                        )
+                      ) : (
+                        <FaRegHeart
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toast.error("Connectez-vous pour ajouter en favoris !", {
+                              position: "top-right",
+                              autoClose: 3000,
+                            });
+                          }}
+                          className="cursor-pointer text-gray-400 flex-shrink-0"
+                          size={20}
+                        />
+                      )}
                     </div>
                   </div>
+                </div>
               </div>
+            </div>
+            
             );
           })}
         </Slider>

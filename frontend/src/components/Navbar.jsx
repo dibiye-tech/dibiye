@@ -84,43 +84,40 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
         ];
         useEffect(() => {
             const fetchDropdownData = async () => {
-              try {
-                // Récupérer les catégories
-                const categoryResponse = await fetch('http://127.0.0.1:8000/concours/concourscategories/?limit=3');
-                const categoryData = await categoryResponse.json();
+                try {
+                    // Récupérer les catégories
+                    const categoryResponse = await fetch('http://127.0.0.1:8000/concours/concourscategories/?limit=3');
+                    const categoryData = await categoryResponse.json();
         
-                // Récupérer les sous-catégories
-                const subcategoryResponse = await fetch('http://127.0.0.1:8000/concours/concourssubcategories/');
-                const subcategoryData = await subcategoryResponse.json();
+                    // Récupérer les sous-catégories
+                    const subcategoryResponse = await fetch('http://127.0.0.1:8000/concours/concourssubcategories/');
+                    const subcategoryData = await subcategoryResponse.json();
         
-                // Mapper les sous-catégories à leurs catégories
-                const formattedLinks = categoryData.results.map((category) => {
-                  const relatedSubcategories = subcategoryData.results.filter((subcategory) =>
-                    subcategory.categories.some((cat) => cat.id === category.id)
-                  );
+                    // Mapper les sous-catégories à leurs catégories
+                    const formattedLinks = categoryData.results.map((category) => {
+                        const relatedSubcategories = subcategoryData.results.filter((subcategory) =>
+                            subcategory.categories.some((cat) => cat.id === category.id)
+                        );
         
-                  return {
-                    id: category.id,
-                    title: category.name,
-                    lien: "/homeconcours",
-                    subcategories: relatedSubcategories.map(sub => ({
-                      id: sub.id,
-                      name: sub.name,
-                      link: `/subcategory/${sub.id}`
-                    })),
-                    link: `#`,
-                  };
-                });
+                        return {
+                            id: category.id,
+                            title: category.name,
+                            subcategories: relatedSubcategories.map(sub => ({
+                                id: sub.id,
+                                name: sub.name,
+                                link: `/subcategory/${sub.id}`
+                            }))
+                        };
+                    });
         
-                setDropdownLinks(formattedLinks);
-              } catch (error) {
-                console.error('Erreur lors de la récupération des données:', error);
-              }
+                    setDropdownLinks(formattedLinks);
+                } catch (error) {
+                    console.error('Erreur lors de la récupération des données:', error);
+                }
             };
         
             fetchDropdownData();
-          }, []);
-        
+        }, []);
     
       return (
         <div className='text-sm md:text-md lg:text-lg xl:text-xl lg:bg-white pb-10'>
@@ -219,12 +216,22 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                         key={data.id}
                         className="flex flex-col items-start gap-2 min-w-[200px] md:min-w-[250px] h-full"
                     >
-                        <a href={data.lien}><p className="text-[#2278AC] font-bold">{data.title}</p></a>
+                        {/* Redirection pour les catégories */}
+                        <Link 
+                            to="/Branchespage" 
+                            state={{ categoryId: data.id }} 
+                            className="text-[#2278AC] font-bold hover:text-[#DE290C]"
+                        >
+                            {data.title}
+                        </Link>
+
                         <ul className="mt-2 space-y-2">
                             {data.subcategories.map((sub) => (
                                 <li key={sub.id}>
+                                    {/* Redirection pour les sous-catégories */}
                                     <Link
-                                        to={sub.link}
+                                        to="/Branchespage"
+                                        state={{ categoryId: data.id, subcategoryId: sub.id }}
                                         className="hover:text-[#DE290C]"
                                     >
                                         {sub.name}
@@ -238,6 +245,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
         </div>
     </div>
 </li>
+
 
                             </ul>
                         </div>

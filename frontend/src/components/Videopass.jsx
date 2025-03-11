@@ -66,8 +66,7 @@ const Videopass = () => {
             width="560"
             height="315"
             className="rounded-lg shadow-lg w-full md:w-[500px] h-[280px] md:h-[300px]"
-            src="https://www.youtube.com/embed/VcuNnQ__ymY
-"
+            src="https://www.youtube.com/embed/VcuNnQ__ymY"
             title="Vidéo éducative"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -77,7 +76,6 @@ const Videopass = () => {
       </div>
 
       {/* Section Témoignage avec Carrousel */}
-     
     </div>
   );
 };

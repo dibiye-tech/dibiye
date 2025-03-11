@@ -27,7 +27,7 @@ const EventsSection = () => {
   ];
 
   return (
-    <div className="relative container mx-auto px-6 md:px-10 lg:px-20 py-10  z-0">
+    <div className="relative container mx-auto px-6 md:px-10 lg:px-20 py-10 z-0">
       {/* Titre de la section */}
       <h2 className="text-[#C00000] text-xl md:text-2xl font-bold mb-8 text-left">
         Actualité et événements
@@ -73,16 +73,11 @@ const EventsSection = () => {
       </div>
 
       {/* Boules Décoratives Responsives */}
-      <div className="md:block absolute left-[5px] lg:left-[-90px] top-[95%] md:top-[85%] lg:top-[80%] transform -translate-y-1/2 z-0">
+      <div className="md:block absolute left-[3px] lg:left-[-90px] top-[95%] md:top-[85%] lg:top-[80%] transform -translate-y-1/2 z-0">
         <Boule />
       </div>
 
-      <div
-        className="md:block absolute right-[5px] lg:right-[-50px] top-[5%] md:top-[35%] lg:top-[40%] z-0"
-        style={{
-          transform: "scale(1)", // Réduction de la taille par défaut
-        }}
-      >
+      <div className="md:block absolute right-[5px] lg:right-[-50px] top-[37%] md:top-[35%] lg:top-[40%] z-0">
         <Boule />
       </div>
     </div>
