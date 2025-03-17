@@ -38,18 +38,18 @@ class AuthTests(APITestCase):
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    # def test_create_comment(self):
-    #     """Test la création d'un commentaire sur un livre."""
-    #     url = reverse('create_or_update_comment', kwargs={'book_id': self.book.id})
-    #     data = {'book': self.book.id, 'content': 'This is a great book!'}
+    def test_create_comment(self):
+        """Test la création d'un commentaire sur un livre."""
+        url = reverse('create_or_update_comment', kwargs={'book_id': self.book.id})
+        data = {'book': self.book.id, 'content': 'This is a great book!'}
         
-    #     # Authentifier l'utilisateur et envoyer la requête
-    #     response = self.client.post(url, data, format='json',  HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
+        # Authentifier l'utilisateur et envoyer la requête
+        response = self.client.post(url, data, format='json',  HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
 
-    #     # Vérifier que le commentaire a été créé
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     self.assertEqual(Comment.objects.count(), 1)
-    #     self.assertEqual(Comment.objects.first().text, 'This is a great book!')
+        # Vérifier que le commentaire a été créé
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Comment.objects.count(), 1)
+        self.assertEqual(Comment.objects.first().text, 'This is a great book!')
 
     def test_global_search(self):
         url = reverse('global-search') + '?search=book'

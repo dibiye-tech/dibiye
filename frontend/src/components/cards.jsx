@@ -16,7 +16,7 @@ const Cards = () => {
   } 
 
   return (
-    <div className='flex items-center justify-center my-10 mx-auto container px-10 md:px-5' id='categorie'>
+    <div className='flex items-center justify-center my-10' id='categorie'>
       <div className=''>
       <div className='flex flex-col md:flex-row gap-10 justify-center'>
         {

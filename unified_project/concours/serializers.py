@@ -41,11 +41,12 @@ class ConcoursSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Concours
         fields = (
-            'url', 'id', 'name', 'description', 'concours_date', 'concours_publication',
-            'image', 'is_published', 'category', 'subcategory', 'university', 
-            'cycles', 'ville', 'grandes_ecoles', 'category_description_plus', 
-            'concours_description', 'category_name'  # Ajout de 'category_name'
-        )
+    'url', 'id', 'name', 'description', 'concours_date', 'concours_publication',
+    'image', 'is_published', 'category', 'subcategory', 'university', 
+    'cycles', 'ville', 'grandes_ecoles', 'category_description_plus', 
+    'concours_description', 'category_name', 'views'  # ✅ Supprime l'espace devant `views`
+)
+
 
     def get_category_description_plus(self, obj):
         """Retourne description_plus de la catégorie, si disponible"""
@@ -139,6 +140,7 @@ class ConcoursESSerializer(serializers.Serializer):
     subcategory = serializers.CharField()
     university = serializers.CharField()
     image = serializers.CharField()
+    views  = serializers.CharField()
 
 
 class ConcoursCategoryESSerializer(serializers.Serializer):

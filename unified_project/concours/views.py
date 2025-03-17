@@ -27,6 +27,8 @@ from .serializers import UniversitySerializer, GrandEcoleSerializer
 from rest_framework.decorators import action
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
+from datetime import timedelta
+from django.utils.timezone import now
 logger = logging.getLogger(__name__)
 
 
@@ -54,9 +56,20 @@ class ConcoursFilter(django_filters.FilterSet):
         fields = ['university']
 
 class PublishedConcoursViewSet(viewsets.ModelViewSet):
-    queryset = Concours.objects.filter(is_published=True)
     serializer_class = ConcoursSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        # Récupérer les 5 concours les plus récents
+        latest_concours = Concours.objects.filter(is_published=True).order_by('-concours_date')[:5]
+
+        # Récupérer les 5 concours les plus populaires (avec le plus de vues)
+        popular_concours = Concours.objects.filter(is_published=True).order_by('-views')[:5]
+
+        # Fusionner les deux listes sans supprimer les doublons
+        concours_combined = list(latest_concours) + [concours for concours in popular_concours if concours not in latest_concours]
+
+        return concours_combined
 
 class TestimonialViewSet(viewsets.ModelViewSet):
     queryset = Testimonial.objects.all().order_by('-created_at')
@@ -410,3 +423,69 @@ class GrandesEcolesWithConcoursView(APIView):
             })
 
         return Response(data)
+#     from django.http import JsonResponse
+# from .models import AdresseEtablissement
+
+
+# class LocationListView(APIView):
+#     permission_classes = [AllowAny]
+    
+#     def get(self, request):
+#         locations = AdresseEtablissement.objects.select_related('ville').values(
+#             'universite__name', 'grand_ecole__name', 'etablissement_scolaire__nom',
+#             'etablissement_primaire__nom', 'ville__name', 'latitude', 'longitude'
+#         )
+        
+#         data = []
+#         for loc in locations:
+#             data.append({
+#                 "nom": loc.get("universite__name") or loc.get("grand_ecole__name") or 
+#                         loc.get("etablissement_scolaire__nom") or loc.get("etablissement_primaire__nom"),
+#                 "ville": loc.get("ville__name"),
+#                 "latitude": loc.get("latitude"),
+#                 "longitude": loc.get("longitude"),
+#             })
+        
+#         return Response(data)
+class TrendingConcoursView(APIView):
+    """
+    Vue qui récupère les concours en tendance :
+    - Plus de 100 vues en 7 jours
+    - Concours avec les dates de publication les plus récentes
+    """
+    permission_classes = [AllowAny]  
+
+    def get(self, request):
+        one_week_ago = now() - timedelta(days=7)
+
+        # Récupérer les concours tendances (100+ vues en 7 jours)
+        trending_concours = Concours.objects.filter(
+            views__gt=100, concours_publication__gte=one_week_ago
+        ).order_by('-views')
+
+        # Récupérer les concours les plus récents
+        recent_concours = Concours.objects.filter(
+            concours_publication__gte=one_week_ago
+        ).order_by('-concours_publication')
+
+        # Fusionner les résultats sans doublons
+        concours_set = set(trending_concours) | set(recent_concours)
+        concours_list = sorted(concours_set, key=lambda x: (x.views, x.concours_publication), reverse=True)[:10]  
+
+        if not concours_list:
+            raise NotFound(detail="Aucun concours tendance trouvé.")
+
+        serializer = ConcoursSerializer(concours_list, many=True)
+        return Response(serializer.data)
+    
+class UpdateConcoursViews(APIView):
+    """
+    Vue API pour incrémenter le nombre de vues d'un concours.
+    """
+    permission_classes = [AllowAny]
+
+    def post(self, request, concours_id):
+        concours = get_object_or_404(Concours, id=concours_id)
+        concours.views += 1  # Incrémente la vue
+        concours.save(update_fields=["views"])  # Enregistre la mise à jour
+        return Response({"message": "Vue enregistrée", "views": concours.views})
