@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     fs: {
       allow: [
-      'C:/Users/Guest/OneDrive/Desktop/dibiye/frontend',
+      'C:/Users/Nzogue/Documents/dibiye/frontend',
       ],
     }
   },

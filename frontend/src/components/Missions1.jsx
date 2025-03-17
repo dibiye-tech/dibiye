@@ -3,10 +3,11 @@ import Boule from "../components/Boule";
 
 const Missions1 = () => {
   return (
-    <div className="relative">
+    <div className="relative overflow-visible">
       <div className="container mx-auto px-10 md:px-5 py-15 flex flex-col-reverse md:flex-row-reverse justify-center md:justify-between items-center md:items-start relative overflow-visible">
+        
         {/* Partie gauche avec l'image et la citation */}
-        <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0 relative">
+        <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0 relative z-10">
           <div className="relative bg-black text-white rounded-lg shadow-lg overflow-hidden w-11/12 md:w-10/12">
             <img
               src="../../images/front.jpg"
@@ -24,7 +25,7 @@ const Missions1 = () => {
         </div>
 
         {/* Partie droite avec le texte */}
-        <div className="w-full md:w-1/2 text-center md:text-left ml-0 md:ml-16 md:py-0 py-5">
+        <div className="w-full md:w-1/2 text-center md:text-left ml-0 md:ml-16 md:py-0 py-5 z-10">
           <h2 className="text-[#2278AC] text-xl md:text-3xl font-semibold mb-4">
             Présentation de concours
           </h2>
@@ -41,24 +42,19 @@ const Missions1 = () => {
         </div>
       </div>
 
-      {/* Boules décoratives fixes */}
+      {/* Boules décoratives avec `z-[-1]` pour être en arrière-plan */}
       <div
-        className="hidden sm:block absolute left-[-40px] md:left-[-100px] lg:left-[-90px] top-[90%] md:top-[85%] lg:top-[80%] transform -translate-y-1/2 z-0"
-        style={{
-          transform: "scale(0.6)", // Taille adaptée pour tous les écrans
-        }}
+        className="block absolute left-[20px] md:left-[-100px] lg:left-[-90px] top-[95%] md:top-[85%] lg:top-[80%] transform -translate-y-1/2 z-[-1]"
       >
         <Boule />
       </div>
 
-      <div
-        className="hidden sm:block absolute right-[-20px] md:left-[-270px] lg:left-[-550px] top-[40%] md:top-[10%] lg:top-[-90%] transform -translate-y-1/2 z-0"
-        style={{
-          transform: "scale(0.6)", // Taille adaptée pour tous les écrans
-        }}
+      {/* Boule secondaire (commentée dans `develop`) */}
+      {/* <div
+        className="hidden md:block absolute lg:left-[-20px] md:left-[-270px] left-[10px] top-[40%] md:top-[10%] lg:top-[-90%] transform -translate-y-1/2 z-[-1]" 
       >
         <Boule />
-      </div>
+      </div> */}
     </div>
   );
 };
