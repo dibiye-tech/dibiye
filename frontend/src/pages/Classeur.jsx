@@ -127,12 +127,12 @@ const Classeur = () => {
 
     return (
         <>
-        <div className='flex flex-col md:flex-row justify-start gap-2 text-md md:text-lg lg:text-xl pb-32'>
+        <div className='flex flex-col md:flex-row justify-start gap-2 text-md md:text-lg lg:text-xl pb-32 w-[100%]'>
             <Banner1 activeTab={activeTab} setActiveTab={setActiveTab}/>
-            <Box className='container mx-auto pb-52 lg:pb-60 mt-0  px-10 md:px-5'>
+            <Box className='pb-52 lg:pb-60 mt-0 pl-0 lg:pl-10'>
                 {activeTab === 'classeur' && (
                     <>
-                        <Box display="flex" justifyContent="space-between" alignItems="center" mb={4} className='pt-20'>
+                        <Box  className='pt-0 md:pt-10 lg:pt-20 container mx-auto px-10 md:px-5 flex justify-between items-center'>
                             <Text className='text-md md:text-lg lg:text-2xl' fontWeight="bold" color="red.500">{classeurName} :</Text>
                             <button
                                 onClick={() => handleDeleteAllClasseurBook()}
@@ -143,7 +143,7 @@ const Classeur = () => {
                             </button>
                         </Box>
                         {documents.length === 0 ? (
-                            <div>
+                            <div className='container mx-auto px-10 md:px-5'>
                                 <Text>Aucun document trouvé.</Text>
                                 <div className='bg-[#2278AC] rounded-lg px-5 py-2 text-white w-[100px] mt-20'>
                                     <a href="/profile">
@@ -152,8 +152,8 @@ const Classeur = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div>
-                                <SimpleGrid columns={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5 }} spacing={5}>
+                            <div className='container mx-auto px-10 md:px-5'>
+                                <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }} spacing={5}>
                                     {documents.map((doc) => (
                                         <Box key={doc.id} borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} boxShadow="md" textAlign="start">
                                             <a href={`/bibliotheque/enseignements/livre/${doc.id}`}>

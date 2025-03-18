@@ -21,6 +21,9 @@ const Books = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState('');
     const [modalType, setModalType] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(3);
     
 
     const { data: bookData = {}, isLoading: isBookLoading, isError: isBookError } = useQuery(['bookDetails', id], () => getBookDetails(id));
@@ -162,15 +165,38 @@ const Books = () => {
             return <audio controls src={file} className="w-full h-auto" />;
         }
         if (document_type === 'text') {
-            return <p>{contenu}</p>;
+            return <p className='w-[100%] md:w-[1000px] lg:w-[900px] xl:w-[800px] 2xl:w-[1000px] text-center'>{contenu}</p>;
         }
         if (document_type === 'pdf') {
             return <iframe src={file} height="800px" title="PDF Viewer" className='w-[100%] md:w-[1000px] lg:w-[900px] xl:w-[800px] 2xl:w-[1000px] text-center'/>;
         }
         if (document_type === 'video') {
-            return <video controls src={file} className='w-auto md:w-[500px] lg:w-[1000px] xl:w-[1200px] text-center'/>;
+            return <video controls src={file} className='w-auto md:w-[700px] lg:w-[1000px] xl:w-[5000px] text-center'/>;
         }
         return <p>Format de fichier non supporté</p>;
+    };
+
+    const paginateContent = (content, itemsPerPage) => {
+        const contentArray = content.split("\n");  // Assuming the content is separated by line breaks
+        const pages = [];
+        for (let i = 0; i < contentArray.length; i += itemsPerPage) {
+            pages.push(contentArray.slice(i, i + itemsPerPage).join("\n"));
+        }
+        return pages;
+    };
+
+    const contentPages = paginateContent(contenu, itemsPerPage);
+
+    const handlePrevious = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentPage < contentPages.length) {
+            setCurrentPage(currentPage + 1);
+        }
     };
 
     return (
@@ -184,34 +210,33 @@ const Books = () => {
                         className='rounded-t-[20px] lg:rounded-l-[20px] lg:rounded-tr-[0px] h-[300px] md:h-[450px] lg:h-[59.7vh] w-[600px] md:w-[1200px] transition-all duration-300 transform'
                     />
                 </div>
-                <div className='flex flex-col gap-2 px-5 lg:px-2 lg:w-[2000px]'>
+                <div className='flex flex-col justify-between px-5 lg:px-2 lg:w-[2000px] h-[400px] md:h-[450px] lg:h-[59.7vh]'>
                     <div className='text-[#DE290C] pt-2 lg:pt-8'>
                         <h3 className='font-bold text-md md:text-lg lg:text-xl text-shadow-md'>{title}</h3>
                     </div>
                     <div>
-                        <p className='text-sm md:text-md lg:text-lg xl:text-xl py-3 lg:py-10 leading-10 line-clamp-3 md:line-clamp-6 lg:line-clamp-none h-[250px] hover:overflow-y-scroll lg:hover:overflow-hidden backdrop-blur-md p-4 rounded-lg'>
+                        <p className='text-sm md:text-md lg:text-lg xl:text-xl py-3 leading-10 line-clamp-3 md:line-clamp-6 h-auto hover:overflow-y-scroll lg:hover:overflow-hidden backdrop-blur-md rounded-lg'>
                             {description}
                         </p>
                     </div>
-                    <div className='flex justify-start md:justify-end items-center gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl pr-10
-                    
-                    
-                    '>
-                        <MdOutlineStar className='transition-transform duration-200 hover:scale-110' />
-                        <MdOutlineStar className='transition-transform duration-200 hover:scale-110' />
-                        <MdOutlineStar className='transition-transform duration-200 hover:scale-110' />
-                        <MdOutlineStarBorder className='transition-transform duration-200 hover:scale-110' />
-                        <MdOutlineStarBorder className='transition-transform duration-200 hover:scale-110' />
+                    <div className='text-[#DE290C] pb-2 lg:pb-5 font-semibold uppercase text-md md:text-lg lg:text-xl'>
+                        <p className='pt-10'>{auteur}</p>
                     </div>
-                    <div className='text-[#DE290C] pt-5 lg:pt-10 pb-2 lg:pb-5 font-semibold uppercase text-md md:text-lg lg:text-xl'>
-                        <p className='float-start md:float-end pr-10'>{auteur}</p>
-                    </div>
-                    <div className='flex justify-end pr-10 md:pr-0 md:justify-start items-center gap-3 lg:gap-5 pt-0 pb-5 md:pb-0 text-red-500 md:my-2 lg:my-auto'>
-                        <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={openAddToClasseurModal}>
-                            <IoFileTrayStacked className='w-auto md:w-[25px] h-auto md:h-[25px]' />
+                    <div className='flex flex-col-reverse md:flex-row justify-start items-start gap-5 md:justify-between md:items-center pt-10 pb-10'>
+                        <div className='flex justify-end pr-10 md:pr-0 md:justify-start items-center gap-3 lg:gap-5 pt-0 pb-5 md:pb-0 text-red-500 md:my-2 lg:my-auto'>
+                            <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={openAddToClasseurModal}>
+                                <IoFileTrayStacked className='w-auto md:w-[25px] h-auto md:h-[25px]' />
+                            </div>
+                            <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={async () => handleFavoriteClick(id)}>
+                                {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[25px] h-auto md:h-[25px]' />}
+                            </div>
                         </div>
-                        <div className='bg-white rounded-full shadow-md p-2 md:p-3 lg:p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:bg-[#f0f0f0]' onClick={async () => handleFavoriteClick(id)}>
-                            {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[25px] h-auto md:h-[25px]' />}
+                        <div className='flex justify-start md:justify-end items-center gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl pr-10'>
+                            <MdOutlineStarBorder  className='transition-transform duration-200 hover:scale-110' />
+                            <MdOutlineStarBorder  className='transition-transform duration-200 hover:scale-110' />
+                            <MdOutlineStarBorder  className='transition-transform duration-200 hover:scale-110' />
+                            <MdOutlineStarBorder className='transition-transform duration-200 hover:scale-110' />
+                            <MdOutlineStarBorder className='transition-transform duration-200 hover:scale-110' />
                         </div>
                     </div>
                     <Modal isOpen={isOpen} onClose={onClose}>
@@ -258,6 +283,12 @@ const Books = () => {
                         </ModalContent>
                     </Modal>
                 </div>
+            </div>
+            <div className='text-center text-[#DE290C] font-bold text-md md:text-lg lg:text-xl xl:text-2xl'>
+                <h2>
+                    <a href="/bibliotheque">Bibliothèque</a> &gt;&gt; <a href="/bibliotheque/enseignements">Enseignements</a> &gt;&gt; <a href={`/book/${id}`}>Livres</a> &gt;&gt; { title }
+                </h2>
+                <hr className='bg-[#DE290C] w-[100px] md:w-[200px] h-1 mx-auto mt-2 mb-10' />
             </div>
             <div className='flex justify-between items-start gap-24'>
                 {/* <div className='border-2 border-[#096197] rounded-[20px] w-[100%] lg:w-[35%] h-[50vh] lg:h-[100vh] mb-3 md:mb-10 overflow-y-scroll'>

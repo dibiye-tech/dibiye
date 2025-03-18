@@ -76,7 +76,6 @@ const Videopass = () => {
       </div>
 
       {/* Section Témoignage avec Carrousel */}
-     
     </div>
   );
 };

@@ -9,16 +9,16 @@ import {
   Heading,
   Input,
   Stack,
-  useToast,
   Flex,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { RESET_USER_PASSWORD } from "../hooks/useFetchQuery";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PasswordResetEmail = () => {
-  const toast = useToast();
   const navigate = useNavigate();
   const {
     register,
@@ -30,25 +30,18 @@ const PasswordResetEmail = () => {
   const mutation = useMutation((d) => RESET_USER_PASSWORD(d), {
     onSuccess: (data) => {
       console.log(data);
-      toast({
-        title: "Un mail vous a été envoyé",
-        description: "Vérifiez votre mail et suivez les instructions",
-        position: "top",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
+      toast.success("Vérifier votre mail et suivez les étapes !", {
+                      position: "top-right",
+                      autoClose: 3000,
+                    });
 
       navigate("/");
     },
     onError: (error) => {
-      toast({
-        title: "Échec!! Veuillez réessayer plus tard",
-        position: "top",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
+      toast.error("Echec! Réessayez.", {
+                      position: "top-right",
+                      autoClose: 3000,
+                    });
 
       console.log(error);
     },
@@ -66,6 +59,7 @@ const PasswordResetEmail = () => {
       minH="100vh"
       bg="gray.50" // Background color for better visibility
     >
+      <ToastContainer />
       <Container
         maxW="lg"
         py={{ base: "12", md: "12" }}

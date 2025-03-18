@@ -167,12 +167,12 @@ export const getSousCategories = async () => {
   }
 }
 
-export const getDocumentsBySousCategory = async (id) => {
+export const getDocumentsBySousCategory = async (sousCategoryId) => {
   try {
-    const response = await axios.get(`${baseUrl}app/documents/sous_category/${id}/`);
+    const response = await axios.get(`${baseUrl}app/documents/sous_category/${sousCategoryId}/`);
     return response.data;
   } catch (error) {
-    console.error(`Erreur lors de la récupération des documents pour la sous-catégorie ${id}`, error);
+    console.error(`Erreur lors de la récupération des documents pour la sous-catégorie ${sousCategoryId}`, error);
     throw error;
   }
 };
@@ -203,6 +203,16 @@ export const getDocumentsByCategory = async (categoryId) => {
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la récupération des documents par catégorie", error);
+    throw error;
+  }
+};
+
+export const getBranchesBySousCategory = async (id) => {
+  try {
+    const response = await axios.get(`${baseUrl}app/branches/souscategories/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des branches par sous catégories", error);
     throw error;
   }
 };
@@ -562,6 +572,25 @@ export const fetchSearchResults = async (query) => {
     return { books: [], categories: [], sous_categories: [] }; // Retourner un objet vide en cas d'erreur
   }
 };
+
+export const subscribeToNewsletter = async (email) => {
+  try {
+    const response = await api.post('app/newsletter/signup/', { email }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 201) {
+      return { success: true, message: 'Merci de vous etre abonné à notre newsletter.' };
+    } else {
+      return { success: false, message: response.data?.detail || 'Une erreur s\'est produite.' };
+    }
+  } catch (error) {
+    return { success: false, message: error.response?.data?.detail || 'Une erreur réseau s\'est produite.' };
+  }
+};
+
 
 
 
