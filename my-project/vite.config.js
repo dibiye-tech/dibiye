@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     fs: {
       allow: [
-        'C:/Users/Nzogue/Documents/dibiye/my-project',
+        'C:/Users/Nzogue/Documents/dibiye/frontend'  // Le chemin doit être correct
       ]
     }
   }
