@@ -53,7 +53,16 @@ INSTALLED_APPS = [
     'django_filters',
     'django_cron',
     'debug_toolbar',
+    # 'leaflet',
 ]
+
+# LEAFLET_CONFIG = {
+#     'DEFAULT_CENTER': (3.848, 11.502),  # Centre du Cameroun
+#     'DEFAULT_ZOOM': 6,
+#     'MAX_ZOOM': 18,
+#     'MIN_ZOOM': 4,
+# }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -207,6 +216,7 @@ DJOSER = {
         'user_create': 'app.serializers.UserCreateSerializer',
         'current_user': 'app.serializers.UserSerializer',
         'user': 'app.serializers.UserSerializer',
+        # 'user_login': 'app.serializers.CustomUserLoginSerializer',
     },
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'auth/activate/{uid}/{token}',

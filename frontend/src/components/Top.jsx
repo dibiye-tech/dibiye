@@ -2,38 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { IoArrowUp } from "react-icons/io5";
 
 const Top = () => {
-
     const [backToTopButton, setBackToTopButton] = useState(false);
-    const [buttonIntensity, setButtonIntensity] = useState(0); // Ajout de l'état pour l'intensité du bouton
+    const [buttonIntensity, setButtonIntensity] = useState(0); 
     const [lastInteractionTime, setLastInteractionTime] = useState(Date.now());
 
     useEffect(() => {
         const handleScroll = () => {
-            setLastInteractionTime(Date.now()); // Mettre à jour le temps de la dernière interaction
+            setLastInteractionTime(Date.now());
             if (window.scrollY > 100) {
                 setBackToTopButton(true);
-                setButtonIntensity(100); // Réglez l'intensité à 100 quand le bouton apparaît
+                setButtonIntensity(100);
             } else {
                 setBackToTopButton(false);
-                // Démarrer le délai pour diminuer l'intensité si aucun scroll ou hover
                 startOpacityDecreaseTimer();
             }
         };
 
         const startOpacityDecreaseTimer = () => {
             setTimeout(() => {
-                // Vérifiez si aucun scroll ou hover n'a eu lieu depuis 2 secondes
                 if (Date.now() - lastInteractionTime > 2000) {
-                    setButtonIntensity(20); // Réglez l'intensité à 50 après un délai
+                    setButtonIntensity(20);
                 }
-            }, 5000); // Délai de 2 secondes (ajustez selon vos besoins)
+            }, 5000);
         };
 
         window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [lastInteractionTime]);
 
     const scrollUp = () => {
@@ -41,27 +35,30 @@ const Top = () => {
             top: 0,
             behavior: 'smooth'
         });
-        setLastInteractionTime(Date.now()); // Mettre à jour le temps de la dernière interaction
+        setLastInteractionTime(Date.now());
     };
 
     const handleMouseEnter = () => {
-        setButtonIntensity(100); // Réglez l'intensité à 100 quand la souris entre dans le bouton
-        setLastInteractionTime(Date.now()); // Mettre à jour le temps de la dernière interaction
+        setButtonIntensity(100);
+        setLastInteractionTime(Date.now());
     };
 
     const handleMouseLeave = () => {
-        setButtonIntensity(50); // Réglez l'intensité à 50 quand la souris quitte le bouton
+        setButtonIntensity(50);
     };
 
     return (
-        <div>
+        <div  className="">
             { backToTopButton && (
                 <button
                     onClick={scrollUp}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    className={`fixed right-[50px] bottom-[50px] bg-[#2278AC] text-white py-2 px-3 border border-1 border-[#fff] rounded-[10px] w-auto text-center hover:bg-[#096197] cursor-pointer transition-all duration-700 text-[30px]`}
-                    style={{ opacity: buttonIntensity / 100 }} // Utilisation de l'intensité pour régler l'opacité
+                    className={`fixed right-4 bottom-4 sm:right-6 sm:bottom-6 md:right-8 md:bottom-8 
+                        bg-[#2278AC] text-white border border-white rounded-[10px] 
+                        cursor-pointer transition-all duration-700 hover:bg-[#096197] 
+                        text-[20px] py-1 px-2 sm:text-[25px] sm:py-1.5 sm:px-2.5 md:text-[30px] md:py-2 md:px-3`}
+                    style={{ opacity: buttonIntensity / 100 }} 
                 >
                     <IoArrowUp />
                 </button>

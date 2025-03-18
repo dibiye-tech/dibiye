@@ -39,26 +39,7 @@ class ConcoursSubCategory(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class University(models.Model):
-    name = models.CharField(max_length=255)
-    image = models.ImageField(_('Image'), upload_to=upload_to, default='posts/default.png')
-    description = models.TextField(blank=True, null=True)
-    def __str__(self):
-        return self.name
-
-
-class GrandEcole(models.Model):
-    """Modèle pour représenter une Grande École liée à une université et à des concours."""
-    name = models.CharField(max_length=255)
-    image = models.ImageField(_('Image'), upload_to=upload_to, default='posts/default.png')
-    university = models.ForeignKey(University, related_name='grandes_ecoles', on_delete=models.CASCADE,blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    def __str__(self):
-        return self.name
-
-
+    
 class Ville(models.Model):
     """Modèle pour représenter une ville unique avec plusieurs arrondissements, département, et région."""
     name = models.CharField(max_length=100)
@@ -70,8 +51,27 @@ class Ville(models.Model):
         null=True    # Permettre la valeur NULL en base de données
     )
 
+class University(models.Model):
+    name = models.CharField(max_length=255)
+    image = models.ImageField(_('Image'), upload_to=upload_to, default='posts/default.png')
+    description = models.TextField(blank=True, null=True)
+    # ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name="University")
     def __str__(self):
-        return f"{self.name} ({self.region}) - {self.departement}"
+        return self.name
+
+
+class GrandEcole(models.Model):
+    """Modèle pour représenter une Grande École liée à une université et à des concours."""
+    name = models.CharField(max_length=255)
+    image = models.ImageField(_('Image'), upload_to=upload_to, default='posts/default.png')
+    university = models.ForeignKey(University, related_name='grandes_ecoles', on_delete=models.CASCADE,blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    # ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name="grandes_ecoles", null=True, blank=True)
+    def __str__(self):
+        return self.name
+    
+    # def __str__(self):
+    #     return f"{self.name} ({self.region}) - {self.departement}"
 
     def get_arrondissements_list(self):
         """Retourne une liste des arrondissements en les séparant par une virgule, ou une liste vide si aucun n'est défini."""
@@ -112,6 +112,7 @@ class Concours(models.Model):
     niveau_minimum = models.ManyToManyField(NiveauMinimum, related_name='concours_requis', blank=True)  # Suppression de null=True
     niveau_obtenu = models.ManyToManyField(NiveauObtenue, related_name='concours_obtenu', blank=True)  # Suppression de null=True
     cycles = models.ManyToManyField(Cycle, related_name='concours', blank=True)  # Suppression de null=True
+    views = models.IntegerField(default=0)  # Suivi des vues
 
     def __str__(self):
         return self.name
@@ -186,3 +187,158 @@ class ConcoursDocument(models.Model):
             print("⚠️ Poppler n'est pas installé, conversion PDF -> Thumbnail ignorée.")
         except Exception as e:
             print(f"❌ Erreur lors de la conversion du PDF en image: {e}")
+            
+# class EtablissementPrimaire(models.Model):
+#     TYPE_CHOICES = [
+#         ('publique', 'Publique'),
+#         ('privee', 'Privée'),
+#     ]
+#     SYSTEM_CHOICES = [
+#         ('fr', 'Français'),
+#         ('en', 'Anglais'),
+#     ]
+    
+#     nom = models.CharField(max_length=255)
+#     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+#     galerie = models.ImageField(upload_to='galerie/', blank=True, null=True)
+#     type_sc = models.CharField(max_length=10, choices=TYPE_CHOICES)
+#     system = models.CharField(max_length=5, choices=SYSTEM_CHOICES)
+#     abbr = models.CharField(max_length=50, blank=True, null=True)
+
+#     def __str__(self):
+#         return self.nom
+
+# class ClassePrimaire(models.Model):
+#     etablissement = models.ForeignKey(EtablissementPrimaire, on_delete=models.CASCADE)
+#     nom = models.CharField(max_length=255)
+#     effectif = models.IntegerField()
+#     success_percent = models.FloatField()
+#     taux_ex_succes = models.FloatField()
+#     system = models.CharField(max_length=50)
+#     ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name="etablissements_primaires", null=True, blank=True)
+#     examen = models.OneToOneField('ExamenOfficiel', on_delete=models.CASCADE, null=True, blank=True)
+
+#     def __str__(self):
+#         return f"{self.nom} - {self.etablissement.nom}"
+
+# class EtablissementScolaire(models.Model):
+#     TYPE_CHOICES = [
+#         ('publique', 'Publique'),
+#         ('privee', 'Privée'),
+#     ]
+#     SYSTEM_CHOICES = [
+#         ('fr', 'Français'),
+#         ('en', 'Anglais'),
+#     ]
+#     GENRE_CHOICES = [
+#         ('TECHNICIEN', 'Technicien'),
+#         ('GENERALISTE', 'Généraliste'),
+#         ('TECHNICIEN_GENERALISTE', 'Technicien & Généraliste'),
+#     ]
+    
+#     nom = models.CharField(max_length=255)
+#     abbr = models.CharField(max_length=50, blank=True, null=True)
+#     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+#     galerie = models.ImageField(upload_to='galerie/', blank=True, null=True)
+#     type_sc = models.CharField(max_length=10, choices=TYPE_CHOICES)
+#     system = models.CharField(max_length=5, choices=SYSTEM_CHOICES)
+#     genre = models.CharField(max_length=25, choices=GENRE_CHOICES)
+#     ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name="etablissements_scolaires", null=True, blank=True)
+    
+#     def __str__(self):
+#         return self.nom
+
+# class AdresseEtablissement(models.Model):
+#     etablissement_scolaire = models.ForeignKey(EtablissementScolaire, on_delete=models.CASCADE, null=True, blank=True)
+#     etablissement_primaire = models.ForeignKey(EtablissementPrimaire, on_delete=models.CASCADE, null=True, blank=True)
+#     University = models.ForeignKey(University, on_delete=models.CASCADE, null=True, blank=True)
+#     grand_ecole = models.ForeignKey(GrandEcole, on_delete=models.CASCADE, null=True, blank=True)
+#     ville = models.ForeignKey(Ville, on_delete=models.CASCADE, null=True, blank=True)  # Ajout du lien avec la ville
+#     longitude = models.FloatField()
+#     latitude = models.FloatField()
+
+#     def __str__(self):
+#         return f"{self.etablissement_scolaire or self.etablissement_primaire or self.universite or self.grand_ecole} - {self.ville}"
+
+
+# class PersonnelEtablissement(models.Model):
+#     SYSTEM_CHOICES = [
+#         ('administratif', 'Administratif'),
+#         ('enseignant', 'Enseignant'),
+#     ]
+#     TYPE_CHOICES = [
+#         ('permanent', 'Permanent'),
+#         ('contractuel', 'Contractuel'),
+#     ]
+    
+#     etablissement_scolaire = models.ForeignKey(EtablissementScolaire, on_delete=models.CASCADE)
+#     etablissement_primaire = models.ForeignKey(EtablissementPrimaire, on_delete=models.CASCADE)
+#     annee = models.IntegerField()
+#     poste = models.CharField(max_length=255)
+#     system = models.CharField(max_length=15, choices=SYSTEM_CHOICES)
+#     type_pc = models.CharField(max_length=15, choices=TYPE_CHOICES)
+
+# class ClasseSecondaire(models.Model):
+#     SPECIALITE_CHOICES = [
+#         ('gen', 'Général'),
+#         ('tec', 'Technique'),
+#     ]
+    
+#     etablissement_scolaire = models.ForeignKey(EtablissementScolaire, on_delete=models.CASCADE)
+#     nom = models.CharField(max_length=255)
+#     effectif = models.IntegerField()
+#     success_percent = models.FloatField()
+#     taux_ex_succes = models.FloatField()
+#     systeme = models.CharField(max_length=50)
+#     specialite = models.CharField(max_length=10, choices=SPECIALITE_CHOICES)
+
+#     def __str__(self):
+#         return self.nom
+
+# class SerieSpecialite(models.Model):
+#     nom = models.CharField(max_length=255)
+    
+#     def __str__(self):
+#         return self.nom
+
+# class ExamenOfficiel(models.Model):
+#     nom = models.CharField(max_length=255)
+    
+#     def __str__(self):
+#         return self.nom
+
+# class Niveau(models.Model):
+#     CYCLE_CHOICES = [
+#         ('primaire', 'Primaire'),
+#         ('secondaire', 'Secondaire'),
+#     ]
+    
+#     cycle = models.CharField(max_length=10, choices=CYCLE_CHOICES)
+    
+#     def __str__(self):
+#         return self.cycle
+
+# class Categorie(models.Model):
+#     nom = models.CharField(max_length=255)
+    
+#     def __str__(self):
+#         return self.nom
+
+# # Relations Many-to-Many
+# class ClasseSerie(models.Model):
+#     classe = models.ForeignKey(ClasseSecondaire, on_delete=models.CASCADE)
+#     serie = models.ForeignKey(SerieSpecialite, on_delete=models.CASCADE)
+
+# class ClasseNiveau(models.Model):
+#     classe = models.ForeignKey(ClasseSecondaire, on_delete=models.CASCADE)
+#     niveau = models.ForeignKey(Niveau, on_delete=models.CASCADE)
+
+# class ClasseExamen(models.Model):
+#     classe = models.ForeignKey(ClasseSecondaire, on_delete=models.CASCADE)
+#     examen = models.ForeignKey(ExamenOfficiel, on_delete=models.CASCADE)
+
+# class Universite(models.Model):
+#     nom = models.CharField(max_length=255)
+    
+#     def __str__(self):
+#         return self.nom

@@ -1,44 +1,224 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// Fonctionpub.js
 import React, { useEffect, useState, forwardRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import axios from "axios";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Fonctionpub = forwardRef(
-  ({ categoryId, categoryDetails, scrollToSubcategoryId }, ref) => {
-    const [subcategories, setSubcategories] = useState([]);
-    const [error, setError] = useState(null);
-    const [user, setUser] = useState(null); // Stocke l'utilisateur connecté
-    const [history, setHistory] = useState([]); // Stocke l'historique local des clics
-    const [favorites, setFavorites] = useState(() => {
-      return JSON.parse(localStorage.getItem("favorites")) || [];
-    });
-    const navigate = useNavigate();
 
-    // Vérifie si l'utilisateur est connecté depuis le localStorage
-    useEffect(() => {
+const Fonctionpub = forwardRef(({ categoryId, categoryDetails }, ref) => {
+  const [subcategories, setSubcategories] = useState([]);
+  const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  // Fonction définie ici avant son utilisation
+  const loadUserFromLocalStorage = () => {
+    try {
       const savedUser = localStorage.getItem("user");
       if (savedUser) {
-        setUser(JSON.parse(savedUser));
+        const parsedUser = JSON.parse(savedUser);
+        console.log("Utilisateur récupéré depuis localStorage :", parsedUser);
+  
+        if (parsedUser && parsedUser.id) {
+          setUser(parsedUser);
+          setIsUserAuthenticated(true);
+  
+          // Charger l'historique de l'utilisateur
+          const userHistoryKey = `history_user_${parsedUser.id}`;
+          const userHistory = localStorage.getItem(userHistoryKey);
+  
+          if (userHistory) {
+            console.log("Historique utilisateur récupéré :", JSON.parse(userHistory));
+            setHistory(JSON.parse(userHistory));
+          } else {
+            console.log("Aucun historique trouvé pour l'utilisateur connecté. Initialisation.");
+            localStorage.setItem(userHistoryKey, JSON.stringify([])); // Initialisez un historique vide
+            setHistory([]);
+          }
+  
+          // Charger les favoris de l'utilisateur
+          const userFavorites = localStorage.getItem(`favorites_user_${parsedUser.id}`);
+          setFavorites(userFavorites ? JSON.parse(userFavorites) : []);
+        } else {
+          console.warn("Utilisateur invalide trouvé dans localStorage :", parsedUser);
+          handleLogout();
+        }
+      } else {
+        console.warn("Aucun utilisateur trouvé dans localStorage");
+        handleLogout();
       }
+    } catch (error) {
+      console.error("Erreur lors du chargement de l'utilisateur :", error);
+      handleLogout();
+    }
+  };
+  
+
+  useEffect(() => {
+    if (isUserAuthenticated) {
+      loadHistoryFromLocalStorage();
+    } else {
+      loadHistoryFromSessionStorage();
+    }
+  }, [isUserAuthenticated]);
+  
+    
+  
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("favorites");
+    setUser(null);
+    setFavorites([]);
+    setIsUserAuthenticated(false);
+  };
+    useEffect(() => {
+      loadUserFromLocalStorage();
     }, []);
 
-    // Récupère l'historique des concours
-    const fetchHistory = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/concours/get_history/", {
-          withCredentials: true,
-        });
-        setHistory(response.data.history || []);
-      } catch (error) {
-        console.error("Erreur lors de la récupération de l'historique :", error);
+    useEffect(() => {
+      const verifyAuthentication = async () => {
+        try {
+          if (user && user.token) {
+            const response = await axios.get("/api/verify-user", {
+              headers: { Authorization: `Bearer ${user.token}` },
+            });
+            if (!response.data.authenticated) {
+              handleLogout();
+              toast.warning(
+                "Votre session a expiré. Veuillez vous reconnecter.",
+                {
+                  position: "top-right",
+                  autoClose: 3000,
+                }
+              );
+            }
+          }
+        } catch (error) {
+          handleLogout();
+        }
+      };
+
+      if (user) {
+        verifyAuthentication();
+      }
+    }, [user]);
+
+    const updateHistory = (concours) => {
+      const historyKey = isUserAuthenticated
+        ? `history_user_${user.id}`
+        : "history_temp";
+    
+      // Charger l'historique existant
+      const storedHistory = localStorage.getItem(historyKey);
+      let existingHistory = [];
+      
+      if (storedHistory) {
+        try {
+          existingHistory = JSON.parse(storedHistory);
+        } catch (error) {
+          console.error("Erreur lors du parsing de l'historique :", error);
+        }
+      }
+    
+      // Vérifiez si le concours est déjà dans l'historique
+      const exists = existingHistory.some((item) => item.id === concours.id);
+    
+      if (!exists) {
+        // Ajouter le nouveau concours à l'historique
+        const updatedHistory = [...existingHistory, concours];
+        setHistory(updatedHistory);
+    
+        // Sauvegarder l'historique mis à jour
+        localStorage.setItem(historyKey, JSON.stringify(updatedHistory));
+        console.log(`Historique mis à jour pour la clé ${historyKey}:`, updatedHistory);
+      } else {
+        console.log("Le concours est déjà présent dans l'historique :", concours);
       }
     };
-    // Fonction pour récupérer les sous-catégories
+    
+
+    
+    // Fonction pour charger l'historique persistant depuis le localStorage
+    const loadHistoryFromLocalStorage = () => {
+      try {
+        if (isUserAuthenticated) {
+          const userHistoryKey = `history_user_${user.id}`;
+          const savedHistory = localStorage.getItem(userHistoryKey);
+          if (savedHistory) {
+            setHistory(JSON.parse(savedHistory)); // Charge l'historique s'il est disponible
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement de l'historique persistant :", error);
+      }
+    };
+    
+    // Fonction pour charger l'historique temporaire depuis le sessionStorage
+    const loadHistoryFromSessionStorage = () => {
+      try {
+        if (!isUserAuthenticated) {
+          const sessionHistory = sessionStorage.getItem("history_temp");
+          if (sessionHistory) {
+            setHistory(JSON.parse(sessionHistory)); // Charge l'historique temporaire s'il est disponible
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement de l'historique temporaire :", error);
+      }
+    };
+    
+    // Charger l'historique lors du montage du composant
+    useEffect(() => {
+      if (isUserAuthenticated) {
+        loadHistoryFromLocalStorage();
+      } else {
+        loadHistoryFromSessionStorage();
+      }
+    }, [isUserAuthenticated]);
+    
+
+
+
+    const toggleFavorite = (concours) => {
+      if (!isUserAuthenticated) {
+        toast.error("Connectez-vous pour ajouter en favoris !", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+
+      const isFavorite = favorites.some((fav) => fav.id === concours.id);
+      const updatedFavorites = isFavorite
+        ? favorites.filter((fav) => fav.id !== concours.id)
+        : [...favorites, concours];
+
+      setFavorites(updatedFavorites);
+
+      localStorage.setItem(
+        `favorites_user_${user.id}`,
+        JSON.stringify(updatedFavorites)
+      );
+
+      toast.success(
+        isFavorite
+          ? "Concours retiré des favoris !"
+          : "Concours ajouté aux favoris !",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
+    };
+
     const fetchSubcategories = async () => {
       try {
         const response = await axios.get(
@@ -46,80 +226,15 @@ const Fonctionpub = forwardRef(
         );
         setSubcategories(response.data.results || []);
       } catch (error) {
-        setError("Impossible de charger les sous-catégories pour cette catégorie.");
-        console.error("Erreur lors de la récupération des sous-catégories:", error);
+        setError(
+          "Impossible de charger les sous-catégories pour cette catégorie."
+        );
       }
     };
 
     useEffect(() => {
       if (categoryId) fetchSubcategories();
     }, [categoryId]);
-
-    useEffect(() => {
-      if (scrollToSubcategoryId && subcategories.length > 0) {
-        const timer = setTimeout(() => {
-          const targetElement = document.getElementById(
-            `subcategory-${scrollToSubcategoryId}`
-          );
-          if (targetElement) {
-            const offsetTop =
-              targetElement.getBoundingClientRect().top + window.scrollY - 150;
-            window.scrollTo({ top: offsetTop, behavior: "smooth" });
-          }
-        }, 130);
-
-        return () => clearTimeout(timer);
-      }
-    }, [scrollToSubcategoryId, subcategories]);
-
-    // Enregistre un clic sur un concours
-    const handleConcoursClick = async (concours) => {
-      if (!user) {
-        alert("Veuillez vous connecter pour enregistrer vos clics.");
-        return;
-      }
-
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/concours/click_concours/",
-          {
-            concours_id: concours.id,
-            name: concours.name,
-            date: concours.concours_date,
-            image_url: concours.image,
-          },
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true,
-          }
-        );
-        setHistory(response.data.history); // Met à jour l'historique local
-      } catch (error) {
-        console.error("Erreur lors de l'enregistrement du clic :", error);
-      }
-    };
-
-    // Fonction pour gérer les favoris
-    const handleFavoriteClick = (concours) => {
-      const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-      const isAlreadyFavorite = storedFavorites.some((fav) => fav.id === concours.id);
-
-      if (isAlreadyFavorite) {
-        // Retirer des favoris
-        const updatedFavorites = storedFavorites.filter((fav) => fav.id !== concours.id);
-        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-        setFavorites(updatedFavorites);
-      } else {
-        // Ajouter aux favoris
-        const updatedFavorites = [...storedFavorites, concours];
-        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-        setFavorites(updatedFavorites);
-      }
-    };
-
-    const handleSubcategoryClick = (subcategory) => {
-      navigate(`/subcategory/${subcategory.id}`);
-    };
 
     const settings = {
       dots: false,
@@ -135,21 +250,23 @@ const Fonctionpub = forwardRef(
         { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 2 } },
         { breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 } },
       ],
+      accessibility: true,
     };
 
     return (
-      <div className="container mx-auto p-5" ref={ref}>
-        <div className="text-center mb-10">
+      <div className="container mx-auto px-10 md:px-5" ref={ref}>
+        <ToastContainer />
+        <div className="text-center mt-10">
           {categoryDetails ? (
             <>
-            <span
-                onClick={() => navigate('/')}
-                className="capitalize font-bold text-secondary text-2xl mt-8 cursor-pointer "
+              <span
+                onClick={() => navigate("/Homeconcours")}
+                className="capitalize font-bold text-secondary text-md md:text-lg lg:text-xl xl:text-2xl mt-8 cursor-pointer"
               >
-                 Concours &gt;&gt; {categoryDetails.name}
+                Concours &gt;&gt; {categoryDetails.name}
               </span>
-              <hr className="w-[100px] mx-auto border-t-2 border-secondary pb-10" />
-              <p className="text-lg lg:text-xl font-bold text-center my-10">
+              <hr className="bg-[#DE290C] w-[100px] h-1 mx-auto mt-2 mb-10" />
+              <p className="text-md md:text-lg lg:text-xl font-bold text-center mb-10">
                 {categoryDetails.description}
               </p>
             </>
@@ -160,129 +277,146 @@ const Fonctionpub = forwardRef(
 
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {subcategories.length > 0 ? (
-          subcategories.map((subcategory) => (
-            <div
-              key={subcategory.id}
-              id={`subcategory-${subcategory.id}`}
-              className="mb-10"
-            >
-              <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-                <h2 className="text-lg lg:text-xl font-bold text-secondary capitalize underline">
-                  {subcategory.name}
-                </h2>
-                <button
-                  className="rounded-2xl bg-primary text-white py-1 px-4 hover:bg-tertiary"
-                  onClick={() => handleSubcategoryClick(subcategory)}
-                >
-                  VOIR PLUS &gt;&gt;
-                </button>
-              </div>
-              <Slider {...settings} className="mt-5">
-                {subcategory.concours_set?.map((concours) => {
-                  
-                  let status = '';
-                  let statusColor = '';
-                  let statusIcon = '';
+{subcategories.length > 0 ? (
+  subcategories.map((subcategory) => (
+    <div
+      key={subcategory.id}
+      id={`subcategory-${subcategory.id}`}
+      className="mb-10"
+    >
+      <div className="flex flex-row justify-between items-start gap-4">
+        <h2 className="text-md md:text-lg lg:text-xl font-bold text-secondary capitalize underline cursor-pointer "  
+         onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}>
+          {subcategory.name }
+        </h2>
+        <button
+          className="rounded-xl bg-[#2278AC] text-white py-2 px-4 hover:bg-[#096197] focus:outline-none flex-shrink-0"
+          onClick={() => navigate(`/subcategory/${subcategory.id}`, { state: { categoryId: categoryId } })}
+        >
+          Voir plus &gt;&gt;
+        </button>
+      </div>
+      {subcategory.concours_set && subcategory.concours_set.length > 0 ? (
+        <Slider {...settings} className="mt-5">
+          {subcategory.concours_set.map((concours) => {
+            const isFavorite =
+              isUserAuthenticated &&
+              favorites.some((fav) => fav.id === concours.id);
 
-                  // Déterminer l'icône de statut en fonction des dates
-                  const concoursDate = concours.concours_date
-                  ? new Date(concours.concours_date)
-                  : null;
-                const publicationDate = concours.concours_publication
-                  ? new Date(concours.concours_publication)
-                  : null;
+            const concoursDate = concours.concours_date
+              ? new Date(concours.concours_date)
+              : null;
+            const today = new Date();
 
-                  console.log('Concours Date:', concoursDate);
-                  console.log('Publication Date:', publicationDate);
-                  console.log('Concours:', concours);
-                const today = new Date();
+            let status = '';
+            let statusColor = '';
+            let statusIcon = '';
+            
+            if (concoursDate && concoursDate > today) {
+              status = "En attente";
+              statusColor = 'text-yellow-500';  // Par exemple
+              statusIcon = "⏳";
+            } else if (concoursDate && concoursDate < today) {
+              status = "Expiré";
+              statusColor = 'text-red-500';
+              statusIcon = "🔴";
+            } else {
+              status = "En cours";
+              statusColor = 'text-green-500';
+              statusIcon = "✅";
+            }
+            
 
-                if (concoursDate && concoursDate > today) {
-                  status = 'Concours disponible';
-                  statusColor = 'text-green-500';
-                  statusIcon = '✅';
-                } else if (
-                  concoursDate &&
-                  concoursDate <= today &&
-                  (!publicationDate || publicationDate > today)
-                ) {
-                  status = 'En attente de résultat';
-                  statusColor = 'text-yellow-500';
-                  statusIcon = '⏳';
-                } else if (publicationDate && publicationDate <= today) {
-                  status = 'Concours déjà passé';
-                  statusColor = 'text-red-500';
-                  statusIcon = '🔴';
-                }
+            return (
+              <div
+                key={concours.id}
+                className="p-4"
+                onClick={() => updateHistory(concours)}
+              >
+                 <div className="bg-white border rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between h-full">
+                    <Link to={`/presentationpage/${concours.id}`}>
+                      <img src={concours.image} alt={concours.name} className="w-full h-48 object-cover" />
+                    </Link>
 
-                  return (
-                    <div
-                      key={concours.id}
-                      className="p-4"
-                      onClick={() => handleConcoursClick(concours)}
-                    >
-                      <div className="bg-white border rounded-lg shadow-lg overflow-hidden">
-                        <Link to={`/presentationpage/${concours.id}`}>
-                          <img
-                            src={concours.image}
-                            alt={concours.name}
-                            className="w-full h-48 object-cover"
+                    <div className="p-4 flex flex-col justify-between flex-grow cursor-pointer">
+                    <div className="flex items-center justify-between mb-2">
+                      <Link to={`/concours/${concours.id}`}>
+                        <p
+                          className="text-lg font-semibold text-primary"
+                          style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 1,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {concours.name}
+                        </p>
+                      </Link>
+
+                      {/* Regroupement des icônes de statut et favoris */}
+                      <div className="flex items-center space-x-2">
+                        <span className={`relative ${statusColor} font-bold flex items-center group`}>
+                          <span>{statusIcon}</span>
+                          <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-[#2278AC] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            {status}
+                          </span>
+                        </span>
+
+                        {isUserAuthenticated ? (
+                          isFavorite ? (
+                            <FaHeart
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                toggleFavorite(concours);
+                              }}
+                              className="cursor-pointer text-red-600 flex-shrink-0"
+                              size={20}
+                            />
+                          ) : (
+                            <FaRegHeart
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                toggleFavorite(concours);
+                              }}
+                              className="cursor-pointer text-gray-400 flex-shrink-0"
+                              size={20}
+                            />
+                          )
+                        ) : (
+                          <FaRegHeart
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toast.error("Connectez-vous pour ajouter en favoris !", {
+                                position: "top-right",
+                                autoClose: 3000,
+                              });
+                            }}
+                            className="cursor-pointer text-gray-400 flex-shrink-0"
+                            size={20}
                           />
-                          <div className="p-4 flex items-center justify-between">
-                           <p className="text-lg font-semibold text-primary line-clamp-2">
-                              {concours.name}
-                            </p>
-
-                            <div className="flex items-center gap-2">
-                              <span className={`text-lg ${statusColor}`} title={status}>
-                                {statusIcon}
-                              </span>
-                              <div
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleFavoriteClick(concours);
-                                }}
-                                style={{ cursor: "pointer" }}
-                                title={
-                                  favorites.some((fav) => fav.id === concours.id)
-                                    ? "Retirer des favoris"
-                                    : "Ajouter aux favoris"
-                                }
-                              >
-                                {favorites.some((fav) => fav.id === concours.id) ? (
-                                  <FavoriteIcon color="error" />
-                                ) : (
-                                  <FavoriteBorderIcon color="primary" />
-                                )}
-                              </div>
-                            </div>
-
-
-                          </div>
-                        </Link>
+                        )}
                       </div>
                     </div>
-                  );
-                })}
-              </Slider>
-            </div>
-          ))
-        ) : (
-          <p>Aucune sous-catégorie disponible pour cette catégorie.</p>
-        )}
 
-        {/* Historique affiché localement */}
-        {/* <div className="mt-10">
-          <h2 className="text-xl font-bold">Historique des clics</h2>
-          <ul>
-            {history.map((item) => (
-              <li key={item.id}>
-                {item.name} - {item.concours_date || "Date non spécifiée"}
-              </li>
-            ))}
-          </ul>
-        </div> */}
+                    </div>
+                  </div>
+              </div>
+            );
+          })}
+        </Slider>
+      ) : (
+        <p className="text-center text-gray-500 mt-4">Aucun concours disponible pour cette sous-catégorie.</p>
+      )}
+    </div>
+  ))
+) : (
+  <p className="text-center text-gray-500 mt-4">Les éléments pour cette catégorie ne sont pas encore disponibles.</p>
+)}
+
       </div>
     );
   }

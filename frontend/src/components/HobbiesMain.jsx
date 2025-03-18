@@ -235,7 +235,7 @@ const HobbiesMain = () => {
                                                         </p>
                                                     </Link>
                                                 </div>
-                                                <div className='flex justify-end items-end pr-2 md:pr-0 gap-3 lg:gap-5 text-red-500 pt-2'>
+                                                <div className='flex justify-end items-end pr-2 md:pr-0 gap-1 lg:gap-2 text-red-500 pt-2'>
                                                     <div>
                                                         <div className='cursor-pointer' onClick={openAddToClasseurModal}>
                                                             <IoFileTrayStacked className='w-auto md:w-[20px] h-auto md:h-[20px]'/>

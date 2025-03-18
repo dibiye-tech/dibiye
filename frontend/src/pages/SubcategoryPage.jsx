@@ -243,7 +243,7 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
 
       {/* Fil d'Ariane */}
       <div className="text-md md:text-lg lg:text-xl xl:text-2xl font-bold text-secondary flex justify-center items-center flex-wrap mb-5 px-10 md:px-5">
-        <span onClick={() => navigate('/')} className="cursor-pointer text-red-600">
+        <span onClick={() => navigate('/Homeconcours')} className="cursor-pointer text-red-600">
           Concours &gt;&gt;
         </span>
         {parentCategory && (

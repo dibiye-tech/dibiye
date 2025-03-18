@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import Boule from '../components/Boule'
 import Commentaire from '../components/Commentaire'
 import Accueils1 from '../components/Accueils1'
+import Top from '../components/Top';
 
 
 import Question from '../components/Question';
@@ -50,6 +51,7 @@ const About = () => {
             </div>
             <Question/>
             <Commentaire />
+            <Top />
             <Footer />
         </div>
     </div>

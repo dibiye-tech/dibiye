@@ -11,6 +11,7 @@ class User(AbstractUser):
     is_deactivated = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     description = models.TextField(blank=True, null=True, max_length=50)
+    subscribe_to_newsletter = models.BooleanField(default=False)
 
     # # Ajout de related_name pour éviter les conflits
     # groups = models.ManyToManyField(
@@ -48,6 +49,8 @@ class SousCategory(models.Model):
 class Branche(models.Model):
     name = models.CharField(max_length=255)
     sous_category = models.ForeignKey(SousCategory, related_name='branches', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='description/', blank=True, null=True)
+    description = models.CharField(max_length=255, null=False, default='Your default value here')
 
     def __str__(self):
         return self.name
@@ -70,6 +73,8 @@ class Book(models.Model):
     category = models.ForeignKey(Category, related_name='documents', on_delete=models.CASCADE, null=True, blank=True)
     sous_category = models.ForeignKey(SousCategory, related_name='documents', on_delete=models.CASCADE, null=True, blank=True)
     branche = models.ForeignKey(Branche, related_name='branches', on_delete=models.CASCADE, null=True, blank=True)
+    domaine = models.CharField(max_length=20, null=True, blank=True)
+    critere = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -93,7 +98,7 @@ class History(models.Model):
         ordering = ['-timestamp']
 
     def __str__(self):
-        return f"History of {self.document.title} by {self.user.username}"
+        return f"History of {self.document.title}"
 
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -118,5 +123,21 @@ class ClasseurBook(models.Model):
 
     def __str__(self):
         return f'{self.classeur.name} - {self.book.title}' 
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)
+    date_subscribed = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+class Newsletter(models.Model):
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    date_sent = models.DateTimeField(null=True, blank=True)
+    sent = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.subject
 
 
