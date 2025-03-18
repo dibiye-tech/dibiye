@@ -144,7 +144,7 @@ const Fonctionpub = forwardRef(
             <>
             <span
                 onClick={() => navigate('/')}
-                className="capitalize font-bold text-secondary text-2xl mt-8 cursor-pointer text-red-600"
+                className="capitalize font-bold text-secondary text-2xl mt-8 cursor-pointer "
               >
                  Concours &gt;&gt; {categoryDetails.name}
               </span>
@@ -168,7 +168,7 @@ const Fonctionpub = forwardRef(
               className="mb-10"
             >
               <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-                <h2 className="text-lg lg:text-xl font-bold text-secondary capitalize underline text-red-500">
+                <h2 className="text-lg lg:text-xl font-bold text-secondary capitalize underline">
                   {subcategory.name}
                 </h2>
                 <button
