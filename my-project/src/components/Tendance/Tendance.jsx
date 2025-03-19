@@ -34,18 +34,18 @@ const Tendance = () => {
 
     const settings = {
         dots: true,
+        arrows: false,
         infinite: concours.length > 3,
         speed: 800,
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: concours.length > 3 ? 3 : concours.length, // Ajustement automatique
+        slidesToScroll: 1,
         autoplay: concours.length > 3,
         autoplaySpeed: 4000,
         cssEase: "ease-in-out",
-        centerMode: false,
         pauseOnHover: true,
-        arrows: false, // Désactive les flèches de navigation
+        pauseOnFocus: true,
         appendDots: dots => (
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+            <div className="relative mt-4">
                 <ul className="flex justify-center">{dots}</ul>
             </div>
         ),
@@ -53,8 +53,11 @@ const Tendance = () => {
             {
                 breakpoint: 1200,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    dots: true,
+                    autoplay: true,
+                    pauseOnHover: true,
                 }
             },
             {
@@ -62,6 +65,20 @@ const Tendance = () => {
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
+                    dots: true,
+                    autoplay: true,
+                    pauseOnHover: true,
+                }
+            },
+            {
+                breakpoint: 853, // Correction du breakpoint 853px
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: true, // ⚡️ Forcer l'affichage des dots
+                    autoplay: true,
+                    pauseOnHover: true,
+                    infinite: true, // 🔥 Essaye d'activer infinite pour tester
                 }
             },
             {
@@ -70,10 +87,23 @@ const Tendance = () => {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     dots: true,
+                    autoplay: true,
+                    pauseOnHover: true,
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: true,
+                    autoplay: true,
+                    pauseOnHover: true,
                 }
             }
         ]
     };
+    
 
     return (
         <div className="max-w-screen-xl mx-auto py-12 px-8 relative">
