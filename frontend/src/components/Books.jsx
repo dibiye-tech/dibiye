@@ -4,6 +4,7 @@ import { getBookDetails, createComment, addFavorite, deleteFavorite, getClasseur
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-query';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { IoFileTrayStacked } from "react-icons/io5";
 import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
 import { useUser } from '../hooks/useUser'; 
@@ -21,13 +22,39 @@ const Books = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState('');
     const [modalType, setModalType] = useState(null);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(3);
+    const [contentPages, setContentPages] = useState([]); 
+    const [commentContent, setCommentContent] = useState(''); 
+
     
 
     const { data: bookData = {}, isLoading: isBookLoading, isError: isBookError } = useQuery(['bookDetails', id], () => getBookDetails(id));
     const { image, title, auteur, description, contenu, file, document_type } = bookData;
+
+    useEffect(() => {
+        if (bookData && bookData.contenu) {
+            setContent(bookData.contenu);
+        }
+    }, [bookData]);
+   
+    useEffect(() => {
+        if (content) {
+            const paginateContent = (content, itemsPerPage = 3000) => {
+                const pages = [];
+                let startIndex = 0;
+            
+                while (startIndex < content.length) {
+                    pages.push(content.slice(startIndex, startIndex + itemsPerPage));
+                    startIndex += itemsPerPage;
+                }
+            
+                setContentPages(pages);
+            };
+    
+            paginateContent(content);
+        }
+    }, [content]);
 
     const { data: comments = [] } = useQuery(
         ['comments', id],
@@ -153,7 +180,7 @@ const Books = () => {
             return;
         }
     
-        const commentData = { user: user.id, book: id, content };
+        const commentData = { user: user.id, book: id, content: commentContent };
         mutation.mutate(commentData);
         window.location.reload();
     };
@@ -165,7 +192,7 @@ const Books = () => {
             return <audio controls src={file} className="w-full h-auto" />;
         }
         if (document_type === 'text') {
-            return <p className='w-[100%] md:w-[1000px] lg:w-[900px] xl:w-[800px] 2xl:w-[1000px] text-center'>{contenu}</p>;
+            return <p className='w-[100%] md:w-[1000px] lg:w-[900px] xl:w-[800px] 2xl:w-[1000px] text-start py-4 lg:py-10 lg:pb-10'>{contentPages[currentPage] || "Le contenu est vide ou non disponible."}</p>;
         }
         if (document_type === 'pdf') {
             return <iframe src={file} height="800px" title="PDF Viewer" className='w-[100%] md:w-[1000px] lg:w-[900px] xl:w-[800px] 2xl:w-[1000px] text-center'/>;
@@ -176,25 +203,14 @@ const Books = () => {
         return <p>Format de fichier non supporté</p>;
     };
 
-    const paginateContent = (content, itemsPerPage) => {
-        const contentArray = content.split("\n");  // Assuming the content is separated by line breaks
-        const pages = [];
-        for (let i = 0; i < contentArray.length; i += itemsPerPage) {
-            pages.push(contentArray.slice(i, i + itemsPerPage).join("\n"));
-        }
-        return pages;
-    };
-
-    const contentPages = paginateContent(contenu, itemsPerPage);
-
     const handlePrevious = () => {
-        if (currentPage > 1) {
+        if (currentPage > 0) { // L'indice commence à 0, donc on vérifie qu'on n'est pas déjà sur la première page
             setCurrentPage(currentPage - 1);
         }
     };
-
+    
     const handleNext = () => {
-        if (currentPage < contentPages.length) {
+        if (currentPage < contentPages.length - 1) { // L'indice max est contentPages.length - 1
             setCurrentPage(currentPage + 1);
         }
     };
@@ -291,28 +307,38 @@ const Books = () => {
                 <hr className='bg-[#DE290C] w-[100px] md:w-[200px] h-1 mx-auto mt-2 mb-10' />
             </div>
             <div className='flex justify-between items-start gap-24'>
-                {/* <div className='border-2 border-[#096197] rounded-[20px] w-[100%] lg:w-[35%] h-[50vh] lg:h-[100vh] mb-3 md:mb-10 overflow-y-scroll'>
-                    <p className='text-slate-950 p-5 text-md md:text-lg lg:text-xl'>
-                        {contenu}
-                    </p>
-                </div> */}
                 <Avis1 comments={comments}/>
                 <div className='w-full md:w-auto text-sm md:text-md lg:text-lg xl:text-xl'>
                     <div className='p-5 overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300'>
-                        {renderDocumentContent()} {/* Affichage du contenu ou fichier selon le type */}
+                        {renderDocumentContent()}
                     </div>
-                    {/* <div className='py-20 flex items-center justify-between'>
-                        <Button className={`bg-[#b5b9bb] text-white py-2 px-3 border rounded-[10px] w-auto text-center hover:bg-[#2278AC] cursor-pointer pt-15`}>Précédent</Button>
-                        <Button className={`bg-[#b5b9bb] text-white py-2 px-3 border rounded-[10px] w-auto text-center hover:bg-[#2278AC] cursor-pointer pt-15`}>Suivant &gt;&gt;</Button>
-                    </div> */}
+                    {contentPages.length > 0 && bookData?.document_type === 'text' && (
+                        <div className="flex justify-between items-center mt-5">
+                            <button
+                                onClick={handlePrevious}
+                                disabled={currentPage === 0}
+                                className="bg-[#096197] text-white p-2 rounded-md cursor-pointer disabled:opacity-50 flex items-center justify-between gap-3"
+                            >
+                                <FaArrowLeft /> Précédent
+                            </button>
+
+                            <button
+                                onClick={handleNext}
+                                disabled={currentPage === contentPages.length - 1}
+                                className="bg-[#096197] text-white p-2 rounded-md cursor-pointer disabled:opacity-50 flex items-center justify-between gap-3"
+                            >
+                                Suivant <FaArrowRight />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className='pb-10 pt-5 lg:pt-10 lg:pb-20'>
                 <div className='text-md md:text-lg lg:text-xl'>
                     <form onSubmit={handleSubmit} className="mt-6">
                         <textarea
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
+                            value={commentContent} 
+                            onChange={(e) => setCommentContent(e.target.value)}
                             rows="4"
                             className="w-full p-3 border-2 border-[#096197] rounded-md outline-none"
                             placeholder="Écrivez un commentaire..."

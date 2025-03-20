@@ -70,7 +70,7 @@ const Branche = () => {
 
         
         useEffect(() => {
-            setDocuments(brancheDocuments);  // Mise à jour des documents après leur récupération
+            setDocuments(brancheDocuments);
         }, [brancheDocuments]);
 
     const handleDomainChange = (event) => {
@@ -78,13 +78,20 @@ const Branche = () => {
     };
 
     const handleCriteriaChange = (event) => {
-        setFilterCriteria(event.target.value);
+        const { value, checked } = event.target;
+        setFilterCriteria(prevCriteria => {
+            if (checked) {
+                return [...prevCriteria, value]; 
+            } else {
+                return prevCriteria.filter(criterion => criterion !== value);
+            }
+        });
     };
 
     const sortedDocuments = [...brancheDocuments]
         .filter((doc) => {
             const matchesDomain = filterDomain ? doc.domaine === filterDomain : true;
-            const matchesCriteria = filterCriteria ? doc.critere === filterCriteria : true;
+            const matchesCriteria = filterCriteria.length > 0 ? filterCriteria.includes(doc.critere) : true; // Vérifie si le critère est dans la liste
             return matchesDomain && matchesCriteria;
         })
         .sort((a, b) => {
@@ -351,15 +358,20 @@ const Branche = () => {
                     <div className='pb-5 md:pb-10'>
                         <h2 className="font-bold mb-5 text-sm md:text-md lg:text-lg xl:text-xl">Filtres</h2>
                         <div>
-                        {
-                                sortedDocuments.map((data) => (
-                                    <div key={data.id} className='pb-5'>
-                                        <h3 className='mb-5 text-[#2278AC] font-semibold border-b-4 text-sm md:text-md lg:text-lg xl:text-xl'>{data.domaine}</h3>
+                            {
+                                [...new Set(documents.map(doc => doc.domaine))].map((domaine, domaineIndex) => (
+                                    <div key={domaineIndex}>
+                                        <h3 className='mb-5 text-[#2278AC] font-semibold border-b-4 text-sm md:text-md lg:text-lg xl:text-xl'>
+                                            {domaine}
+                                        </h3>
                                         {
-                                            documents.length > 0 && [...new Set(documents.map(doc => doc.critere))].map((critere, index) =>(
+                                            [...new Set(documents.filter(doc => doc.domaine === domaine).map(doc => doc.critere))].map((critere, index) => (
                                                 <ul key={index}>
                                                     <Checkbox 
+                                                        value={critere} 
                                                         onChange={handleCriteriaChange}
+                                                        checked={filterCriteria.includes(critere)}
+                                                        className='text-sm md:text-md lg:text-lg xl:text-xl'
                                                     >
                                                         {critere}
                                                     </Checkbox>
