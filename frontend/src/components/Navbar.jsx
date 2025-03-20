@@ -228,6 +228,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                         <ul className="mt-2 space-y-2">
                             {data.subcategories.map((sub) => (
                                 <li key={sub.id}>
+
                                 {/* Redirection pour les sous-catégories */}
                                 <Link
                                     to={`/subcategory/${sub.id}`}  // Correction du chemin dynamique
@@ -236,6 +237,16 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                 >
                                     {sub.name}
                                 </Link>
+
+                                    {/* Redirection pour les sous-catégories */}
+                                    <Link
+                                        to={`/subcategory/${sub.id}`}
+                                        state={{ categoryId: data.id }}
+                                        className="hover:text-[#DE290C]"
+                                    >
+                                        {sub.name}
+                                    </Link>
+
                                 </li>
                             ))}
                             </ul>
