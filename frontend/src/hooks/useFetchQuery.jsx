@@ -591,6 +591,53 @@ export const subscribeToNewsletter = async (email) => {
   }
 };
 
+export const getDocumentRating = async (documentId) => {
+  try {
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+      throw new Error("Token d'accès manquant");
+    }
+
+    const response = await axios.get(`${baseUrl}app/ratings/${documentId}/`,
+      {
+        headers: {
+          Authorization: `JWT ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data.rating;  // Remplacez `rating` par la structure de votre réponse API
+  } catch (error) {
+    console.error("Erreur lors de la récupération de la note du document", error);
+    throw error;
+  }
+};
+
+export const submitRating = async (documentId, ratingValue) => {
+  try {
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+      throw new Error("Token d'accès manquant");
+    }
+
+    const response = await axios.post(
+      `${baseUrl}app/ratings/${documentId}/`,
+      { rating: ratingValue },  // Assurez-vous que votre API attend ce format
+      {
+        headers: {
+          Authorization: `JWT ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data;  // Vous pouvez renvoyer la réponse du serveur ou juste un message de succès
+  } catch (error) {
+    console.error("Erreur lors de l'enregistrement de la note", error);
+    throw error;
+  }
+};
+
 
 
 

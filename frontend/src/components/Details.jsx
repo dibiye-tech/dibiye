@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoFileTrayStacked } from "react-icons/io5";
-import { getBookDetails, getDocumentsByCategory, checkTokenIsValid, addToHistory, addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites } from '../hooks/useFetchQuery';
+import { getBookDetails, getDocumentsByCategory, checkTokenIsValid, addToHistory, addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites, getDocumentRating, submitRating } from '../hooks/useFetchQuery';
 import { MdOutlineStar, MdOutlineStarBorder } from "react-icons/md";
 import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, List, ListItem, Input, ListIcon } from '@chakra-ui/react';
 import { toast, ToastContainer } from "react-toastify";
@@ -18,6 +18,8 @@ const Details = () => {
     const [favoriteDocuments, setFavoriteDocuments] = useState({});
     const [name, setName] = useState('');
     const [modalType, setModalType] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [hoveredRating, setHoveredRating] = useState(0);
 
     // Data fetching hooks
     const { data: bookData, isLoading: isBookLoading, isError: isBookError } = useQuery(
@@ -32,6 +34,52 @@ const Details = () => {
         () => getDocumentsByCategory(categoryId),
         { enabled: !!categoryId }
     );
+
+    useEffect(() => {
+            const fetchRating = async () => {
+              try {
+                const currentRating = await getDocumentRating(id);
+                setRating(currentRating);
+              } catch (error) {
+                console.error("Erreur lors de la récupération de la note", error);
+              }
+            };
+        
+            fetchRating();
+          }, [id]);
+        
+          // Fonction pour gérer le clic sur une étoile
+          const handleStarClick = async (ratingValue) => {
+            try {
+              // Enregistrer la nouvelle note via l'API
+              await submitRating(id, ratingValue);
+              setRating(ratingValue);  // Mettre à jour l'état local avec la nouvelle note
+            } catch (error) {
+              console.error("Erreur lors de l'enregistrement de la note", error);
+            }
+          };
+    
+          const renderStars = () => {
+            const stars = [];
+            for (let i = 1; i <= 5; i++) {
+              stars.push(
+                <div
+                  key={i}
+                  onClick={() => handleStarClick(i)}
+                  onMouseEnter={() => setHoveredRating(i)}  // Mettre à jour la note survolée
+                  onMouseLeave={() => setHoveredRating(0)}  // Réinitialiser la note survolée
+                  className="cursor-pointer"
+                >
+                  {i <= (hoveredRating || rating) ? (
+                    <MdOutlineStar className="text-[#DE290C] transition-transform duration-200 hover:scale-110" />
+                  ) : (
+                    <MdOutlineStarBorder className="text-[#DE290C] transition-transform duration-200 hover:scale-110" />
+                  )}
+                </div>
+              );
+            }
+            return stars;
+          };
 
     // Fetch classeur list
     useEffect(() => {
@@ -124,12 +172,13 @@ const Details = () => {
         }
     };
 
-    const handleSubmition = async (e) => {
+    const handleSubmition = async (e, documentId) => {
         e.preventDefault();
         try {
             const classeurData = { name };
-            await addClasseur(classeurData);
-            toast.success("Classeur a été crée", {
+            const newClasseur = await addClasseur(classeurData);
+            await addDocumentToClasseur(newClasseur.id, documentId);
+            toast.success("Classeur crée et document ajouté", {
                 position: "top-right",
                 autoClose: 3000,
             });
@@ -217,13 +266,9 @@ const Details = () => {
                                     {favoriteDocuments[id] ? <FaHeart className='w-auto md:w-[25px] h-auto md:h-[25px]' /> : <FaRegHeart className='text-gray-400 w-auto md:w-[25px] h-auto md:h-[25px]' />}
                                 </div>
                             </div>
-                            <div className='flex gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl pr-0 md:pr-10'>
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                                <MdOutlineStarBorder />
-                            </div>
+                            {/* <div className='flex gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl pr-0 md:pr-10'>
+                                {renderStars()}
+                            </div> */}
                                                 <Modal isOpen={isOpen} onClose={onClose}>
                                                     <ModalOverlay />
                                                     <ModalContent>
@@ -258,7 +303,7 @@ const Details = () => {
                                                         <ModalFooter>
                                                             {modalType === 'createClasseur' ? (
                                                                 <>
-                                                                    <Button colorScheme='blue' onClick={handleSubmition}>Ajouter</Button>
+                                                                    <Button colorScheme='blue' onClick={(e) => handleSubmition(e, id)}>Ajouter</Button>
                                                                     <Button onClick={onClose} ml={3}>Annuler</Button>
                                                                 </>
                                                             ) : (

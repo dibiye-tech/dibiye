@@ -2,7 +2,7 @@ from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer,
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from .models import User, Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche, NewsletterSubscriber
+from .models import User, Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche, NewsletterSubscriber, Rating
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
@@ -157,23 +157,7 @@ class NewsletterSerializer(serializers.Serializer):
     subject = serializers.CharField(max_length=255)
     message = serializers.CharField()
 
-# class CustomUserLoginSerializer(serializers.Serializer):
-#     email = serializers.EmailField()
-#     password = serializers.CharField()
-
-#     def validate(self, attrs):
-#         email = attrs.get('email')
-#         password = attrs.get('password')
-
-#         if not email or not password:
-#             raise serializers.ValidationError("Les deux champs email et mot de passe sont obligatoires")
-
-#         try:
-#             user = get_user_model().objects.get(email=email)
-#         except get_user_model().DoesNotExist:
-#             raise serializers.ValidationError("Aucun utilisateur trouvé avec cet email")
-
-#         if not user.check_password(password):
-#             raise serializers.ValidationError("Mot de passe incorrect")
-
-#         return attrs
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ['user', 'book', 'rating_value', 'created_at']

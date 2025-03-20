@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche
+from .models import User, Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche, Rating
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.conf import settings
@@ -67,3 +67,4 @@ admin.site.register(ClasseurBook)
 admin.site.register(Branche)
 admin.site.register(NewsletterSubscriber)
 admin.site.register(Newsletter, NewsletterAdmin)
+admin.site.register(Rating)
