@@ -392,7 +392,7 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
                       disabled={currentPage === 1}
                       className={`px-3 py-2 rounded-lg ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-primary text-white'}`}
                     >
-                      ◀️
+                     &lt;
                     </button>
 
                     {getPageNumbers().map((page) => (
@@ -410,7 +410,7 @@ const SubcategoryPage = forwardRef(({ categoryId, categoryDetails }, ref) => {
                       disabled={currentPage === totalPages}
                       className={`px-3 py-2 rounded-lg ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-primary text-white'}`}
                     >
-                      ▶️
+                      &gt;
                     </button>
                   </div>
                 </>

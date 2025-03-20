@@ -230,8 +230,8 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                 <li key={sub.id}>
                                     {/* Redirection pour les sous-catégories */}
                                     <Link
-                                        to="/Branchespage"
-                                        state={{ categoryId: data.id, subcategoryId: sub.id }}
+                                        to={`/subcategory/${sub.id}`}
+                                        state={{ categoryId: data.id }}
                                         className="hover:text-[#DE290C]"
                                     >
                                         {sub.name}

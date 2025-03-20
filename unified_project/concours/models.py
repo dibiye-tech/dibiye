@@ -47,9 +47,18 @@ class Ville(models.Model):
     region = models.CharField(max_length=100)
     arrondissements = models.TextField(
         help_text="Séparer les arrondissements par une virgule.",
-        blank=True,  # Permettre des valeurs vides
-        null=True    # Permettre la valeur NULL en base de données
+        blank=True,
+        null=True
     )
+
+    def __str__(self):
+        return self.name
+
+    def get_arrondissements_list(self):
+        """Retourne une liste des arrondissements en les séparant par une virgule, ou une liste vide si aucun n'est défini."""
+        if self.arrondissements:
+            return [arr.strip() for arr in self.arrondissements.split(',')]
+        return []
 
 class University(models.Model):
     name = models.CharField(max_length=255)

@@ -52,7 +52,7 @@ const Tendance = () => {
     if (error) return <p>Erreur : {error.message}</p>;
 
     const settings = {
-        dots: true, // Les dots sont activés par défaut (pour grand écran)
+        dots: true, // ✅ Activer les dots par défaut (grands écrans et moyens écrans)
         infinite: concours.length > 3,
         speed: 500,
         slidesToShow: 3,
@@ -62,24 +62,29 @@ const Tendance = () => {
         cssEase: "ease-in-out",
         pauseOnHover: true,
         arrows: false, // Désactiver les flèches sur grand écran
+        appendDots: dots => (
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+                <ul className="flex justify-center">{dots}</ul>
+            </div>
+        ),
         responsive: [
             {
-                breakpoint: 1024,
+                breakpoint: 1024, // ✅ Activer les dots pour les écrans moyens
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    dots: false, // ❌ Désactiver les dots sur écrans moyens
+                    dots: true,  // ✅ Activer les dots sur écrans moyens
                     arrows: true, // ✅ Activer les flèches sur écrans moyens
                     prevArrow: <SmallPrevArrow />,
                     nextArrow: <SmallNextArrow />,
                 }
             },
             {
-                breakpoint: 768,
+                breakpoint: 768, // ❌ Désactiver les dots sur mobile
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    dots: false, // ❌ Désactiver les dots sur mobile
+                    dots: false,  // ❌ Désactiver les dots sur mobile
                     arrows: true, // ✅ Activer les flèches sur mobile
                     prevArrow: <SmallPrevArrow />,
                     nextArrow: <SmallNextArrow />,
@@ -87,6 +92,7 @@ const Tendance = () => {
             }
         ]
     };
+    
 
     return (
         <div className="max-w-screen-xl mx-auto container py-12 px-10 md:px-5 relative overflow-hidden">
