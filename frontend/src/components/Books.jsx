@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MdOutlineStar, MdOutlineStarBorder } from 'react-icons/md';
-import { getBookDetails, createComment, addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites, getAccessToken, getAllComments } from '../hooks/useFetchQuery';
+import { getBookDetails, createComment, addFavorite, deleteFavorite, getClasseur, addClasseur, addDocumentToClasseur, getFavorites, getAccessToken, getAllComments, getDocumentRating, submitRating } from '../hooks/useFetchQuery';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-query';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -26,11 +26,72 @@ const Books = () => {
     const [itemsPerPage] = useState(3);
     const [contentPages, setContentPages] = useState([]); 
     const [commentContent, setCommentContent] = useState(''); 
+    const [rating, setRating] = useState(0);
+    const [hoveredRating, setHoveredRating] = useState(0);
 
     
 
     const { data: bookData = {}, isLoading: isBookLoading, isError: isBookError } = useQuery(['bookDetails', id], () => getBookDetails(id));
     const { image, title, auteur, description, contenu, file, document_type } = bookData;
+
+    useEffect(() => {
+        const fetchRating = async () => {
+            try {
+                // Si la note est dans le localStorage, on la récupère.
+                const storedRating = localStorage.getItem(`bookRating-${id}`);
+                if (storedRating) {
+                    setRating(Number(storedRating)); // Si elle existe, on la met à jour dans le state.
+                } else {
+                    // Sinon, on la récupère depuis l'API.
+                    const currentRating = await getDocumentRating(id);
+                    setRating(currentRating);
+                    localStorage.setItem(`bookRating-${id}`, currentRating); // On sauvegarde la note dans le localStorage
+                }
+            } catch (error) {
+                console.error("Erreur lors de la récupération de la note", error);
+            }
+        };
+    
+        fetchRating();
+    }, [id]);
+    
+    
+      // Fonction pour gérer le clic sur une étoile
+      const handleStarClick = async (ratingValue) => {
+        try {
+            // Enregistrer la nouvelle note via l'API
+            await submitRating(id, ratingValue);
+            setRating(ratingValue); // Mettre à jour l'état local avec la nouvelle note
+    
+            // Sauvegarder la nouvelle note dans le localStorage
+            localStorage.setItem(`bookRating-${id}`, ratingValue);
+        } catch (error) {
+            console.error("Erreur lors de l'enregistrement de la note", error);
+        }
+    };
+    
+
+      const renderStars = () => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+          stars.push(
+            <div
+              key={i}
+              onClick={() => handleStarClick(i)}
+              onMouseEnter={() => setHoveredRating(i)}  // Mettre à jour la note survolée
+              onMouseLeave={() => setHoveredRating(0)}  // Réinitialiser la note survolée
+              className="cursor-pointer"
+            >
+              {i <= (hoveredRating || rating) ? (
+                <MdOutlineStar className="text-[#DE290C] transition-transform duration-200 hover:scale-110" />
+              ) : (
+                <MdOutlineStarBorder className="text-[#DE290C] transition-transform duration-200 hover:scale-110" />
+              )}
+            </div>
+          );
+        }
+        return stars;
+      };
 
     useEffect(() => {
         if (bookData && bookData.contenu) {
@@ -96,12 +157,13 @@ const Books = () => {
         fetchClassers();
     }, []);
 
-    const handleSubmition = async (e) => {
+    const handleSubmition = async (e, documentId) => {
             e.preventDefault();
             try {
                 const classeurData = { name };
-                await addClasseur(classeurData);
-                toast.success("Classeur a été crée", {
+                const newClasseur = await addClasseur(classeurData);
+                await addDocumentToClasseur(newClasseur.id, documentId);
+                toast.success("Classeur créé et document ajouté", {
                     position: "top-right",
                     autoClose: 3000,
                 });
@@ -248,11 +310,7 @@ const Books = () => {
                             </div>
                         </div>
                         <div className='flex justify-start md:justify-end items-center gap-4 text-[#DE290C] text-md md:text-lg lg:text-3xl pr-10'>
-                            <MdOutlineStarBorder  className='transition-transform duration-200 hover:scale-110' />
-                            <MdOutlineStarBorder  className='transition-transform duration-200 hover:scale-110' />
-                            <MdOutlineStarBorder  className='transition-transform duration-200 hover:scale-110' />
-                            <MdOutlineStarBorder className='transition-transform duration-200 hover:scale-110' />
-                            <MdOutlineStarBorder className='transition-transform duration-200 hover:scale-110' />
+                            {renderStars()}
                         </div>
                     </div>
                     <Modal isOpen={isOpen} onClose={onClose}>
@@ -289,8 +347,8 @@ const Books = () => {
                             <ModalFooter>
                                 {modalType === 'createClasseur' ? (
                                     <>
-                                        <Button colorScheme='blue' onClick={handleSubmition}>Ajouter</Button>
-                                        <Button onClick={onClose} ml={3}>Annuler</Button>
+                                            <Button colorScheme='blue' onClick={(e) => handleSubmition(e, id)}>Ajouter</Button>
+                                            <Button onClick={onClose} ml={3}>Annuler</Button>
                                     </>
                                 ) : (
                                     <Button onClick={onClose}>Fermer</Button>
@@ -339,7 +397,7 @@ const Books = () => {
                         <textarea
                             value={commentContent} 
                             onChange={(e) => setCommentContent(e.target.value)}
-                            rows="4"
+                            rows="8"
                             className="w-full p-3 border-2 border-[#096197] rounded-md outline-none"
                             placeholder="Écrivez un commentaire..."
                             required

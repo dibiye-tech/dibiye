@@ -140,4 +140,13 @@ class Newsletter(models.Model):
     def __str__(self):
         return self.subject
 
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, related_name='ratings', on_delete=models.CASCADE)
+    rating_value = models.IntegerField(choices=[(1, '1 étoile'), (2, '2 étoiles'), (3, '3 étoiles'), (4, '4 étoiles'), (5, '5 étoiles')])
+    created_at = models.DateTimeField(auto_now_add=True)  # Date de la note
+
+    def __str__(self):
+        return f"Rating {self.rating_value} for {self.book.title} by {self.user.username}"
+
 

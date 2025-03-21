@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import GlobalSearchView, BranchesBySousCategory
-from .views import CustomTokenObtainPairView, NewsletterSignup
+from .views import CustomTokenObtainPairView, NewsletterSignup, RatingView
 from .views import CategoryListCreateView, BookListCreateView, BookDetailView, CategoryRetrieveUpdateDestroyView, SousCategoryListCreateView, SousCategoryDetailView, RecentDocumentsView, DocumentsByCategoryView, DocumentsBySousCategoryView, UserUpdateView, CommentCreateView, CommentListView, HistoryViewSet, FavoriteViewSet, ClasseurViewSet, ClasseurBookViewSet, DocumentsByBrancheView
 
 
@@ -37,4 +37,5 @@ urlpatterns = [
     path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('newsletter/signup/', NewsletterSignup.as_view(), name='newsletter-signup'),
     # path('send-newsletter/', send_newsletter, name='send_newsletter'),
+    path('ratings/<int:book_id>/', RatingView.as_view(), name='rating'),
 ]

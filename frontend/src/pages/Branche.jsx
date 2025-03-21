@@ -157,13 +157,14 @@ const Branche = () => {
         }; 
         
     
-        const handleSubmition = async (e) => {
+        const handleSubmition = async (e, documentId) => {
             e.preventDefault();
             try {
                 const classeurData = { name };
                 const newClasseur = await addClasseur(classeurData);
+                await addDocumentToClasseur(newClasseur.id, documentId);
                 toast.success(
-                    "Votre classeur a été ajouté.",
+                    "Classeur crée et document ajouté.",
                     {
                       position: "top-right",
                       autoClose: 3000,
@@ -340,7 +341,12 @@ const Branche = () => {
                                                                                         <ModalFooter>
                                                                                             {modalType === 'createClasseur' ? (
                                                                                                 <>
-                                                                                                    <Button colorScheme='blue' onClick={handleSubmition}>Ajouter</Button>
+                                                                                                {
+                                                                                                    sortedDocuments.map((data) =>(
+                                                                                                        <Button colorScheme='blue' onClick={(e) => handleSubmition(e, data.id)}>Ajouter</Button>
+                                                                                                    ))
+                                                                                                }
+                                                                                                    
                                                                                                     <Button onClick={onClose} ml={3}>Annuler</Button>
                                                                                                 </>
                                                                                             ) : (

@@ -5,9 +5,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomTokenObtainPairSerializer, CategorySerializer, SousCategorySerializer, BookSerializer, UserUpdateSerializer, CommentSerializer, CommentCreateSerializer, HistorySerializer, FavoriteSerializer, ClasseurSerializer, ClasseurBookSerializer, BrancheSerializer, NewsletterSubscriberSerializer, NewsletterSerializer
+from .serializers import CustomTokenObtainPairSerializer, CategorySerializer, SousCategorySerializer, BookSerializer, UserUpdateSerializer, CommentSerializer, CommentCreateSerializer, HistorySerializer, FavoriteSerializer, ClasseurSerializer, ClasseurBookSerializer, BrancheSerializer, NewsletterSubscriberSerializer, NewsletterSerializer, RatingSerializer
 from rest_framework import generics
-from .models import Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche, NewsletterSubscriber
+from .models import Category, SousCategory, Book, Comment, History, Favorite, Classeur, ClasseurBook, Branche, NewsletterSubscriber, Rating
 from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import viewsets, pagination
@@ -451,29 +451,27 @@ class NewsletterSignup(APIView):
             return Response({'detail': 'Subscribed successfully!'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def send_newsletter(request):
-    # serializer = NewsletterSerializer(data=request.data)
-    
-    # if serializer.is_valid():
-    #     subject = serializer.validated_data['subject']
-    #     message = serializer.validated_data['message']
-    #     from_email = settings.EMAIL_HOST_USER
-        
-    #     subscribers = NewsletterSubscriber.objects.all()
-        
-    #     for subscriber in subscribers:
-    #         send_mail(
-    #             subject,
-    #             message,
-    #             from_email,
-    #             [subscriber.email], 
-    #         )
-        
-    #     return Response({'message': 'Newsletter envoyée à tous les abonnés.'}, status=200)
-    
-    # return Response(serializer.errors, status=400)
+class RatingView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, book_id):
+        try:
+            rating = Rating.objects.get(book_id=book_id, user=request.user)
+            return Response({"rating_value": rating.rating_value})
+        except Rating.DoesNotExist:
+            return Response({"rating_value": 0})
+
+    def post(self, request, book_id):
+        rating_value = request.data.get('rating')
+        if rating_value is None:
+            return Response({"detail": "Note manquante"}, status=400)
+
+        # Use the correct field name "rating_value" instead of "rating"
+        rating, created = Rating.objects.update_or_create(
+            book_id=book_id, user=request.user, defaults={"rating_value": rating_value}
+        )
+
+        return Response({"rating": rating.rating_value})
 
 
 
