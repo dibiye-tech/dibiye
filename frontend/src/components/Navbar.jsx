@@ -197,8 +197,8 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                       <FaCaretDown className="transition-all duration-500 group-hover:rotate-180"/>
                                       </span>
                                       </Link>
-                                      <div className="absolute z-10 hidden group-hover:block ml-[-100px] md:ml-[-200px] rounded-md bg-white p-5 text-black shadow-xl w-auto"> 
-                                          <div className='flex flex-col items-center justify-center md:flex-row gap-5 md:gap-20 overflow-y-scroll md:overflow-hidden'>
+                                      {/* <div className="absolute z-10 hidden group-hover:block ml-[-100px] md:ml-[-200px] rounded-md bg-white p-5 text-black shadow-xl w-auto">  */}
+                                          {/* <div className='flex flex-col items-center justify-center md:flex-row gap-5 md:gap-20 overflow-y-scroll md:overflow-hidden'> */}
                                               {/* <div className='w-[150px] h-auto'>
                                                   <img src={livre} alt=""  className='border rounded-lg'/>
                                               </div> */}
@@ -222,8 +222,8 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                                       }
                                                   </ul>
                                               </div> */}
-                                          </div>
-                                      </div>
+                                          {/* </div> */}
+                                      {/* </div> */}
                                   </li>
                                
                                 <li className="group relative cursor-pointer ml-7">

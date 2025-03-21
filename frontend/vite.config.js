@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     fs: {
       allow: [
-        'C:/Users/Guest/OneDrive/Desktop/dibiye/frontend'  // Le chemin doit être correct
+        'C:/Users/Nzogue/Documents/dibiye/frontend'  // Le chemin doit être correct
       ],
     }
   },
