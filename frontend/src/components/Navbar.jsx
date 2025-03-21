@@ -82,6 +82,7 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                 link: "/bibliotheque/loisirs",
             }
         ];
+        
         useEffect(() => {
             const fetchDropdownData = async () => {
                 try {
@@ -187,6 +188,43 @@ const Navbar = ({handlerOrderPopup, handlerOrder}) => {
                                         </div>
                                     </div>
                                 </li>
+                                <li className='group relative cursor-pointer ml-5 z-20'>
+                                    
+                                    <Link to="/HomeSchool"
+                                      className="flex justify-center items-center gap-[2px] py-2"
+                                      >Etablissement
+                                      <span>
+                                      <FaCaretDown className="transition-all duration-500 group-hover:rotate-180"/>
+                                      </span>
+                                      </Link>
+                                      <div className="absolute z-10 hidden group-hover:block ml-[-100px] md:ml-[-200px] rounded-md bg-white p-5 text-black shadow-xl w-auto"> 
+                                          <div className='flex flex-col items-center justify-center md:flex-row gap-5 md:gap-20 overflow-y-scroll md:overflow-hidden'>
+                                              {/* <div className='w-[150px] h-auto'>
+                                                  <img src={livre} alt=""  className='border rounded-lg'/>
+                                              </div> */}
+                                              {/* <div >
+                                                  <ul className='flex flex-col md:flex-row gap-5 md:gap-20'>
+                                                      {
+                                                          DropdownLinks.map((data) => (
+                                                              <div key={data.id} className='flex flex-col items-start justify-start gap-5'>
+                                                                  <div>
+                                                                      <a href={data.link}><p className='text-[#2278AC] font-bold'>{data.title}</p></a>
+                                                                  </div>
+                                                                  <div>
+                                                                      <li className='flex flex-col justify-start items-start gap-2'>
+                                                                          <a href={data.link} className='hover:text-[#DE290C]'>{data.subtitle1}</a>
+                                                                          <a href={data.link} className='hover:text-[#DE290C]'>{data.subtitle2}</a>
+                                                                          <a href={data.link} className='hover:text-[#DE290C]'>{data.subtitle3}</a>
+                                                                      </li>
+                                                                  </div>
+                                                              </div>
+                                                          ))
+                                                      }
+                                                  </ul>
+                                              </div> */}
+                                          </div>
+                                      </div>
+                                  </li>
                                
                                 <li className="group relative cursor-pointer ml-7">
     <Link

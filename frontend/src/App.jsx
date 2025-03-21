@@ -33,6 +33,7 @@ import Universitiespage from './pages/Universitiespage';
 import { Helmet } from 'react-helmet';
 import About from './pages/About';
 import Newsletter from './pages/Newsletter';
+import HomeSchool from './pages/HommeSchool';
 
 function App() {
   const [orderPopup, setOrderPopup] = useState(false);
@@ -68,6 +69,7 @@ function App() {
                
                 <Route path='/' element={<Accueil />} />
                 <Route path='/about' element={<About />} />
+                <Route path='/HomeSchool' element={<HomeSchool />} />
                 <Route path='/admin/send-newsletter' element={<Newsletter />} />
                 <Route path='/bibliotheque' element={<Bib />} />
                 <Route path='auth/activate/:uid/:token' element={<ActivateEmail />} />
